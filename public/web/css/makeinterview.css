@@ -1,0 +1,24 @@
+#loading {
+    background: url(../images/ajax-loading.gif) no-repeat 6px 4px #FCF5E8;
+    color: #000;
+    display: block;
+    padding: 10px 10px 4px 30px;
+    width: 200px;
+    z-index: 1040;
+}
+
+.text-under-image{
+	width: 100%;
+    font-weight: normal;
+    position: absolute;
+    bottom: -82px;
+    height: 36px;
+    line-height: 23px !important;
+    padding: 0;
+    text-align: center !important;
+	font-style: italic;
+}
+
+.cke_skin_kama .cke_panel.cke_ltr.cke_skin_kama.cke_contextmenu{
+	width : 150px !important;
+}

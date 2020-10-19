@@ -1,0 +1,26 @@
+{% extends "web/layout/base.html.twig" %}
+{% block title %} Home - Dean's vote 2020, Eduniversal Evaluation Agency {% endblock %}
+
+{% block main_content %}
+    {# home banners #}
+    {% include "web/page/home/banners.html.twig" %}
+    <main id="main">
+        {# deans login #}
+        {% include "web/page/home/login.html.twig" %}
+        {# home intro #}
+        {% include "web/page/home/home_intro.html.twig" %}
+        {# key facts #}
+        {% include "web/page/home/key_facts.html.twig" %}
+        {# fix fomation #}
+        {% include "web/page/home/fix_fomation.html.twig" %}
+        {# Contact #}
+        {% include "web/page/home/contact.html.twig" %}
+    </main>
+    {# popup here #}
+    {% include "web/page/home/popup/ads_popup.html.twig" %}
+    {% include "web/page/home/popup/notificate_popup.html.twig" %}
+{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('web') }}/js/customs/home_js.js"></script>
+{% endblock %}

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% include "web/layout/stylesheets.html.twig" %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% include "web/component/header.html.twig" %}
+
+        {% block main_content %}{% endblock %}
+
+        {% include "web/component/footer.html.twig" %}
+    <!-- =================== -->
+    {% include "web/component/loading_spiner.html.twig" %}
+    {% block javascript %}{% endblock %}
     </body>
 </html>
