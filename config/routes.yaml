@@ -1,7 +1,3 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-
-contact:
-    path: /#sec-contact
-    controller: App\Controller\web\HomeController::contact

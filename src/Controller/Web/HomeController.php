@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/home", name="web_home")
+     * @Route("/", name="web_home")
      */
     public function index()
     {
@@ -16,11 +16,5 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
-    /**
-     * @Route("/contact", name="web_contact")
-     */
-    public function contact()
-    {
-        return true;
-    }
+
 }

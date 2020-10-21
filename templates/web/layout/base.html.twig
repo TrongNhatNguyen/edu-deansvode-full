@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        {% include "web/layout/stylesheets.html.twig" %}
+        {% include "web/layout/partial/stylesheets.html.twig" %}
     </head>
     <body>
-        {% include "web/component/header.html.twig" %}
+        {% include "web/component/partial/header.html.twig" %}
 
         {% block main_content %}{% endblock %}
 
-        {% include "web/component/footer.html.twig" %}
+        {% include "web/component/partial/footer.html.twig" %}
     <!-- =================== -->
-    {% include "web/component/loading_spiner.html.twig" %}
+    {% include "web/component/loading_spiner/loading_spiner.html.twig" %}
+
+    {{ include('web/layout/partial/js_footer.html.twig') }}
+    <script>
+        var jsFolder = "{{ js_folder }}";
+        console.log(jsFolder);
+    </script>
+    <script type="text/javascript" src="{{ asset('assets/web') }}/js/initslider.js"></script>
+
     {% block javascript %}{% endblock %}
     </body>
 </html>

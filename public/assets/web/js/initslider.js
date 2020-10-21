@@ -1,7 +1,4 @@
 jQuery(document).ready(function(){
-    // var jsFolder = "https://eduniversal-deans-vote.com/static/default/images/";
-    var jsFolder = "https://deansvote.com/web/images/";
-
     jQuery("#amazingslider").amazingslider({
 
         jsfolder:jsFolder,
