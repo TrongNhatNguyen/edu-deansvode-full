@@ -58,7 +58,7 @@ class ContactController extends AbstractController
             'subject' => 'DeansVote 2020 - Ask for advice and support!',
             'from' => 'deansvote@gmail.com',
             'to' => $data['email'],
-            'body' => $this->renderView( 'web/email/mail_content.html.twig', [
+            'body' => $this->renderView( 'email/mail_content.html.twig', [
                             'fullName' => $data['fullname'],
                             'email' => $data['email'],
                             'message' => $data['message']

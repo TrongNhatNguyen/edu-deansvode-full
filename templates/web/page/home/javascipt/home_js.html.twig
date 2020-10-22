@@ -26,11 +26,6 @@
     setTimeout(function () {
       $('#conventionModal').modal('show');
     }, 3000);
-    // }
-
-    // $('#conventionModal').on('hidden.bs.modal', function() {
-    //     setCookie('visit', 'guest', 1);
-    // });
   });
 
 
@@ -49,11 +44,16 @@
         processData: false,
         contentType: false,
         dataType: 'json',
-        
-
+        beforeSend: function () {
+          console.log('show loading');
+          $('#overlay').fadeIn();
+        }
       }).done(function (response) {
           console.log(response);
           handleResponse(response.notificate);
+      }).always( function() {
+          console.log('stop loading');
+          $('#overlay').fadeOut();
       });
 
     });
@@ -81,12 +81,6 @@
                   document.getElementById("message").innerHTML = notificate.messages.message;
               } else { document.getElementById("message").innerHTML = ""; }
           }
-            // thong bao o form:
-            // document.getElementById("fullname").innerHTML = "";
-            // document.getElementById("email").innerHTML = "";
-            // document.getElementById("institution").innerHTML = "";
-            // document.getElementById("position").innerHTML = "";
-            // document.getElementById("message").innerHTML = "";
       }
       else {
           // thong bao o form:
@@ -104,14 +98,4 @@
       }
       
   }
-  {# function showPopup($msg,$calback) {
-    $('#popup-noti').find('#content-msg').html($msg);
-    /* $("#popup-noti").fancybox();
-    console.log($('#popup-noti').find('#content-msg').html());
-    $.fancybox.reposition();*/
-    $.fancybox({
-        href : '#popup-noti',
-        afterClose  : $calback,
-    }); 
-  }#}
 </script>
