@@ -1,30 +1,43 @@
 <?php
 
-namespace App\Mail;
+namespace App\Hepler;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Twig\Environment;
 
-class ProceedSendMail
+class MailHepler
 {
     const SWIFT_MAILER = 0;
     const MAILER = 1;
 
     // private $swift_mailer;
+    private $twig;
     private $mailer;
     private $logger;
 
-    public function __construct( MailerInterface $mailer, LoggerInterface $logger )
+    public function __construct(MailerInterface $mailer, LoggerInterface $logger, Environment $twig)
     {
+        $this->twig = $twig;
         $this->mailer = $mailer;
         $this->logger = $logger;
     }
 
 
-    
-    public function chooseMailType( $mailData, $type = self::MAILER )
+    public function chooseMailType($data, $type = self::MAILER)
     {
+        $mailData = [
+            'subject' => 'DeansVote 2020 - Ask for advice and support!',
+            'from' => 'deansvote@gmail.com',
+            'to' => $data['email'],
+            'body' => $this->twig->render('email/mail_content.html.twig', [
+                            'fullName' => $data['fullname'],
+                            'email' => $data['email'],
+                            'message' => $data['message']
+                            ]),
+            'body_type' => 'text/html'
+        ];
         switch ($type) {
             case self::MAILER:
                 return $this->sendByMailer($mailData);
@@ -54,7 +67,6 @@ class ProceedSendMail
                 'status' => 'success',
                 'message' => 'Your idear successfuly sent!',
             ];
-
         } catch (\Exception $ex) {
             $this->logger->info('Email not send!');
             return [
@@ -64,5 +76,4 @@ class ProceedSendMail
             ];
         }
     }
-
 }

@@ -5,11 +5,15 @@ namespace App\DTO\Request;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class sendEmailRequest
+class SendEmailRequest
 {
     /**
      * @Assert\NotBlank(
      *      message="Full-Name is required."
+     * )
+     * * @Assert\Type(
+     *      type="string",
+     *      message="Full-Name cannot be a number."
      * )
      */
     public $fullName;

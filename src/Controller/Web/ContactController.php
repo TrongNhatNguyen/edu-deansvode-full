@@ -3,9 +3,9 @@
 namespace App\Controller\Web;
 
 use App\Service\Web\ContactService;
-use App\DTO\Request\sendEmailRequest;
+use App\DTO\Request\SendEmailRequest;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use App\Mail\ProceedSendMail;
+use App\Hepler\MailHepler;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +15,7 @@ class ContactController extends AbstractController
 {
     private $contactService;
 
-    public function __construct( ContactService $contactService )
+    public function __construct(ContactService $contactService)
     {
         $this->contactService = $contactService;
     }
@@ -27,19 +27,16 @@ class ContactController extends AbstractController
     {
         return true;
     }
-    /**
-     * @Route("/ccontact", name="web_contactt")
-     */
-    public function contactigm()
-    {
-        return $this->render('web/component/mailer/mail_content.html.twig',['fullName' => 'a', 'message' => 'b', 'email' =>'c']);
-    }
 
     /**
      * @Route("/send-mail", name="send_email")
      */
-    public function sendMail( Request $request, sendEmailRequest $sendEmailRequest, ValidatorInterface $validator, ProceedSendMail $proceedSendMail )
-    {
+    public function sendMail(
+        Request $request,
+        SendEmailRequest $sendEmailRequest,
+        ValidatorInterface $validator,
+        MailHepler $mailHepler
+    ) {
         // validate data:
         $sendEmailRequest->buildByRequest($request);
         $errors = $validator->validate($sendEmailRequest);
@@ -54,22 +51,10 @@ class ContactController extends AbstractController
         }
         // go to send mail:
         $data = $request->request->all();
-        $mailData = [
-            'subject' => 'DeansVote 2020 - Ask for advice and support!',
-            'from' => 'deansvote@gmail.com',
-            'to' => $data['email'],
-            'body' => $this->renderView( 'email/mail_content.html.twig', [
-                            'fullName' => $data['fullname'],
-                            'email' => $data['email'],
-                            'message' => $data['message']
-                            ]),
-            'body_type' => 'text/html'
-        ];
-        $mailType = ProceedSendMail::MAILER;
-        $mailResult = $proceedSendMail->chooseMailType( $mailData, $mailType );
-        // dd($mailResult);
+        $mailType = MailHepler::MAILER;
+        $mailResult = $mailHepler->chooseMailType($data, $mailType);
         // =>.
-        if ( $mailResult['status'] === 'success' ) {
+        if ($mailResult['status'] === 'success') {
             return $this->json([
                 'notificate' => $mailResult
             ]);
@@ -79,6 +64,4 @@ class ContactController extends AbstractController
             ]);
         }
     }
-
-
 }
