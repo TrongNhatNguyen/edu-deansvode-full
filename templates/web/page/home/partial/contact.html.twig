@@ -27,7 +27,7 @@
                         <div class="row">
                             <div class="form-group col-lg-6 col-sm-6 col-xs-12">
                                 <span id="fullname"></span>
-                                <input type="text" name="fullname" value="" placeholder="Full name *">
+                                <input type="text" name="full_name" value="" placeholder="Full name *">
                             </div>
                             <div class="form-group col-lg-6 col-sm-6 col-xs-12">
                                 <span id="email"></span>
@@ -51,6 +51,16 @@
                                 <textarea name="message" placeholder="Your message"></textarea>
                             </div>
                         </div>
+                        <!-- <div class="row">
+                            <label for="captcha">Check a robot:</label>
+                            <div id="parent-code-image" style="display: inline;">
+                                <img src="{{ path('render_captcha') }}" alt="CAPTCHA" id="refesh-code">
+                            </div>
+                            <a onclick="refreshCode()" href="javascript:void(0);">
+                                <img class="btn-refresh" src="{{ asset('assets/web') }}/images/refresh.png">
+                            </a>
+                            <input style="width:200px; margin-left: 50px" type="text" id="captcha" name="captcha_challenge">
+                        </div> -->
                         <div class="clearfix"></div>
                         <div class="form-group text-right">
                             <button type="submit" name="submit" class="btn-style-one"
@@ -58,16 +68,6 @@
                         </div>
                     </form>
                 </div> <!-- contact-box -->
-                <div class="modal fade thanks-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-                    <div class="modal-dialog modal-sm" role="document">
-                        <button type="button" class="btn-close-pp" data-dismiss="modal"><span
-                                class="lnr lnr-cross"></span></button>
-                        <div class="modal-content text-center">
-                            <h4>Contact is successful!</h4>
-                            <p>We promise you to get back to you within 24 hours.</p>
-                        </div>
-                    </div>
-                </div> <!-- /s thanks-modal-sm -->
             </div><!-- /.block-contact -->
         </div>
     </div>

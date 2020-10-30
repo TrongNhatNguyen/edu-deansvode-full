@@ -5,7 +5,8 @@ namespace App\Controller\Web;
 use App\Service\Web\ContactService;
 use App\DTO\Request\SendEmailRequest;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use App\Hepler\MailHepler;
+use App\Helper\MailHelper;
+use App\Message\SmsNotification;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,8 +35,7 @@ class ContactController extends AbstractController
     public function sendMail(
         Request $request,
         SendEmailRequest $sendEmailRequest,
-        ValidatorInterface $validator,
-        MailHepler $mailHepler
+        ValidatorInterface $validator
     ) {
         // validate data:
         $sendEmailRequest->buildByRequest($request);
@@ -46,22 +46,25 @@ class ContactController extends AbstractController
                 $messages[$violation->getPropertyPath()][] = $violation->getMessage();
             }
             return $this->json([
-                'notificate' => [ 'status' => 'failed', 'messages' => $messages ]
+                'notificate' => ['status' => 'failed', 'messages' => $messages]
             ]);
         }
-        // go to send mail:
+
         $data = $request->request->all();
-        $mailType = MailHepler::MAILER;
-        $mailResult = $mailHepler->chooseMailType($data, $mailType);
-        // =>.
-        if ($mailResult['status'] === 'success') {
-            return $this->json([
-                'notificate' => $mailResult
-            ]);
-        } else {
-            return $this->json([
-                'notificate' => $mailResult
-            ]);
-        }
+        $data['status'] = 0; // default
+        $data['receiver'] = '';
+
+        // go to get data -> db:
+        $result = $this->contactService->createUserContact($data);
+        
+        // go to send mail - use message & handler:
+        $data['idUserContact'] = $result['id'];
+        $mailType = MailHelper::MAILER;
+        $message = new SmsNotification($data, $mailType);
+        $this->dispatchMessage($message);
+
+        return $this->json([
+            'notificate' => $result
+        ]);
     }
 }

@@ -54,15 +54,16 @@ class SendEmailRequest
     public $message;
 
     public function __construct()
-    {}
+    {
+        return true;
+    }
 
     public function buildByRequest(Request $request)
     {
-        $this->fullName = $request->request->get('fullname');
+        $this->fullName = $request->request->get('full_name');
         $this->email = $request->request->get('email');
         $this->institution = $request->request->get('institution');
         $this->position = $request->request->get('position');
         $this->message = $request->request->get('message');
     }
-
 }

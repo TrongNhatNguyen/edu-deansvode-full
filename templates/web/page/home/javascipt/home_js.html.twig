@@ -22,21 +22,22 @@
     return "";
   }
 
-  $(window).on('load', function () { // if (!getCookie('visit')) {
+  $(window).on('load', function () {
     setTimeout(function () {
       $('#conventionModal').modal('show');
     }, 3000);
   });
 
 
+
+
   {# request data contact by ajax #}
   $(document).ready(function () {
-    $('#contactForm').on('submit', function( event ) {
+
+    $('#contactForm').on('submit', function(event) {
       event.preventDefault(); /* no loadpage when submit */
-
       var form_element = this;
-      var formData = new FormData( form_element );
-
+      var formData = new FormData(form_element);
       $.ajax({
         type: $(this).attr('method'),
         url: $(this).attr('action'),
@@ -55,8 +56,32 @@
           console.log('stop loading');
           $('#overlay').fadeOut();
       });
-
     });
+
+    $('#loginForm').on('submit', function(event) {
+      event.preventDefault(); /* no loadpage when submit */
+      var form_element = this;
+      var formData = new FormData(form_element);
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: formData,
+        processData: false,
+        contentType: false,
+        dataType: 'json',
+        beforeSend: function () {
+          console.log('show loading');
+          $('#overlay').fadeIn();
+        }
+      }).done(function (response) {
+          console.log(response);
+          handleResponse(response.notificate);
+      }).always( function() {
+          console.log('stop loading');
+          $('#overlay').fadeOut();
+      });
+    });
+    
   });
 
   function handleResponse(notificate) {
@@ -95,7 +120,21 @@
             icon: "success",
             button: "Ok",
           });  
-      }
-      
+      }   
+  }
+
+  
+  // refresh captcha:
+  function refreshCode() {
+    console.log('here');
+    var element = document.getElementById('fa-refresh');
+    var parent = document.getElementById('parent-code-image');
+    var temp = document.getElementById('refesh-code');
+    element.classList.add("fa-spin");
+    setTimeout(function() {
+      temp.setAttribute('src', "{{ path('render_captcha') }}?v=" + Math.floor(Math.random() * 100));
+      element.classList.remove("fa-spin");
+    }, 1500);
+
   }
 </script>

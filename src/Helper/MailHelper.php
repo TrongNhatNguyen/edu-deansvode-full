@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Hepler;
+namespace App\Helper;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Twig\Environment;
 
-class MailHepler
+class MailHelper
 {
     const SWIFT_MAILER = 0;
     const MAILER = 1;
@@ -29,10 +29,10 @@ class MailHepler
     {
         $mailData = [
             'subject' => 'DeansVote 2020 - Ask for advice and support!',
-            'from' => 'deansvote@gmail.com',
-            'to' => $data['email'],
+            'from' => $data['email'],
+            'to' => $_ENV['CONTACT_MAIL'],
             'body' => $this->twig->render('email/mail_content.html.twig', [
-                            'fullName' => $data['fullname'],
+                            'fullName' => $data['full_name'],
                             'email' => $data['email'],
                             'message' => $data['message']
                             ]),
@@ -52,7 +52,7 @@ class MailHepler
     public function sendByMailer($mailData)
     {
         try {
-            $message = ( new Email() )
+            $message = (new Email())
                 ->from($mailData['from'])
                 ->to($mailData['to'])
                 ->subject($mailData['subject'])
@@ -65,7 +65,7 @@ class MailHepler
             $this->logger->info('Email sent!');
             return [
                 'status' => 'success',
-                'message' => 'Your idear successfuly sent!',
+                'message' => 'email successfuly sent!',
             ];
         } catch (\Exception $ex) {
             $this->logger->info('Email not send!');
