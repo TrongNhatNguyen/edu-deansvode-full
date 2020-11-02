@@ -5,3 +5,4 @@ twig:
     exception_controller: null
     globals:
         js_folder: '%env(JS_FOLDER)%'
+        google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'

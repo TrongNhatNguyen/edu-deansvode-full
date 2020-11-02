@@ -105,6 +105,13 @@
               if (notificate.messages.message) {
                   document.getElementById("message").innerHTML = notificate.messages.message;
               } else { document.getElementById("message").innerHTML = ""; }
+              // gg-reCaptcha
+              if (notificate.messages.reCaptchaString) {
+                  document.getElementById("g_recaptcha1").innerHTML = notificate.messages.reCaptchaString;
+              } else { document.getElementById("g_recaptcha1").innerHTML = ""; }
+              if (notificate.messages.responseGRC) {
+                  document.getElementById("g_recaptcha2").innerHTML = notificate.messages.responseGRC;
+              } else { document.getElementById("g_recaptcha2").innerHTML = ""; }
           }
       }
       else {
@@ -114,6 +121,8 @@
           document.getElementById("institution").innerHTML = "";
           document.getElementById("position").innerHTML = "";
           document.getElementById("message").innerHTML = "";
+          document.getElementById("g_recaptcha1").innerHTML = "";
+          document.getElementById("g_recaptcha2").innerHTML = "";
           swal({
             title: notificate.status,
             text: notificate.message,

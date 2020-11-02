@@ -2,6 +2,7 @@
 
 namespace App\Controller\Web;
 
+use App\DTO\Request\ReCaptchaRequest;
 use App\Service\Web\ContactService;
 use App\DTO\Request\SendEmailRequest;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -35,11 +36,25 @@ class ContactController extends AbstractController
     public function sendMail(
         Request $request,
         SendEmailRequest $sendEmailRequest,
+        ReCaptchaRequest  $reCaptchaRequest,
         ValidatorInterface $validator
     ) {
-        // validate data:
+        // dd($request);
+        // validate data form:
         $sendEmailRequest->buildByRequest($request);
         $errors = $validator->validate($sendEmailRequest);
+        if (count($errors) > 0) {
+            $messages = [];
+            foreach ($errors as $violation) {
+                $messages[$violation->getPropertyPath()][] = $violation->getMessage();
+            }
+            return $this->json([
+                'notificate' => ['status' => 'failed', 'messages' => $messages]
+            ]);
+        }
+        // validate GG reCaptcha:
+        $reCaptchaRequest->buildByRequest($request);
+        $errors = $validator->validate($reCaptchaRequest);
         if (count($errors) > 0) {
             $messages = [];
             foreach ($errors as $violation) {
