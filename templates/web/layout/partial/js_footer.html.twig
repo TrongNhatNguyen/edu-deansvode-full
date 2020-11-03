@@ -8,7 +8,13 @@
   <script type="text/javascript" src="{{ asset('assets/web') }}/js/scripts.js"></script>
   <script type="text/javascript" src="{{ asset('assets/web') }}/js/custom.js"></script>
   <script type="text/javascript" src="{{ asset('assets/web') }}/js/main.js"></script>
-  <script type="text/javascript" src="{{ asset('assets/web') }}/js/customs/loading_spiner.js"></script>
+  <script>
+      var jsFolder = "{{ js_folder }}";
+      console.log(jsFolder);
+  </script>
+  <script type="text/javascript" src="{{ asset('assets/web') }}/js/initslider.js"></script>
   <script type="text/javascript" src="{{ asset('assets/web') }}/js/amazingslider.js"></script>
+  <!-- new js -->
+  <script type="text/javascript" src="{{ asset('assets/web') }}/js/customs/loading_spiner.js"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>

@@ -9,16 +9,11 @@
         {% block main_content %}{% endblock %}
 
         {% include "web/component/partial/footer.html.twig" %}
-    <!-- =================== -->
-    {% include "web/component/loading_spiner/loading_spiner.html.twig" %}
+        <!-- =================== -->
+        {% include "web/component/loading_spiner/loading_spiner.html.twig" %}
 
-    {{ include('web/layout/partial/js_footer.html.twig') }}
-    <script>
-        var jsFolder = "{{ js_folder }}";
-        console.log(jsFolder);
-    </script>
-    <script type="text/javascript" src="{{ asset('assets/web') }}/js/initslider.js"></script>
+        {{ include('web/layout/partial/js_footer.html.twig') }}
 
-    {% block javascript %}{% endblock %}
+        {% block javascript %}{% endblock %}
     </body>
 </html>
