@@ -51,6 +51,8 @@
                 }
             }).done(function (response) {
                 console.log(response);
+                // reset grecaptcha when submit:
+                grecaptcha.reset();
                 handleResponse(response.notificate);
             }).always(function () {
                 console.log('stop loading');
@@ -129,8 +131,7 @@
             document.getElementById("institution").innerHTML = "";
             document.getElementById("position").innerHTML = "";
             document.getElementById("message").innerHTML = "";
-            document.getElementById("g_recaptcha1").innerHTML = "";
-            document.getElementById("g_recaptcha2").innerHTML = "";
+            document.getElementById("g_recaptcha").innerHTML = "";
             swal({
                 title: notificate.status,
                 text: notificate.message,

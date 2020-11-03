@@ -15,23 +15,26 @@ class ReCaptchaValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, ReCaptcha::class);
         }
 
-        if (null === $value || '' === $value) {
-            return;
-        }
-
-        $reCaptchaString = $value;
-        // reCAPTCHA response verification
-        $verifyResponse = file_get_contents(
-            'https://www.google.com/recaptcha/api/siteverify?secret='
-            .$_ENV['GOOGLE_RECAPTCHA_SECRET_KEY']
-            .'&response='.$reCaptchaString
-        );
-        // Decode JSON data
-        $responseReCaptcha = json_decode($verifyResponse);
-        if (!$responseReCaptcha->success) {
+        
+        if (empty($value)) {
             $this->context->buildViolation($constraint->message)
-                // ->setParameter('{{ string }}', $value)
-                ->addViolation();
+            ->setParameter('{{ string }}', 'Please check on the reCAPTCHA box.')
+            ->addViolation();
+        } else {
+            $reCaptchaString = $value;
+            // reCAPTCHA response verification
+            $verifyResponse = file_get_contents(
+                'https://www.google.com/recaptcha/api/siteverify?secret='
+                .$_ENV['GOOGLE_RECAPTCHA_SECRET_KEY']
+                .'&response='.$reCaptchaString
+            );
+            // Decode JSON data
+            $responseReCaptcha = json_decode($verifyResponse);
+            if (!$responseReCaptcha->success) {
+                $this->context->buildViolation($constraint->message)
+                    ->setParameter('{{ string }}', 'Robot verification failed, please try again.')
+                    ->addViolation();
+            }
         }
     }
 }

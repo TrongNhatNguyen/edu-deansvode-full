@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class ReCaptcha extends Constraint
+class EmailAddress extends Constraint
 {
     public $message = '"{{ string }}"';
 }

@@ -19,14 +19,8 @@ class SendEmailRequest
      */
     public $fullName;
     
-    
     /**
-     * @Assert\NotBlank(
-     *      message="Email is required."
-     * )
-     * @Assert\Email(
-     *      message="Email is invalid."
-     * )
+     * @CustomAssert\EmailAddress
      */
     public $email;
 
@@ -55,9 +49,6 @@ class SendEmailRequest
     public $message;
 
     /**
-     * @Assert\NotBlank(
-     *      message="Please check on the reCAPTCHA box."
-     * )
      * @CustomAssert\ReCaptcha
      */
     public $reCaptchaString;
