@@ -32,7 +32,7 @@ class ReCaptchaRequest
         // check tick reCaptcha:
         $this->reCaptchaString = $reCaptchaString;
 
-        if ($reCaptchaString != "") {
+        if (!empty($reCaptchaString)) {
             // reCAPTCHA response verification
             $verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$_ENV['GOOGLE_RECAPTCHA_SECRET_KEY'].'&response='.$reCaptchaString);
             // Decode JSON data

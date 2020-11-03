@@ -1,149 +1,167 @@
 <script>
-  function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
-
-  function getCookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
     }
-    return "";
-  }
 
-  $(window).on('load', function () {
-    setTimeout(function () {
-      $('#conventionModal').modal('show');
-    }, 3000);
-  });
-
-
-
-
-  {# request data contact by ajax #}
-  $(document).ready(function () {
-
-    $('#contactForm').on('submit', function(event) {
-      event.preventDefault(); /* no loadpage when submit */
-      var form_element = this;
-      var formData = new FormData(form_element);
-      $.ajax({
-        type: $(this).attr('method'),
-        url: $(this).attr('action'),
-        data: formData,
-        processData: false,
-        contentType: false,
-        dataType: 'json',
-        beforeSend: function () {
-          console.log('show loading');
-          $('#overlay').fadeIn();
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
         }
-      }).done(function (response) {
-          console.log(response);
-          handleResponse(response.notificate);
-      }).always( function() {
-          console.log('stop loading');
-          $('#overlay').fadeOut();
-      });
+        return "";
+    }
+
+    $(window).on('load', function () {
+        setTimeout(function () {
+            $('#conventionModal').modal('show');
+        }, 3000);
     });
 
-    $('#loginForm').on('submit', function(event) {
-      event.preventDefault(); /* no loadpage when submit */
-      var form_element = this;
-      var formData = new FormData(form_element);
-      $.ajax({
-        type: $(this).attr('method'),
-        url: $(this).attr('action'),
-        data: formData,
-        processData: false,
-        contentType: false,
-        dataType: 'json',
-        beforeSend: function () {
-          console.log('show loading');
-          $('#overlay').fadeIn();
-        }
-      }).done(function (response) {
-          console.log(response);
-          handleResponse(response.notificate);
-      }).always( function() {
-          console.log('stop loading');
-          $('#overlay').fadeOut();
-      });
+
+
+
+    {# request data contact by ajax #}
+    $(document).ready(function () {
+
+        $('#contactForm').on('submit', function (event) {
+            event.preventDefault(); /* no loadpage when submit */
+            var form_element = this;
+            var formData = new FormData(form_element);
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                beforeSend: function () {
+                    console.log('show loading');
+                    $('#overlay').fadeIn();
+                }
+            }).done(function (response) {
+                console.log(response);
+                handleResponse(response.notificate);
+            }).always(function () {
+                console.log('stop loading');
+                $('#overlay').fadeOut();
+            });
+        });
+
+        $('#loginForm').on('submit', function (event) {
+            event.preventDefault(); /* no loadpage when submit */
+            var form_element = this;
+            var formData = new FormData(form_element);
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                beforeSend: function () {
+                    console.log('show loading');
+                    $('#overlay').fadeIn();
+                }
+            }).done(function (response) {
+                console.log(response);
+                handleResponse(response.notificate);
+            }).always(function () {
+                console.log('stop loading');
+                $('#overlay').fadeOut();
+            });
+        });
+
     });
-    
-  });
 
-  function handleResponse(notificate) {
-      console.log(notificate);
-      if (notificate.status === 'failed') {
-          // loi validate:
-          if (notificate.messages) {
-              // thong bao o form:
-              if (notificate.messages.fullName) {
-                  document.getElementById("fullname").innerHTML = notificate.messages.fullName;
-              } else { document.getElementById("fullname").innerHTML = ""; }
-              if (notificate.messages.email) {
-                  document.getElementById("email").innerHTML = notificate.messages.email;
-              } else { document.getElementById("email").innerHTML = ""; }
-              if (notificate.messages.institution) {
-                  document.getElementById("institution").innerHTML = notificate.messages.institution;
-              } else { document.getElementById("institution").innerHTML = ""; }
-              if (notificate.messages.position) {
-                  document.getElementById("position").innerHTML = notificate.messages.position;
-              } else { document.getElementById("position").innerHTML = ""; }
-              if (notificate.messages.message) {
-                  document.getElementById("message").innerHTML = notificate.messages.message;
-              } else { document.getElementById("message").innerHTML = ""; }
-              // gg-reCaptcha
-              if (notificate.messages.reCaptchaString) {
-                  document.getElementById("g_recaptcha1").innerHTML = notificate.messages.reCaptchaString;
-              } else { document.getElementById("g_recaptcha1").innerHTML = ""; }
-              if (notificate.messages.responseGRC) {
-                  document.getElementById("g_recaptcha2").innerHTML = notificate.messages.responseGRC;
-              } else { document.getElementById("g_recaptcha2").innerHTML = ""; }
-          }
-      }
-      else {
-          // thong bao o form:
-          document.getElementById("fullname").innerHTML = "";
-          document.getElementById("email").innerHTML = "";
-          document.getElementById("institution").innerHTML = "";
-          document.getElementById("position").innerHTML = "";
-          document.getElementById("message").innerHTML = "";
-          document.getElementById("g_recaptcha1").innerHTML = "";
-          document.getElementById("g_recaptcha2").innerHTML = "";
-          swal({
-            title: notificate.status,
-            text: notificate.message,
-            icon: "success",
-            button: "Ok",
-          });  
-      }   
-  }
+    function handleResponse(notificate) {
+        console.log(notificate);
+        if (notificate.status === 'failed') {
+            // loi validate:
+            if (notificate.messages) {
+                // thong bao o form:
+                if (notificate.messages.fullName) {
+                    document.getElementById("fullname").innerHTML = notificate.messages.fullName;
+                } else {
+                    document.getElementById("fullname").innerHTML = "";
+                }
+                if (notificate.messages.email) {
+                    document.getElementById("email").innerHTML = notificate.messages.email;
+                } else {
+                    document.getElementById("email").innerHTML = "";
+                }
+                if (notificate.messages.institution) {
+                    document.getElementById("institution").innerHTML = notificate.messages.institution;
+                } else {
+                    document.getElementById("institution").innerHTML = "";
+                }
+                if (notificate.messages.position) {
+                    document.getElementById("position").innerHTML = notificate.messages.position;
+                } else {
+                    document.getElementById("position").innerHTML = "";
+                }
+                if (notificate.messages.message) {
+                    document.getElementById("message").innerHTML = notificate.messages.message;
+                } else {
+                    document.getElementById("message").innerHTML = "";
+                }
+                // gg-reCaptcha
+                if (notificate.messages.reCaptchaString) {
+                    document.getElementById("g_recaptcha").innerHTML = notificate.messages.reCaptchaString;
+                } else {
+                    document.getElementById("g_recaptcha").innerHTML = "";
+                }
+            }
+        } else {
+            // thong bao o form:
+            document.getElementById("fullname").innerHTML = "";
+            document.getElementById("email").innerHTML = "";
+            document.getElementById("institution").innerHTML = "";
+            document.getElementById("position").innerHTML = "";
+            document.getElementById("message").innerHTML = "";
+            document.getElementById("g_recaptcha1").innerHTML = "";
+            document.getElementById("g_recaptcha2").innerHTML = "";
+            swal({
+                title: notificate.status,
+                text: notificate.message,
+                icon: "success",
+                button: "Ok",
+            });
+        }
+    }
 
-  
-  // refresh captcha:
-  function refreshCode() {
-    console.log('here');
-    var element = document.getElementById('fa-refresh');
-    var parent = document.getElementById('parent-code-image');
-    var temp = document.getElementById('refesh-code');
-    element.classList.add("fa-spin");
-    setTimeout(function() {
-      temp.setAttribute('src', "{{ path('render_captcha') }}?v=" + Math.floor(Math.random() * 100));
-      element.classList.remove("fa-spin");
-    }, 1500);
 
-  }
+    // refresh captcha:
+    function refreshCode() {
+        console.log('here');
+        var element = document.getElementById('fa-refresh');
+        element.classList.add("fa-spin");
+        changeVision(function() {
+            removeSpin();
+        });
+    }
+    function changeVision(callback) {
+        var temp = document.getElementById('refesh-code');
+        setTimeout(function() {
+            temp.setAttribute('src', "{{ path('render_captcha') }}?v=" + Math.floor(Math.random() * 100));
+            // call a function when finish this function
+            callback();
+        }, 1000);
+    }
+    function removeSpin() {
+        var element = document.getElementById('fa-refresh');
+        setTimeout(function() {
+            element.classList.remove("fa-spin");
+        }, 500);
+    }
 </script>

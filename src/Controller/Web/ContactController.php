@@ -39,22 +39,9 @@ class ContactController extends AbstractController
         ReCaptchaRequest  $reCaptchaRequest,
         ValidatorInterface $validator
     ) {
-        // dd($request);
         // validate data form:
         $sendEmailRequest->buildByRequest($request);
         $errors = $validator->validate($sendEmailRequest);
-        if (count($errors) > 0) {
-            $messages = [];
-            foreach ($errors as $violation) {
-                $messages[$violation->getPropertyPath()][] = $violation->getMessage();
-            }
-            return $this->json([
-                'notificate' => ['status' => 'failed', 'messages' => $messages]
-            ]);
-        }
-        // validate GG reCaptcha:
-        $reCaptchaRequest->buildByRequest($request);
-        $errors = $validator->validate($reCaptchaRequest);
         if (count($errors) > 0) {
             $messages = [];
             foreach ($errors as $violation) {
