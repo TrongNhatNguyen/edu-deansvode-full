@@ -27,7 +27,7 @@ class ContactController extends AbstractController
      */
     public function contact()
     {
-        return true;
+        return;
     }
 
     /**

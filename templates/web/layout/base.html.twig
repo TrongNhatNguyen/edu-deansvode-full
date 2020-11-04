@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         {% include "web/layout/partial/stylesheets.html.twig" %}
+        {% block matomo %}{% endblock %}
     </head>
     <body>
         {% include "web/component/partial/header.html.twig" %}
@@ -9,7 +10,7 @@
         {% block main_content %}{% endblock %}
 
         {% include "web/component/partial/footer.html.twig" %}
-        <!-- =================== -->
+        {# =================== #}
         {% include "web/component/loading_spiner/loading_spiner.html.twig" %}
 
         {{ include('web/layout/partial/js_footer.html.twig') }}

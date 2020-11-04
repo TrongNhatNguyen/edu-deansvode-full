@@ -5,14 +5,13 @@ namespace App\Controller\Web;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+class AboutUsController extends AbstractController
 {
     /**
-     * @Route("/", name="web_home")
-     * @Route("/index", name="web_home")
+     * @Route("/about-eduniversal-dean-vote", name="web_about_us")
      */
     public function index()
     {
-        return $this->render('web/page/home/index.html.twig');
+        return $this->render('web/page/about_us/index.html.twig');
     }
 }
