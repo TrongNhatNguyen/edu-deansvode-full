@@ -23,14 +23,6 @@ class ContactController extends AbstractController
     }
 
     /**
-     * @Route("/#contact", name="web_contact")
-     */
-    public function contact()
-    {
-        return;
-    }
-
-    /**
      * @Route("/send-mail", name="send_email")
      */
     public function sendMail(
