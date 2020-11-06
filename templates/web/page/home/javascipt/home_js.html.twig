@@ -28,33 +28,60 @@
         }, 3000);
     });
 
+
     {# request data contact by ajax #}
     $(document).ready(function () {
 
         $('#contactForm').on('submit', function (event) {
             event.preventDefault(); /* no loadpage when submit */
             var form_element = this;
-            var formData = new FormData(form_element);
-            $.ajax({
-                type: $(this).attr('method'),
-                url: $(this).attr('action'),
-                data: formData,
-                processData: false,
-                contentType: false,
-                dataType: 'json',
-                beforeSend: function () {
-                    console.log('show loading');
-                    $('#overlay').fadeIn();
+            var type = $(this).attr('method');
+            var url = $(this).attr('action');
+
+            Swal.fire({
+                title: '<span style="color: #ffffff">Security & Anti-spam</span>',
+                icon: "info",
+                confirmButtonColor: '#ca9d6d',
+                confirmButtonText: 'Continue &nbsp; <i class="fa fa-arrow-right"></i>',
+
+                html: '<div id="re_captcha"></div>',
+                didOpen: function () {
+                    grecaptcha.render('re_captcha', {
+                        'sitekey': '{{ google_recaptcha_site_key }}'
+                    })
+                },
+
+                preConfirm: function () {
+                    if (grecaptcha.getResponse().length === 0) {
+                        Swal.showValidationMessage(`Please verify that you're not a robot`)
+                    } else {
+                        var g_recaptcha_response = grecaptcha.getResponse();
+                        var formData = new FormData(form_element);
+                        formData.append('g-recaptcha-response', g_recaptcha_response);
+                        $.ajax({
+                            type: type,
+                            url: url,
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            dataType: 'json',
+                            beforeSend: function () {
+                                console.log('show loading');
+                                $('#overlay').fadeIn();
+                            }
+                        }).done(function (response) {
+                            console.log(response);
+                            handleResponse(response.notificate);
+                        }).always(function () {
+                            console.log('stop loading');
+                            $('#overlay').fadeOut();
+                        });
+                    }
                 }
-            }).done(function (response) {
-                console.log(response);
-                // reset grecaptcha when submit:
-                grecaptcha.reset();
-                handleResponse(response.notificate);
-            }).always(function () {
-                console.log('stop loading');
-                $('#overlay').fadeOut();
-            });
+
+            })
+            $(".swal2-modal").css('background-color', '#232330');
+            
         });
 
         $('#loginForm').on('submit', function (event) {
@@ -85,39 +112,42 @@
 
     function handleResponse(notificate) {
         console.log(notificate);
+        var alertRC = document.getElementById("alert-recaptcha");
         if (notificate.status === 'failed') {
             // loi validate:
             if (notificate.messages) {
                 // thong bao o form:
                 if (notificate.messages.fullName) {
-                    document.getElementById("fullname").innerHTML = notificate.messages.fullName;
+                    document.getElementById("fullname").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.fullName;
                 } else {
                     document.getElementById("fullname").innerHTML = "";
                 }
                 if (notificate.messages.email) {
-                    document.getElementById("email").innerHTML = notificate.messages.email;
+                    document.getElementById("email").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.email;
                 } else {
                     document.getElementById("email").innerHTML = "";
                 }
                 if (notificate.messages.institution) {
-                    document.getElementById("institution").innerHTML = notificate.messages.institution;
+                    document.getElementById("institution").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.institution;
                 } else {
                     document.getElementById("institution").innerHTML = "";
                 }
                 if (notificate.messages.position) {
-                    document.getElementById("position").innerHTML = notificate.messages.position;
+                    document.getElementById("position").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.position;
                 } else {
                     document.getElementById("position").innerHTML = "";
                 }
                 if (notificate.messages.message) {
-                    document.getElementById("message").innerHTML = notificate.messages.message;
+                    document.getElementById("message").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.message;
                 } else {
                     document.getElementById("message").innerHTML = "";
                 }
                 // gg-reCaptcha
                 if (notificate.messages.reCaptchaString) {
+                    alertRC.style.display = 'block';
                     document.getElementById("g_recaptcha").innerHTML = notificate.messages.reCaptchaString;
                 } else {
+                    alertRC.style.display = 'none';
                     document.getElementById("g_recaptcha").innerHTML = "";
                 }
             }
@@ -128,13 +158,15 @@
             document.getElementById("institution").innerHTML = "";
             document.getElementById("position").innerHTML = "";
             document.getElementById("message").innerHTML = "";
+            alertRC.style.display = 'none';
             document.getElementById("g_recaptcha").innerHTML = "";
-            swal({
-                title: notificate.status,
+            Swal.fire({
+                icon: 'success',
+                title: notificate.status + '!',
                 text: notificate.message,
-                icon: "success",
-                button: "Ok",
-            });
+                showConfirmButton: false,
+                timer: 2600
+            })
         }
     }
 

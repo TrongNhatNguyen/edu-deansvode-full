@@ -17,7 +17,7 @@ class EmailAddressValidator extends ConstraintValidator
 
         if (empty($value)) {
             $this->context->buildViolation($constraint->message)
-            ->setParameter('{{ string }}', 'Email is required, please enter your email.')
+            ->setParameter('{{ string }}', 'Email is required, enter your email.')
             ->addViolation();
         } else {
             $email = $value;

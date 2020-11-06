@@ -240,8 +240,19 @@ li.active .important-link {
     letter-spacing: 1px;
 }
 
-span {
-    color: #b91c00;
+.form-group {
+    position: relative !important;
+}
+.form-group .notifi {
+    position: absolute;
+    top: -15px;
+    left: 15px;
+    color: #832517;
+    z-index: 1;
+}
+
+.alert-recaptcha {
+    display: none;
 }
 
 @media only screen and (min-width: 1080px) {
