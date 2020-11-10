@@ -1,0 +1,104 @@
+{% extends "web/layout/base.html.twig" %}
+
+{% set title = "Dean's vote 2020, Eduniversal Evaluation Agency" %}
+
+{# active menu color #}
+{% set menu_deans_session_active = "active" %}
+
+{% block main_content %}
+<main id="main" class="underpage step-content">
+    <div class="step-head">
+        <div class="container">
+            <div class="col-md-offset-3 col-md-6">
+                <!-- col-sm-offset-5 col-sm-6 -->
+                <ul class="step-sec clearfix fl-right">
+                    <li class="pull-left">
+                        <a href="{{ path('web_prepare_your_voting_session') }}">
+                            <img src="{{ asset('assets/web') }}/images/step-1-disable.png">
+                        </a>
+                    </li>
+                    <li class="pull-right"><img src="{{ asset('assets/web') }}/images/step-2.png"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="voting-section">
+                    <div class="text-center">
+                        <!-- <h2 class="title-style">Start your voting session 2020</h2> -->
+                        <h2 class="title-style">Start your voting session 2020</h2>
+                    </div>
+                    <ul class="voting-process-intro clearfix">
+                        <li class="item-step-1">
+                            <div class="t-img"> <img src="{{ asset('assets/web') }}/images/start-01.png"> </div>
+                            <div class="b-text">
+                                <img src="{{ asset('assets/web') }}/images/num-01.png">
+                                <h3>Login to your account</h3>
+                            </div>
+                        </li>
+                        <li class="item-step-2">
+                            <div class="t-img"> <img src="{{ asset('assets/web') }}/images/start-02.png"> </div>
+                            <div class="b-text">
+                                <img src="{{ asset('assets/web') }}/images/num-02.png">
+                                <h3>Make your recommendations for the Business Schools across 154 countries</h3>
+                            </div>
+                        </li>
+                        <li class="item-step-3">
+                            <div class="t-img"> <img src="{{ asset('assets/web') }}/images/start-03.png"> </div>
+                            <div class="b-text">
+                                <img src="{{ asset('assets/web') }}/images/num-03.png">
+                                <!-- <h3>Submit your <br> 2020 voting session</h3> -->
+                                <h3>Submit your <br> 2020 voting session</h3>
+                            </div>
+                        </li>
+                    </ul><!-- voting-session -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <ul class="step1-rule">
+                                <li>You can save and continue your voting session at any time.</li>
+                                <li>Once you submit your final recommendations, your voting session is
+                                    registered and cannot be
+                                    modified.</li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6">
+                            <ul class="step1-rule">
+                                <li>You cannot recommend more than 50% of business schools per country.</li>
+                                <li>The countries are presented in an alphaberical order from Albania to
+                                    Zimbabwe.</li>
+                                <li>Your country will be the last one in the list in the voting process (after
+                                    Zimbadwe).</li>
+                                <li>If you don't have any recommendations for the institutions in the particular
+                                    country, please
+                                    select: "No, I don't recommend any institution in this country"</li>
+                                <li>You are not allowed to vote for your own institution.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <a class="link-step" href="{{ path('web_prepare_your_voting_session') }}"><span
+                                class="lnr lnr-arrow-left"> </span><b>STEP 1:</b> Prepare your voting
+                            session</a>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <a class="link-step" href="{{ path('web_about_us') }}">About Eduniversal Dean's Vote
+                            <span class="lnr lnr-arrow-right"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        <div class="wp-btn-startvote">
+            <div>
+                <!-- <a href="/#sec-form-login" class="btn btn-primary">Start your voting session 2020</a> -->
+                <a href="{{ app.request.scheme ~'://' ~ app.request.httpHost }}#sec-form-login" class="btn btn-primary">Start your voting session 2020</a>
+            </div>
+            <hr>
+        </div>
+    </div>
+</main>
+{% endblock %}
