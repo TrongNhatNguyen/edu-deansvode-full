@@ -38,6 +38,17 @@ class Country
     private $isoCode;
 
     /**
+     * @ORM\Column(type="smallint")
+     */
+    private $sort;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $status;
+
+
+    /**
      * @ORM\ManyToOne(targetEntity=Zone::class, inversedBy="countries")
      */
     private $zone;
@@ -79,6 +90,30 @@ class Country
     public function setIsoCode(?string $isoCode): self
     {
         $this->isoCode = $isoCode;
+
+        return $this;
+    }
+
+    public function getSort(): ?int
+    {
+        return $this->sort;
+    }
+
+    public function setSort(int $sort): self
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
