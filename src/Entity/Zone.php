@@ -32,7 +32,23 @@ class Zone
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $image;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $slug;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $sort;
+
+    /**
+     * @ORM\Column(type="smallint")
+     */
+    private $status;
+
 
     /**
      * @ORM\OneToMany(targetEntity=Country::class, mappedBy="zone")
@@ -61,6 +77,18 @@ class Zone
         return $this;
     }
 
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -69,6 +97,30 @@ class Zone
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getSort(): ?int
+    {
+        return $this->sort;
+    }
+
+    public function setSort(int $sort): self
+    {
+        $this->sort = $sort;
+
+        return $this;
+    }
+
+    public function getStatus(): ?int
+    {
+        return $this->status;
+    }
+
+    public function setStatus(int $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

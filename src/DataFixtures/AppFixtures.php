@@ -4,14 +4,27 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Psr\Container\ContainerInterface;
+use Symfony\Component\Finder\Finder;
 
 class AppFixtures extends Fixture
 {
-    public function load(ObjectManager $manager)
+    public function setContainer(ContainerInterface $container = null)
     {
-        // $product = new Product();
-        // $manager->persist($product);
+        $this->container = $container;
+    }
 
-        $manager->flush();
+    public function load(ObjectManager $objectManager)
+    {
+        $finder = new Finder();
+        $finder->in(__DIR__, '/DataFixtures/sql');
+        $finder->name('country.sql');
+
+        foreach ($finder as $file) {
+            $content = $file->getContents();
+
+            $stmt = $this->container->get('doctrine.orm.entity_manager')->getConnection()->prepare($content);
+            $stmt->execute();
+        }
     }
 }
