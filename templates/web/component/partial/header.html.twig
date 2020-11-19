@@ -1,0 +1,65 @@
+<header id="header" class="">
+    <div class="navbar navbar-default navbar-fixed-top menu-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2 bg-brand">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="{{ path('web_home') }}" class="navbar-brand"><img id="logo" src="{{ asset('assets/web') }}/images/logo.png" alt="logo"></a>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="navbar-collapse collapse">
+                        <nav>
+                            <ul class="nav navbar-nav">
+                                <li class="{{ menu_home_active|default('')  }}"><a href="{{ path('web_home') }}">Home</a></li>
+                                <li class="{{ menu_about_us_active|default('')  }}"><a href="{{ path('web_about_us') }}">About us</a></li>
+                                <li role="presentation" class="dropdown sub_default {{ menu_deans_session_active|default('')  }}">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dean's session</a>
+                                    <div class="dropdown-menu">
+                                        <ul class="list-nav nav-step">
+                                            <li><a href="{{ path('web_prepare_your_voting_session') }}"> Step 1: Prepare your voting session</a>
+                                            </li>
+                                            <li><a href="{{ path('web_start_your_voting_session') }}"> Step 2: Start your voting session</a>
+                                            </li>
+                                            <li><a href="{{ path('web_voting_tutorial') }}">Voting Tutorial</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li role="presentation" class="dropdown sub_default {{ menu_methodology_active|default('') }}">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false">Methodology</a>
+                                    <div class="dropdown-menu">
+                                        <ul class="list-nav nav-method">
+                                            <li><a href="{{ path('web_international_scientific_committee') }}">International Scientific Committee</a></li>
+                                            <li><a href="{{ path('web_eduniversal_evaluation_system') }}">Eduniversal Evaluation System</a>
+                                            </li>
+                                            <li><a href="{{ path('web_official_selection_of_the1000_best_business_schools') }}">Official Selection of the 1000 Best Business Schools</a></li>
+                                            <li><a href="{{ path('web_palmes_of_excellence') }}">Palmes of Excellence</a>
+                                            </li>
+                                            <li><a href="{{ path('web_entering_the_system_obtaining_an_additional_palme') }}">Entering the system - Obtaining an additional Palme</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <!--li class=" "><a href="/voting-tutorial">Voting Tutorial </a></li-->
+                                <li class=""><a href="{{ 'web_home' != app.request.get('_route') ? app.request.scheme ~'://' ~ app.request.httpHost : path('web_home') }}#sec-form-login" style="color: #f88337">Start your vote!</a></li>
+                                <li class="{{ menu_award_active|default('')  }}"><a href="{{ path('web_award_ceremony') }}">Awards Ceremony</a></li>
+                                <li class=""><a href="/covid19-sharing-center">COVID-19 Sharing Center</a></li>
+                                <!-- <li class=""><a href="/student-interview">Students' Interviews</a></li> -->
+                                <li class="visible-xs "><a class="page-scroll" href="{{ 'web_home' != app.request.get('_route') ? app.request.scheme ~'://' ~ app.request.httpHost : path('web_home') }}#sec-contact">Contact</a>
+                                </li>
+                            </ul>
+
+                            <a href="{{ 'web_home' != app.request.get('_route') ? app.request.scheme ~'://' ~ app.request.httpHost : path('web_home') }}#sec-contact" class="page-scroll btn-primary btn-contact hidden-xs">Contact</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--- END CONTAINER -->
+    </div>
+</header> <!-- /#header -->

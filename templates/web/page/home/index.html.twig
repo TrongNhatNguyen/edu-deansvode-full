@@ -1,0 +1,28 @@
+{% extends "web/layout/base.html.twig" %}
+{% set title = "Home - Dean's vote 2020, Eduniversal Evaluation Agency" %}
+
+{% set menu_home_active = "active" %}
+
+{% block main_content %}
+    {# home banners #}
+    {% include "web/page/home/partial/banners.html.twig" %}
+    <main id="main">
+        {# deans login #}
+        {% include "web/page/home/partial/login.html.twig" %}
+        {# home intro #}
+        {% include "web/page/home/partial/home_intro.html.twig" %}
+        {# key facts #}
+        {% include "web/page/home/partial/key_facts.html.twig" %}
+        {# fix fomation #}
+        {% include "web/page/home/partial/fix_fomation.html.twig" %}
+        {# Contact #}
+        {% include "web/page/home/partial/contact.html.twig" %}
+    </main>
+    {# popup here #}
+    {% include "web/component/popup/ads_popup.html.twig" %}
+    {% include "web/component/popup/notificate_popup.html.twig" %}
+{% endblock %}
+
+{% block javascript %}
+    {% include "web/page/home/javascipt/home_js.html.twig" %}
+{% endblock %}

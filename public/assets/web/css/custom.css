@@ -1,0 +1,274 @@
+.inner-anchor
+{
+	font-weight: bold;
+	color: #000 !important;
+}
+
+.inner-anchor:hover
+{
+	text-decoration: none !important;
+	color: red !important;
+}
+
+.top-inter h1 
+{
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.icon-inter
+{
+    width: 148px;
+    height: 148px;
+}
+
+.icon-inter img
+{
+    max-width: 90%;
+}
+
+.section-panel-top
+{
+    /*background-image: url(../images/bg-panel-2.jpg);*/
+    background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1) ), url(../images/bg-panel-2.jpg);
+}
+
+/*.tabs-sort-by ul
+{
+    background-color: #cb9e6e;
+}
+
+ul#filterTopic li a
+{
+    color: #fff;
+}
+
+.tabs-sort-by ul li.active a, .tabs-sort-by ul li.active span
+{
+    color: #000;
+}*/
+
+ul#filterTopic
+{
+    background-color: #cb9e6e;
+}
+
+ul#filterTopic li a
+{
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+ul#filterTopic li a:hover, ul#filterTopic li.active a
+{
+    color: #000;
+}
+
+/*.list-interviews .col-txt
+{
+    padding-top: 0;
+}*/
+
+.all-title
+{
+    color: #cb9e6e;
+}
+
+.list-interviews .col-txt p {
+    line-height: 1.5em;
+    font-family: Roboto !important;
+    color: #4a4a4a !important;
+}
+
+.list-interviews .col-txt p strong {
+    font-family: Roboto !important;
+}
+
+.list-interviews .col-txt p span {
+    font-family: Roboto !important;
+    font-size: 14px !important;
+    /*color: #4a4a4a !important;*/
+}
+
+.list-interviews .col-txt div span {
+    font-family: Roboto !important;
+    font-size: 14px !important;
+    color: #4a4a4a !important;
+}
+
+.carousel-fade .carousel-inner .item
+{
+    background-position: center top;
+}
+
+.sec-account-login .acc-right
+{
+    padding-top: 5px;
+}
+
+#sec-contact
+{
+    margin-bottom: 20px;
+}
+
+#footer
+{
+    border-top: 5px solid #ca9d6d;
+}
+
+#footer .footer-r
+{
+    font-size: 14px;
+}
+
+#footer .footer-r .img-edu
+{
+    margin-bottom: 15px;
+}
+
+#footer .footer-r .link-edu
+{
+    margin-bottom: 15px;
+}
+
+#footer .footer-r .link-edu:hover
+{
+    color: #ca9d6d;
+}
+
+.sec-key-facts
+{
+    padding: 20px 0;
+}
+
+.side-nav .nav-method
+{
+    background-color: #ca9d6d;
+}
+
+#footer .logo-f .wp_pos_logo {
+    margin-bottom: 0;
+}
+
+.link-to-convention:hover {
+    color: #0195dd !important;
+}
+
+.header-bg {
+    height: 480px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 50px;
+    padding: 2em;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-start;
+}
+
+.bg-gala-dinner {
+    background-image: url(../images/galadinner/bg.jpg);
+}
+
+.bold-big-title {
+    font-size: 24px;
+    font-family: "Dosis", sans-serif;
+    font-weight: 700;
+    color: #000;
+}
+
+.btn-violet {
+    background-color: #990098;
+    border-color: #990098;
+}
+
+.btn-violet:hover {
+    color: #990098;
+    background-color: #fff;
+    border-color: #990098;
+}
+
+li a.important-link {
+    color: #990098 !important;
+    font-weight: bold !important;
+}
+
+li:hover a.important-link {
+    color: red !important;
+}
+
+li.active .important-link {
+    color: black !important;
+    font-weight: bold !important;
+}
+
+.no-school-available {
+    font-size: 12px;
+    margin-left: 50px;
+    font-style: italic;
+    font-weight: bold;
+}
+
+#conventionModal .modal-dialog {
+    width: 95%;
+}
+
+#conventionModal .bg-left {
+    background-image: url('../images/convention-2020/side-image.jpg');
+    width: 500px;
+    background-size: 100%;
+    margin-top: 50px;
+    border-radius: 0;
+}
+
+.popup-headline {
+    position: absolute;
+    background-color: #8ac100;
+    width: 100%;
+    height: 60px;
+    border-radius: 20px 0 0 0;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.popup-headline p {
+    line-height: 60px;
+    font-weight: bold;
+    font-size: 28px;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 1px;
+}
+
+.form-group {
+    position: relative !important;
+}
+.form-group .notifi {
+    position: absolute;
+    top: -15px;
+    left: 15px;
+    color: #832517;
+    z-index: 1;
+}
+
+.alert-recaptcha {
+    display: none;
+}
+
+@media only screen and (min-width: 1080px) {
+    #conventionModal .modal-dialog {
+        width: 1020px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .popup-headline p {
+        font-size: 13px;
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .popup-headline p {
+        font-size: 11px;
+    }
+}
