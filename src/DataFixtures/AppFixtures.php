@@ -16,15 +16,27 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $objectManager)
     {
-        $finder = new Finder();
-        $finder->in(__DIR__, '/DataFixtures/sql');
-        $finder->name('country.sql');
+        $sqlFolder = __DIR__ . '/Sql/';
 
-        foreach ($finder as $file) {
-            $content = $file->getContents();
+        $sqlFiles = scandir($sqlFolder);
 
-            $stmt = $this->container->get('doctrine.orm.entity_manager')->getConnection()->prepare($content);
-            $stmt->execute();
+        foreach ($sqlFiles as $sqlFile) {
+            if (!strpos($sqlFile, '.sql')) {
+                continue;
+            }
+
+            $sqlContent = "SET FOREIGN_KEY_CHECKS = 0;";
+
+            $sqlContent .= file_get_contents($sqlFolder . $sqlFile);
+
+            $sqlContent .= "SET FOREIGN_KEY_CHECKS = 1;";
+
+            print "Importing: " . $sqlFile . PHP_EOL;
+
+            $objectManager->getConnection()->exec($sqlContent);
+            $objectManager->flush();
+
+            print "File: " . $sqlFile . PHP_EOL;
         }
     }
 }
