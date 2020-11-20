@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ZoneRepository;
+use App\Util\EntityTrait\SortableTrait;
 use App\Util\EntityTrait\StatusTrait;
 use App\Util\EntityTrait\TimestampTrait;
 
@@ -15,6 +16,7 @@ use App\Util\EntityTrait\TimestampTrait;
 class Zone
 {
     use StatusTrait;
+    use SortableTrait;
     use TimestampTrait;
 
     /**
@@ -38,17 +40,6 @@ class Zone
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
-
-    /**
-     * @ORM\Column(type="smallint")
-     */
-    private $sort;
-
-    /**
-     * @ORM\Column(type="smallint")
-     */
-    private $status;
-
 
     /**
      * @ORM\OneToMany(targetEntity=Country::class, mappedBy="zone")
@@ -97,30 +88,6 @@ class Zone
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
-
-        return $this;
-    }
-
-    public function getSort(): ?int
-    {
-        return $this->sort;
-    }
-
-    public function setSort(int $sort): self
-    {
-        $this->sort = $sort;
-
-        return $this;
-    }
-
-    public function getStatus(): ?int
-    {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }

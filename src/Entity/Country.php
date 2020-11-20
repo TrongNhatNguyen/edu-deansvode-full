@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CountryRepository;
+use App\Util\EntityTrait\SortableTrait;
 use App\Util\EntityTrait\StatusTrait;
 use App\Util\EntityTrait\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Country
 {
     use StatusTrait;
+    use SortableTrait;
     use TimestampTrait;
 
     /**
@@ -36,17 +38,6 @@ class Country
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $isoCode;
-
-    /**
-     * @ORM\Column(type="smallint")
-     */
-    private $sort;
-
-    /**
-     * @ORM\Column(type="smallint")
-     */
-    private $status;
-
 
     /**
      * @ORM\ManyToOne(targetEntity=Zone::class, inversedBy="countries")
@@ -90,30 +81,6 @@ class Country
     public function setIsoCode(?string $isoCode): self
     {
         $this->isoCode = $isoCode;
-
-        return $this;
-    }
-
-    public function getSort(): ?int
-    {
-        return $this->sort;
-    }
-
-    public function setSort(int $sort): self
-    {
-        $this->sort = $sort;
-
-        return $this;
-    }
-
-    public function getStatus(): ?int
-    {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }
