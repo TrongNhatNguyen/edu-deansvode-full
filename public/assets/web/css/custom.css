@@ -255,6 +255,15 @@ li.active .important-link {
     display: none;
 }
 
+.frcaptcha .refresh {
+    font-size: 18px !important;
+    color: #abacae !important;
+}
+
+.frcaptcha .refresh:hover {
+    color: #ca9d6d !important;
+}
+
 @media only screen and (min-width: 1080px) {
     #conventionModal .modal-dialog {
         width: 1020px;
