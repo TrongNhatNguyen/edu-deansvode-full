@@ -4,19 +4,12 @@ namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Psr\Container\ContainerInterface;
-use Symfony\Component\Finder\Finder;
 
 class AppFixtures extends Fixture
 {
-    public function setContainer(ContainerInterface $container = null)
-    {
-        $this->container = $container;
-    }
-
     public function load(ObjectManager $objectManager)
     {
-        $sqlFolder = __DIR__ . '/Sql/';
+        $sqlFolder = __DIR__ . '/sql/';
 
         $sqlFiles = scandir($sqlFolder);
 
@@ -36,7 +29,7 @@ class AppFixtures extends Fixture
             $objectManager->getConnection()->exec($sqlContent);
             $objectManager->flush();
 
-            print "File: " . $sqlFile . PHP_EOL;
+            print "Imported file: " . $sqlFile . PHP_EOL;
         }
     }
 }

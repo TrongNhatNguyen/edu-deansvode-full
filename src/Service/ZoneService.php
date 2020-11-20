@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Web;
+namespace App\Service;
 
 use App\Repository\ZoneRepository;
 

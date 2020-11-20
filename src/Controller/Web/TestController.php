@@ -2,26 +2,29 @@
 
 namespace App\Controller\Web;
 
-use App\Service\Web\ZoneService;
+use App\Service\VoteSessionService;
+use App\Service\ZoneService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ZoneController extends AbstractController
+class TestController extends AbstractController
 {
     private $ZoneService;
+    private $voteSessionService;
 
-    public function __construct(ZoneService $zoneService)
+    public function __construct(ZoneService $zoneService, VoteSessionService $voteSessionService)
     {
         $this->ZoneService = $zoneService;
+        $this->voteSessionService = $voteSessionService;
     }
 
     /**
-     * @Route("home", name="listCategories")
+     * @Route("zone", name="listCategories")
      */
     public function index()
     {
         $allZones = $this->ZoneService->getAllZonesByAlphabeticalOrder();
         dd($allZones);
-        return $allZones;
+        return true;
     }
 }
