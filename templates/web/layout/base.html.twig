@@ -5,8 +5,13 @@
         {% block matomo %}{% endblock %}
     </head>
     <body>
-        {% include "web/component/partial/header.html.twig" %}
-
+        {# ===== header menu ===== #}
+        {% if type_header is defined and "dean_voting_session" == type_header %}
+            {% include "web/component/partial/header_dean_voting_session.html.twig" %}
+        {% else %}
+            {% include "web/component/partial/header.html.twig" %}
+        {% endif %}
+        
         {% block main_content %}{% endblock %}
 
         {% include "web/component/partial/footer.html.twig" %}

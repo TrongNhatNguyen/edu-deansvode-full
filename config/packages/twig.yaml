@@ -4,6 +4,7 @@ twig:
     strict_variables: '%kernel.debug%'
     exception_controller: null
     globals:
+        domain_url: '%env(DOMAIN_URL)%'
         js_folder: '%env(JS_FOLDER)%'
         google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
         include_matomo: '%env(INCLUDE_MATOMO)%'
