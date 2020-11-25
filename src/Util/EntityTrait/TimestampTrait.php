@@ -39,4 +39,11 @@ trait TimestampTrait
 
         return $this;
     }
+
+    public function initCurrentTimestamp()
+    {
+        $now = new \DateTime('now');
+
+        $this->createdAt = $this->updatedAt = $now;
+    }
 }
