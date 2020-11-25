@@ -15,6 +15,10 @@
         {% block main_content %}{% endblock %}
 
         {% include "web/component/partial/footer.html.twig" %}
+
+        {# ===== plugin ===== #}
+        {% include "web/component/plugin/messenger_chatbox_plugin.html.twig" %}
+        
         {# =================== #}
         {% include "web/component/loading_spiner/loading_spiner.html.twig" %}
 
