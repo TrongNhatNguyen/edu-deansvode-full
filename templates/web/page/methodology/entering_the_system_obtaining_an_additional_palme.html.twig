@@ -1,0 +1,33 @@
+{% extends "web/layout/base.html.twig" %}
+
+{% set title = "Dean's vote 2020, Eduniversal Evaluation Agency" %}
+
+{# active menu color - nav methodology #}
+{% set menu_methodology_active = "active" %}
+{% set nav_entering_the_system_obtaining_an_additional_palme_active = "active" %}
+
+{% block main_content %}
+<main id="main" class="underpage method-content">
+    <div class="container">
+        <div class="row">
+            <!-- methodology option -->
+            {% include "web/page/methodology/partial/methodology_option.html.twig" %}
+            <!-- end -->
+            <div class="col-sm-9 methodology_standar_content">
+                <h2 class="title tt-sm">ENTERING THE EDUNIVERSAL SYSTEM / OBTAINING AN ADDITIONAL PALMES D’EXCELLENCE : THE EVOLUTION OF THE EDUNIVERSAL OFFICIAL SELECTION OF THE 1,000 BEST BUSINESS SCHOOLS</h2>
+                <p>Every year, the list of the 1,000 Best Business Schools in 154 countries is reviewed by the members of the Eduniversal’s International Scientific Committee, so the evolution of the business education in each country may be well taken into account.</p>
+                <p>Changes into the Official Selection can be made spontaneously by the ISC’s members ; or can be the result of a request from the concerned schools. In that case, the schools have to send to the Eduniversal Ranking Office an overall application form.</p>
+                <p>The application form is transferred to the Eduniversal Board of Directors and to the member of the International Scientific committee responsible for the geographical zone of the concerned School.</p>
+                <p>If the school’s request is approved, it will then be submitted for further approval to the entire International Scientific Committee during one of their two annual meetings.</p>
+                <p>All the evaluation process <u>is free of charge</u>.</p>
+                <p>If you have any questions about the process, or if you want your school to enter the system / obtain an additional Palmes d’Excellence, please contact :
+                </p>
+                <p style="text-align: center"><a href="mailto:international.coordinator@eduniversal.com" style="font-size: 18px; font-weight: bold;">international.coordinator@eduniversal.com</a></p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

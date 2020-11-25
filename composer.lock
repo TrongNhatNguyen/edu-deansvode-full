@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fbb5a2df2afd23163c3d6720f12ecb01",
+    "content-hash": "19f64a39e3f2d85e2caf660242e3956a",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -1359,6 +1359,70 @@
             "time": "2020-09-26T15:48:38+00:00"
         },
         {
+<<<<<<< HEAD
+=======
+            "name": "laminas/laminas-code",
+            "version": "3.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laminas/laminas-code.git",
+                "reference": "1cb8f203389ab1482bf89c0e70a04849bacd7766"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laminas/laminas-code/zipball/1cb8f203389ab1482bf89c0e70a04849bacd7766",
+                "reference": "1cb8f203389ab1482bf89c0e70a04849bacd7766",
+                "shasum": ""
+            },
+            "require": {
+                "laminas/laminas-eventmanager": "^2.6 || ^3.0",
+                "laminas/laminas-zendframework-bridge": "^1.0",
+                "php": "^7.1"
+            },
+            "conflict": {
+                "phpspec/prophecy": "<1.9.0"
+            },
+            "replace": {
+                "zendframework/zend-code": "self.version"
+            },
+            "require-dev": {
+                "doctrine/annotations": "^1.7",
+                "ext-phar": "*",
+                "laminas/laminas-coding-standard": "^1.0",
+                "laminas/laminas-stdlib": "^2.7 || ^3.0",
+                "phpunit/phpunit": "^7.5.16 || ^8.4"
+            },
+            "suggest": {
+                "doctrine/annotations": "Doctrine\\Common\\Annotations >=1.0 for annotation features",
+                "laminas/laminas-stdlib": "Laminas\\Stdlib component"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.4.x-dev",
+                    "dev-develop": "3.5.x-dev",
+                    "dev-dev-4.0": "4.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laminas\\Code\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "Extensions to the PHP Reflection API, static code scanning, and code generation",
+            "homepage": "https://laminas.dev",
+            "keywords": [
+                "code",
+                "laminas"
+            ],
+            "time": "2019-12-31T16:28:24+00:00"
+        },
+        {
+>>>>>>> da147251854b620682ee6d13590ca478186a2f1d
             "name": "laminas/laminas-eventmanager",
             "version": "3.3.0",
             "source": {
@@ -4081,6 +4145,90 @@
                 }
             ],
             "time": "2020-09-06T17:12:23+00:00"
+        },
+        {
+            "name": "symfony/messenger",
+            "version": "v4.4.16",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/messenger.git",
+                "reference": "56676069f979835c06eb1b30c51deb4255cf6fcf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/messenger/zipball/56676069f979835c06eb1b30c51deb4255cf6fcf",
+                "reference": "56676069f979835c06eb1b30c51deb4255cf6fcf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
+                "psr/log": "~1.0",
+                "symfony/polyfill-php80": "^1.15"
+            },
+            "conflict": {
+                "doctrine/persistence": "<1.3",
+                "symfony/event-dispatcher": "<4.3",
+                "symfony/framework-bundle": "<4.4",
+                "symfony/http-kernel": "<4.4"
+            },
+            "require-dev": {
+                "doctrine/dbal": "^2.6|^3.0",
+                "doctrine/persistence": "^1.3|^2",
+                "psr/cache": "~1.0",
+                "symfony/console": "^3.4|^4.0|^5.0",
+                "symfony/dependency-injection": "^3.4.19|^4.1.8|^5.0",
+                "symfony/event-dispatcher": "^4.3|^5.0",
+                "symfony/http-kernel": "^4.4",
+                "symfony/process": "^3.4|^4.0|^5.0",
+                "symfony/property-access": "^3.4|^4.0|^5.0",
+                "symfony/serializer": "^3.4|^4.0|^5.0",
+                "symfony/service-contracts": "^1.1|^2",
+                "symfony/stopwatch": "^3.4|^4.0|^5.0",
+                "symfony/validator": "^3.4|^4.0|^5.0"
+            },
+            "suggest": {
+                "enqueue/messenger-adapter": "For using the php-enqueue library as a transport."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Messenger\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Samuel Roze",
+                    "email": "samuel.roze@gmail.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Messenger Component",
+            "homepage": "https://symfony.com",
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-10-26T20:47:51+00:00"
         },
         {
             "name": "symfony/mime",
@@ -6862,6 +7010,7 @@
                 "validate"
             ],
             "time": "2020-07-08T17:02:28+00:00"
+<<<<<<< HEAD
         },
         {
             "name": "zendframework/zend-code",
@@ -7077,6 +7226,11 @@
             ],
             "time": "2020-11-14T09:36:49+00:00"
         },
+=======
+        }
+    ],
+    "packages-dev": [
+>>>>>>> da147251854b620682ee6d13590ca478186a2f1d
         {
             "name": "doctrine/data-fixtures",
             "version": "1.4.4",
