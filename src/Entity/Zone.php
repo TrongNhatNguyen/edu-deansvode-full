@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ZoneRepository;
+use App\Util\EntityTrait\SlugTrait;
+use App\Util\EntityTrait\SortableTrait;
 use App\Util\EntityTrait\StatusTrait;
 use App\Util\EntityTrait\TimestampTrait;
 
@@ -14,6 +16,8 @@ use App\Util\EntityTrait\TimestampTrait;
  */
 class Zone
 {
+    use SlugTrait;
+    use SortableTrait;
     use StatusTrait;
     use TimestampTrait;
 
@@ -32,7 +36,7 @@ class Zone
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $slug;
+    private $image;
 
     /**
      * @ORM\OneToMany(targetEntity=Country::class, mappedBy="zone")
@@ -61,14 +65,14 @@ class Zone
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getImage(): ?string
     {
-        return $this->slug;
+        return $this->image;
     }
 
-    public function setSlug(string $slug): self
+    public function setImage(string $image): self
     {
-        $this->slug = $slug;
+        $this->image = $image;
 
         return $this;
     }
