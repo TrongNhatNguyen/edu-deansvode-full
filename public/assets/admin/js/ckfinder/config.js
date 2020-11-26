@@ -1,0 +1,24 @@
+﻿/*
+Copyright (c) 2003-2013, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.html or http://cksource.com/ckfinder/license
+*/
+
+CKFinder.customConfig = function( config )
+{
+	// Define changes to default configuration here.
+	// For the list of available options, check:
+	// http://docs.cksource.com/ckfinder_2.x_api/symbols/CKFinder.config.html
+
+	// Sample configuration options:
+	// config.uiColor = '#BDE31E';
+	 config.language = 'en';
+	// config.removePlugins = 'basket';
+	$config['ResourceType'][] = Array(
+	'name' => 'Images',
+	'url' => $baseUrl . 'images',
+	'directory' => $baseDir . 'images',
+	'maxSize' => 0,
+	'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
+	'deniedExtensions' => '');
+	console.log(1111);
+};
