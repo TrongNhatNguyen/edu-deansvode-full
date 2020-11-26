@@ -16,6 +16,9 @@ class Admin implements UserInterface
     use StatusTrait;
     use TimestampTrait;
 
+    const INACTIVE = 0;
+    const ACTIVE = 1;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -43,6 +46,11 @@ class Admin implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $email;
+
+    public function __construct()
+    {
+        $this->initCurrentTimestamp();
+    }
 
     public function getId(): ?int
     {
