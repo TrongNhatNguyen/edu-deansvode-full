@@ -3,3 +3,11 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     exception_controller: null
+    globals:
+        admin_dir: 'admin'
+        admin_layout_dir: 'admin/layout'
+        admin_layout_partial_dir: 'admin/layout/partial'
+        admin_asset_dir: 'admin/assets'
+        admin_css_dir: 'admin/assets/css'
+        admin_js_dir: 'admin/assets/js'
+        admin_fonts_dir: 'admin/assets/fonts'
