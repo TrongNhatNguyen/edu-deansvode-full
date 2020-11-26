@@ -1,0 +1,86 @@
+body {
+    overflow: hidden;
+    /*display: inline-block;*/
+    min-width: 100%;
+}
+.page-area table
+{
+    margin:0;
+    padding: 0;
+}
+.input_name,span.icon_save
+{
+    display: none;
+}
+.block_search
+{
+    float:left;
+    display: block;
+}
+.block_mt_full {
+    width: 100%;
+}
+.body_copy_vote
+{
+    width: 315px;
+    display: block;
+    float: left;
+    text-align: center;
+}
+.headtd,.headtd2
+{
+    text-align: center;
+    background-color: #FFF !important;
+}
+.headtd3
+{
+    background-color: #FFF !important;
+}
+#tdRevoteStat td,#area-1 td,#area-2 td
+{
+    border: 1px solid #ccc;
+}
+
+#area-3 td
+{
+    border: 1px solid #ccc;
+    border-right: none;
+}
+
+
+@media print {
+    #print_bt_world,btn_chart
+    {
+        display: none !important;
+    }
+}
+.statistic_table td
+{
+    border: 1px solid #ccc;
+}
+.statistic_table td,.statistic_table th
+{
+    text-align: center;
+}
+
+
+.report-by-chart .chart-content {
+    margin: 10px 1% 10px 0;
+}
+.report-by-chart .chart-container
+{
+    width: 100%;
+    display: block;
+    float: left;
+}
+
+table .label
+{
+    padding-left: 25px;
+    font-weight: bold;
+}
+
+.required-mark
+{
+    background: url(../images/required_mark.png) no-repeat;
+}

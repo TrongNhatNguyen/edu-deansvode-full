@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="{{ asset('assets/admin/') }}images/ico.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>CMS Deanvote</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    <!-- Fonts and icons -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin-ext"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+
+    <!-- CSS Files -->
+    <link href="{{ asset('assets/admin/') }}css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{ asset('assets/admin/') }}css/simple-line-icons.css" rel="stylesheet" />
+    <link href="{{ asset('assets/admin/') }}css/now-ui-dashboard.css" rel="stylesheet" />
+    <link href="{{ asset('assets/admin/') }}css/login.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="inner-login-w container">
+            <div class="row">
+                <div class="col-md-6 left-img">
+                    <img src="{{ asset('assets/admin/') }}images/img-login.svg" alt="">
+                </div>
+                <div class="col-md-4 form-login">
+                    <div class="thumb-log">
+                        <div class="logo-login">
+                            <a href="/"><img src="{{ asset('assets/admin/') }}images/logo-lg.png" alt=""></a>
+                        </div>
+
+                        <div class="alert alert-danger text-center error-message" style="display: none; font-weight: bold;"></div>
+
+                        <form id="admin-login-form" class="inner-login" method="post" action="{{ path('admin_login') }}">
+                            <h2 class="ttl2">Connexion</h2>
+
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="username" placeholder="Username" value="{{ last_username }}" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control" name="password" placeholder="Password" value="" required>
+                            </div>
+                            <div class="button-forgot float-right">
+                                <button type="submit" class="btn btn-login">login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="icon-home-lg">
+                    <a class="nav-link" href="/"><i class="icon-home icons"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Core JS Files -->
+    <script src="{{ asset('assets/admin/') }}js/core/jquery.min.js"></script>
+    <script src="{{ asset('assets/admin/') }}js/core/popper.min.js"></script>
+    <script src="{{ asset('assets/admin/') }}js/core/bootstrap.min.js"></script>
+    <script src="{{ asset('assets/admin/') }}js/plugins/perfect-scrollbar.jquery.min.js"></script>
+    <!-- Plugin -->
+    <script src="{{ asset('assets/admin/') }}js/plugins/bootstrap-notify.js"></script>
+    <script src="{{ asset('assets/admin/') }}js/now-ui-dashboard.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#admin-login-form').on('submit', function (event) {
+                event.preventDefault();
+
+                let $form = $(this);
+                let $submit_button = $form.find('button[type="submit"]');
+
+                let data = $form.serialize();
+                let url = $form.attr('action');
+                let type = $form.attr('method');
+
+                $submit_button.html('<i class="fas fa-circle-notch fa-spin" style="font-size: 24px;"></i>').prop('disabled', true);
+                
+                request_login(data, url, type).done(function (response) {
+                    console.log(response);
+
+                    if (response.status === 'success') {
+                        window.location.href = "{{ path('admin_dashboard') }}";
+                    } else {
+                        display_error(response.error);
+                    }
+                }).always(function () {
+                    $submit_button.html('login').prop('disabled', false);
+                });
+            });
+        });
+
+        function request_login(data, url, type)
+        {
+            return $.ajax({
+                url: url,
+                type: type,
+                dataType: 'json',
+                data: data,
+            });
+        }
+
+        function display_error(message)
+        {
+            $('.error-message').html(message).show();
+        }
+    </script>
+</body>
+
+</html>
