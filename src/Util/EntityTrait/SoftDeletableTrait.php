@@ -4,7 +4,7 @@ namespace App\Util\EntityTrait;
 
 use Doctrine\ORM\Mapping as ORM;
 
-class SoftDeletableTrait
+trait SoftDeletableTrait
 {
     /**
      * @var \DateTime|null
