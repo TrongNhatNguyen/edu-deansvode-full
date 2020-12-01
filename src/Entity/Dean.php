@@ -7,10 +7,13 @@ use App\Util\EntityTrait\StatusTrait;
 use App\Util\EntityTrait\TimestampTrait;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * @ORM\Entity(repositoryClass=DeanRepository::class)
  */
-class Dean
+class Dean implements UserInterface
 {
     use StatusTrait;
     use TimestampTrait;
@@ -23,12 +26,12 @@ class Dean
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $firstName;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lastName;
 
@@ -70,6 +73,16 @@ class Dean
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $name2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $infoLink;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $function;
 
     /**
@@ -82,6 +95,12 @@ class Dean
      */
     private $phone2;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -195,6 +214,30 @@ class Dean
         return $this;
     }
 
+    public function getName2(): ?string
+    {
+        return $this->name2;
+    }
+
+    public function setName2(?string $name2): self
+    {
+        $this->name2 = $name2;
+
+        return $this;
+    }
+
+    public function getInfoLink(): ?string
+    {
+        return $this->infoLink;
+    }
+
+    public function setInfoLink(?string $infoLink): self
+    {
+        $this->infoLink = $infoLink;
+
+        return $this;
+    }
+
     public function getFunction(): ?string
     {
         return $this->function;
@@ -229,5 +272,44 @@ class Dean
         $this->phone2 = $phone2;
 
         return $this;
+    }
+
+
+    //// custom user - pass in userinterface:
+
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function getPassword()
+    {
+        return $this->password1;
+    }
+
+    public function getUsername()
+    {
+        return $this->email1;
+    }
+
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

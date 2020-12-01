@@ -1,0 +1,161 @@
+{% extends web_layout_dir ~ "base.html.twig" %}
+
+{% set title = "Dean's vote 2020, Eduniversal Evaluation Agency" %}
+
+{# active menu color - nav methodology #}
+{% set menu_methodology_active = "active" %}
+{% set nav_official_selection_of_the1000_best_business_schools_active = "active" %}
+
+{% block main_content %}
+<main id="main" class="underpage method-content">
+    <div class="container">
+        <div class="row">
+            <!-- methodology option -->
+            {% include "web/page/methodology/partial/methodology_option.html.twig" %}
+            <!-- end -->
+            <div class="col-sm-9 methodology_standar_content">
+                <h2 class="title tt-sm">METHODOLOGY – OFFICIAL SELECTION OF THE BEST 1000 BUSINESS SCHOOLS</h2>
+                <p>The methodology behind the selection of the 1000 Business Schools to be ranked was created by the Eduniversal International Scientific Committee in 2007.
+                    The objective was to establish a global mapping system that would take into account the international influence and reputation of each academic institution.</p>
+
+                <p>For the ranking of top 1000 business schools, the system determines, from thousands of different business schools, which 1000 will be selected for the ranking.
+                    The number of schools selected to take part in the ranking, from each of the 154 countries, is determined according to a quota method using both quantitative and qualitative criteria.</p>
+                <p>The quantitative criteria includes:<br>
+                    - The national expenditure on education per inhabitant<br>
+                    - The GDP per inhabitant<br>
+                    - The size of the population<br>
+                    - The number of students in higher education</p>
+
+                <p>The qualitative criteria includes:<br>
+                    - The number of graduate academic institutions in the country<br>
+                    - The historical importance of the national educational tradition.</p>
+                <p>These schools are then classified in each country by Palmes of Excellence according to a set of criteria designed to determine a school’s international influence, reputation and quality.</p>
+                <p>After the Palme classification (from 1 to 5) has been set, an international Deans Vote determines the rank within each Palme category. The final ranking shows, within each Palme category, the best business schools in each country.</p>
+                <p>The EDUNIVERSAL ranking highlights the best academic opportunities for students around the world in these 9 zones:</p>
+                <br>
+                <img src="/{{ asset('assets/web') }}/images/zones.jpg" alt="">
+                <p>&nbsp;</p>
+                <br><b>Example of the data taken into consideration, according to the method of quotas, in the determination of the number of schools per country in the Eduniversal Official Selection:</b></p>
+                <div class="table-responsive wp-tb-official">
+                    <table class="table table-bordered tb-official">
+                        <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Expenditure in education (public & private) / student (USD)</th>
+                                <th>GDP per Capita (USD)</th>
+                                <th>Population size in million</th>
+                                <th>Enrolment in Tertiary Education</th>
+                                <th>Schools Quota results</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="event">
+                                <td class="tb-country">USA</td>
+                                <td class="alg-righ">$27,924</td>
+                                <td class="alg-righ">$54,600</td>
+                                <td class="alg-righ">322</td>
+                                <td class="alg-righ">9,463,755</td>
+                                <td class="alg-righ">153</td>
+                            </tr>
+                            <tr class="odd">
+                                <td class="tb-country">India</td>
+                                <td class="alg-righ">$70,267</td>
+                                <td class="alg-righ">$5,700</td>
+                                <td class="alg-righ">1,311</td>
+                                <td class="alg-righ">24,302,984</td>
+                                <td class="alg-righ">47</td>
+                            </tr>
+                            <tr class="event">
+                                <td class="tb-country">China</td>
+                                <td class="alg-righ">$23,984</td>
+                                <td class="alg-righ">$13,200</td>
+                                <td class="alg-righ">1,376</td>
+                                <td class="alg-righ">21,533,196</td>
+                                <td class="alg-righ">56</td>
+                            </tr>
+                            <tr class="odd">
+                                <td class="tb-country">UK</td>
+                                <td class="alg-righ">$25,744</td>
+                                <td class="alg-righ">$39,800</td>
+                                <td class="alg-righ">65</td>
+                                <td class="alg-righ">1,532,677</td>
+                                <td class="alg-righ">51</td>
+                            </tr>
+                            <tr class="event">
+                                <td class="tb-country">Mexico</td>
+                                <td class="alg-righ">$7,568</td>
+                                <td class="alg-righ">$17,100</td>
+                                <td class="alg-righ">127</td>
+                                <td class="alg-righ">3,042,546</td>
+                                <td class="alg-righ">13</td>
+                            </tr>
+                            <tr class="odd">
+                                <td class="tb-country">Poland</td>
+                                <td class="alg-righ">$8,929</td>
+                                <td class="alg-righ">$24,700</td>
+                                <td class="alg-righ">37</td>
+                                <td class="alg-righ">1,266,471</td>
+                                <td class="alg-righ">11</td>
+                            </tr>
+                            <tr class="event">
+                                <td class="tb-country">Netherlands</td>
+                                <td class="alg-righ">$18,947</td>
+                                <td class="alg-righ">$24,700</td>
+                                <td class="alg-righ">29</td>
+                                <td class="alg-righ">842,600</td>
+                                <td class="alg-righ">13</td>
+                            </tr>
+                            <tr class="odd">
+                                <td class="tb-country">Turkey</td>
+                                <td class="alg-righ">$10,638</td>
+                                <td class="alg-righ">$19,200</td>
+                                <td class="alg-righ">79</td>
+                                <td class="alg-righ">3,052,671</td>
+                                <td class="alg-righ">8</td>
+                            </tr>
+                            <tr class="event">
+                                <td class="tb-country">Tunisia</td>
+                                <td class="alg-righ">$2,815</td>
+                                <td class="alg-righ">$11,400</td>
+                                <td class="alg-righ">11</td>
+                                <td class="alg-righ">218,856</td>
+                                <td class="alg-righ">5</td>
+                            </tr>
+                            <tr class="odd">
+                                <td class="tb-country">Australia</td>
+                                <td class="alg-righ">$18,337</td>
+                                <td class="alg-righ">$44,000</td>
+                                <td class="alg-righ">23</td>
+                                <td class="alg-righ">930,675
+                                </td>
+                                <td class="alg-righ">34</td>
+                            </tr>
+                            <tr class="event">
+                                <td class="tb-country">Indonesia</td>
+                                <td class="alg-righ">$2,095
+                                </td>
+                                <td class="alg-righ">$10,500</td>
+                                <td class="alg-righ">257</td>
+                                <td class="alg-righ">4,200,000</td>
+                                <td class="alg-righ">7</td>
+                            </tr>
+                            <tr class="odd">
+                                <td class="tb-country">Russia</td>
+                                <td class="alg-righ">$8,483</td>
+                                <td class="alg-righ">$19,400</td>
+                                <td class="alg-righ">143</td>
+                                <td class="alg-righ">2,994,807</td>
+                                <td class="alg-righ">21</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="font-size: 12px; font-weight: bold; color: #86289a;">Data extracted from the Statistics department of UNESCO http://data.uis.unesco.org</p>
+                <p style="font-size: 12px; font-weight: bold; color: #86289a;">Data extracted from OECD https://data.oecd.org/eduresource/education-spending.html</p>
+                <p>&nbsp;</p>
+                <p>&nbsp;</p>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

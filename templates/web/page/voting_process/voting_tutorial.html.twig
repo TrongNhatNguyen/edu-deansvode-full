@@ -1,0 +1,22 @@
+{% extends web_layout_dir ~ "base.html.twig" %}
+
+{% set title = "Dean's vote 2020, Eduniversal Evaluation Agency" %}
+
+{# active menu color #}
+{% set menu_deans_session_active = "active" %}
+
+{% block main_content %}
+<main id="main" class="underpage step-content">
+    <div class="container text-center">
+        <div style="width: 100%;">
+            <img src="{{ asset('assets/web') }}/images/votingtutorial_2020.jpg" alt="Deans’ Vote Tutorial" style="width: 100%">
+        </div>
+        <!-- <div class="wp-btn-startvote">
+            <div>
+                <a href="/#sec-form-login" class="btn btn-primary">Start your voting session 2020</a>
+            </div>
+            <hr>
+        </div> -->
+    </div>
+</main>
+{% endblock %}

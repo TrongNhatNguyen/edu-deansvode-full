@@ -1,0 +1,206 @@
+<script>
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    $(window).on('load', function () {
+        setTimeout(function () {
+            $('#conventionModal').modal('show');
+        }, 3000);
+    });
+
+
+    {# request data contact by ajax #}
+    $(document).ready(function () {
+
+        $('#contactForm').on('submit', function (event) {
+            event.preventDefault(); /* no loadpage when submit */
+            var form_element = this;
+            var type = $(this).attr('method');
+            var url = $(this).attr('action');
+
+            Swal.fire({
+                title: '<span style="color: #ffffff">Security & Anti-spam</span>',
+                icon: "info",
+                confirmButtonColor: '#ca9d6d',
+                confirmButtonText: 'Continue &nbsp; <i class="fa fa-arrow-right"></i>',
+
+                html: '<div id="re_captcha"></div>',
+                didOpen: function () {
+                    grecaptcha.render('re_captcha', {
+                        'sitekey': '{{ google_recaptcha_site_key }}'
+                    })
+                },
+
+                preConfirm: function () {
+                    if (grecaptcha.getResponse().length === 0) {
+                        Swal.showValidationMessage(`Please verify that you're not a robot`)
+                    } else {
+                        var g_recaptcha_response = grecaptcha.getResponse();
+                        var formData = new FormData(form_element);
+                        formData.append('g-recaptcha-response', g_recaptcha_response);
+                        $.ajax({
+                            type: type,
+                            url: url,
+                            data: formData,
+                            processData: false,
+                            contentType: false,
+                            dataType: 'json',
+                            beforeSend: function () {
+                                console.log('show loading');
+                                $('#overlay').fadeIn();
+                            }
+                        }).done(function (response) {
+                            console.log(response);
+                            handleResponse(response.notificate);
+                        }).always(function () {
+                            console.log('stop loading');
+                            $('#overlay').fadeOut();
+                        });
+                    }
+                }
+
+            })
+            $(".swal2-modal").css('background-color', '#232330');
+            
+        });
+
+        $('#loginForm').on('submit', function (event) {
+            event.preventDefault(); /* no loadpage when submit */
+            var form_element = this;
+            var formData = new FormData(form_element);
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                beforeSend: function () {
+                    console.log('show loading');
+                    $('#overlay').fadeIn();
+                }
+            }).done(function (response) {
+                console.log(response);
+                if (response.status == 'success') {
+                    redirectTo(response.url_response);
+                } else {
+                    alert(response.error);
+                }
+            }).always(function () {
+                console.log('stop loading');
+                $('#overlay').fadeOut();
+            });
+        });
+
+    });
+
+    function handleResponse(notificate) {
+        console.log(notificate);
+        var alertRC = document.getElementById("alert-recaptcha");
+        if (notificate.status === 'failed') {
+            // loi validate:
+            if (notificate.messages) {
+                // thong bao o form:
+                if (notificate.messages.fullName) {
+                    document.getElementById("fullname").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.fullName;
+                } else {
+                    document.getElementById("fullname").innerHTML = "";
+                }
+                if (notificate.messages.email) {
+                    document.getElementById("email").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.email;
+                } else {
+                    document.getElementById("email").innerHTML = "";
+                }
+                if (notificate.messages.institution) {
+                    document.getElementById("institution").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.institution;
+                } else {
+                    document.getElementById("institution").innerHTML = "";
+                }
+                if (notificate.messages.position) {
+                    document.getElementById("position").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.position;
+                } else {
+                    document.getElementById("position").innerHTML = "";
+                }
+                if (notificate.messages.message) {
+                    document.getElementById("message").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.message;
+                } else {
+                    document.getElementById("message").innerHTML = "";
+                }
+                // gg-reCaptcha
+                if (notificate.messages.reCaptchaString) {
+                    alertRC.style.display = 'block';
+                    document.getElementById("g_recaptcha").innerHTML = notificate.messages.reCaptchaString;
+                } else {
+                    alertRC.style.display = 'none';
+                    document.getElementById("g_recaptcha").innerHTML = "";
+                }
+            }
+        } else {
+            // thong bao o form:
+            document.getElementById("fullname").innerHTML = "";
+            document.getElementById("email").innerHTML = "";
+            document.getElementById("institution").innerHTML = "";
+            document.getElementById("position").innerHTML = "";
+            document.getElementById("message").innerHTML = "";
+            alertRC.style.display = 'none';
+            document.getElementById("g_recaptcha").innerHTML = "";
+            Swal.fire({
+                icon: 'success',
+                title: notificate.status + '!',
+                text: notificate.message,
+                showConfirmButton: false,
+                timer: 2600
+            })
+        }
+    }
+
+
+    // refresh captcha:
+    function refreshCode() {
+        console.log('here');
+        var element = document.getElementById('fa-refresh');
+        element.classList.add("fa-spin");
+        changeVision(function() {
+            removeSpin();
+        });
+    }
+    function changeVision(callback) {
+        var temp = document.getElementById('refesh-code');
+        setTimeout(function() {
+            temp.setAttribute('src', "{{ path('render_captcha') }}?v=" + Math.floor(Math.random() * 100));
+            // call a function when finish this function
+            callback();
+        }, 1000);
+    }
+    function removeSpin() {
+        var element = document.getElementById('fa-refresh');
+        setTimeout(function() {
+            element.classList.remove("fa-spin");
+        }, 500);
+    }
+
+    function redirectTo(url)
+    {
+        window.location.href = url;
+    }
+</script>

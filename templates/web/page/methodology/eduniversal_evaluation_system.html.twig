@@ -1,0 +1,42 @@
+{% extends web_layout_dir ~ "base.html.twig" %}
+
+{% set title = "Dean's vote 2020, Eduniversal Evaluation Agency" %}
+
+{# active menu color - nav methodology #}
+{% set menu_methodology_active = "active" %}
+{% set nav_eduniversal_evaluation_system_active = "active" %}
+
+{% block main_content %}
+<main id="main" class="underpage method-content">
+    <div class="container">
+        <div class="row">
+            <!-- methodology option -->
+            {% include "web/page/methodology/partial/methodology_option.html.twig" %}
+            <!-- end -->
+            <div class="col-sm-9 methodology_standar_content">
+                <h2 class="title">Eduniversal Evaluation System</h2>
+
+                <p>Eduniversal is a French evaluation agency founded in 1994 and specialized in Higher Education.</p>
+
+                <p>Eduniversal leads four main rankings:
+                    <p>- Three of them are dedicated to the best programmes, firstly in France (with two separate rankings regarding the level of studies) and secondly in the world (the <a href="http://www.best-masters.com/" target="_blank">Best Masters&MBAs ranking</a>). The goal of these programmes' rankings is to help millions of students all over the world to find their dream program.</p>
+                    <p>- Besides that, Eduniversal leads since 2007 its <strong>Best 1,000 Business Schools in 154 countries</strong> ranking.</p>
+                </p>
+
+                <p>The <a href="http://www.eduniversal-ranking.com/" target="_blank">Eduniversal Official Selection of the 1,000 Best Business Schools</a> all over the world was created over the guidance of the <a href="/methodology/international-scientific-committee" class="inner-anchor">Eduniversal International Scientific Committee</a>. The ranking of the 1,000 best Business Schools is reviewed every year, in order to provide a current map of the best higher education institutions worldwide. In this way, the Eduniversal System allows for an horizontal comparison within 9 geographical zones, which is different from the vertical comparison generally established by others ranking agency. Thus, the Eduniversal Ranking System doesn't compare schools from one country to another, but ranks the best schools within each country, which allows a better inclusion of the diversity of the higher education world and the specificities of each geographical areas.</p>
+
+                <p>The <strong>Official Selection of the 1,000 Best Business Schools</strong> rests on quantitative and qualitative criteria. For each country, the choosen schools are divided into five levels of excellence we call the <strong>"Palmes of Excellence"</strong>. The Palme level is awarded to each schools according to a set of criteria created by the ISC, which are mainly internationalization criteria. Then, once a certain level of Palmes is awarded to a school, the last step is the rating of the school inside its Palme Level in its country. Institutions are ranked here according to the assessment made by their peers, that is to say made by Deans of the others best Business Schools ranked by Eduniversal. This unique step is called the Deans' Vote, and allows to take into account the expertise of the deans of the best business schools worldwide: it's the synonym of a <strong>recognition by the peers</strong>.</p>
+
+                <br>
+                <h4 class="text-center">METHODOLOGY – EDUNIVERSAL BUSINESS SCHOOLS RANKING – A 3-STEP PROCESS</h4>
+
+                <div class="wp-step-process-ranking">
+                    <div class="">
+                        <img src="{{ asset('assets/web') }}/images/step-process/SCHEMA-1.png" alt="" title="" />
+                    </div>
+                </div><!-- /.wp-step-process-ranking -->
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

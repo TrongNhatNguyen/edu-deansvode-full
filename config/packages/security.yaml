@@ -10,10 +10,16 @@ security:
             entity:
                 class: App\Entity\Admin
                 property: username
+                
+        app_dean_provider:
+            entity:
+                class: App\Entity\Dean
+                property: email1
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+            
         admin:
             anonymous: lazy
             provider: app_admin_provider
@@ -23,6 +29,17 @@ security:
             logout:
                 path: admin_logout
                 target: admin_login
+
+        dean:
+            anonymous: lazy
+            provider: app_dean_provider
+            guard:
+                authenticators:
+                    - App\Security\Dean\LoginFormAuthenticator
+            logout:
+                path: app_dean_logout
+                # where to redirect after logout
+                target: web_home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

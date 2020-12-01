@@ -1,0 +1,142 @@
+{% extends web_layout_dir ~ "base.html.twig" %}
+
+{% set title = "About Eduniversal Dean's Vote" %}
+
+{% block matomo %}
+    {% if include_matomo == "on" %}
+        {% include web_layout_dir ~ "global/matomo.html.twig" %}
+    {% endif %}
+{% endblock %}
+
+{# active menu color #}
+{% set menu_about_us_active = "active" %}
+
+{% block main_content %}
+<main id="main" class="underpage aboutus-content">
+    <div class="container">
+        <div class="box-aboutus clearfix">
+            <div class="JSaboutus">
+                <!-- <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/a.jpg"></div> -->
+                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/b.jpg"></div>
+                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/c.jpg"></div>
+                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/d.jpg"></div>
+                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/e.jpg"></div>
+                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/f.jpg"></div>
+                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/g.jpg"></div>
+                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/h.jpg"></div>
+            </div>
+            <div class="box" style="bottom: -150px; right: -150px;">
+                <div class="border">
+                    The last <strong>Eduniversal World Convention</strong> took place in Bangkok - Thailand, in
+                    October
+                    2019 with many events:<br />
+                    - The official announcement and rewarding of the Eduniversal 1,000 Best Business Schools in
+                    154
+                    countries,<br />
+                    - Ranked according to the results of the Dean’s Vote session 2019,<br />
+                    - The Gala Dinner and Palmes Awards ceremonies,<br />
+                    - Various conference, working sessions and networking opportunities.<br />
+                    <span style="color: #d80000; font-weight: bold;">For more information about EWC </span><a
+                        target="_blank" href="http://convention.eduniversal.com" class="link-to-convention"
+                        style="font-weight: bold;">click here</a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center">
+            <h4 class="title-ct-line">About Eduniversal Dean's Vote</h4>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <p>Headquartered in Paris, Eduniversal is a global ranking and rating agency that specializes in
+                    higher education. The company has established its strong expertise in evaluating academic
+                    institutions and programs in France since 1994, and internationally since 2007.
+                    <br>
+                    <br>
+                    <b>Eduniversal publishes two annual global rankings:</b><br>
+                    - The Best 1000 Business Schools in 154 countries <a target="_blank"
+                        href="http://www.eduniversal-ranking.com">(www.eduniversal-ranking.com)</a><br>
+                    - The Best Masters & MBA worldwide ranking in 50 different fields of study <a target="_blank"
+                        href="http://www.best-masters.com">(http://www.best-masters.com/)</a>
+                    <br>
+                    <br>
+                    These rankings provide information to prospective graduate students to help them in their
+                    search for their future studies in the following zones: Africa, Central Asia, Eastern
+                    Europe, Eurasia & Middle East, Far East Asia, Latin America, North America, Oceania, Western
+                    Europe.<br />
+                    They’re also used by companies, and by institutions themselves to develop partnerships all
+                    over the world.
+                </p>
+                <br>
+            </div>
+            <div class="col-md-6">
+                <div class="panel-style">
+                    <div class="panel_head">
+                        <h3>Our Mission</h3>
+                        <img class="iccon-lg-center" src="{{ asset('assets/web') }}/images/fava-mission.png">
+                    </div>
+                    <div class="panel_content">
+                        <p>To provide the tools and expertise to enable individuals, regardless of nationality,
+                            income level or background, to be able to navigate the best global educational
+                            opportunities and to make the right personal choices, from selecting an academic
+                            institution to choosing a career.
+                            <br>
+                            <br>
+                            To provide an in depth view on global academic expertise to all stakeholders of
+                            higher education with the goal of actively supporting international exchanges
+                            between schools, encouraging mobility for professors and students, and assisting HR
+                            professionals to identify specialized talent.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wp_listwhy_about">
+            <div class="text-center">
+                <h4 class="title-ct-line">Why should I vote?</h4>
+            </div>
+            <ul class="listwhy_about">
+                <li>
+                    <p>I am the Dean/Director/Rector of one of Eduniversal business schools’ network.</p>
+                </li>
+
+                <li>
+                    <p>It is important to acknowledge achievements and performance.</p>
+                </li>
+
+                <li>
+                    <p>I want to take an active role in the development and success of business schools and
+                        universities internationally.</p>
+                </li>
+
+                <li>
+                    <p>I think that this classification is unconventional, it truly captures the sense of
+                        initiative and creative efforts beyond the internationally agreed upon criteria.</p>
+                </li>
+
+                <li>
+                    <p>I would like to contribute to the reinforcement of the Eduniversal community.</p>
+                </li>
+
+                <li>
+                    <p>I find it important that all deans (where possible) participate in the so that the
+                        results are conclusive.</p>
+                </li>
+
+                <li>
+                    <p>
+                        I can choose the way I manage my vote : 1) <b>I reserve myself the right to vote</b> ;
+                        2) <b>I consult with faculty members to make a collegial vote</b> ; or 3) <b>I would
+                            like to delegate my right to vote to another colleague</b>.
+                    </p>
+                </li>
+            </ul>
+        </div><!-- /.wp_listwhy_about -->
+        <div class="wp-btn-startvote">
+            <div>
+                <!-- <a href="/#sec-form-login" class="btn btn-primary">Start your voting session 2020</a> -->
+                <a href="/#sec-form-login" class="btn btn-primary">Start your voting session 2020</a>
+            </div>
+            <hr>
+        </div>
+    </div>
+</main>
+{% endblock %}

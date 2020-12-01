@@ -1,0 +1,165 @@
+{% extends web_layout_dir ~ "base.html.twig" %}
+
+{% set title = "Dean's vote 2020, Eduniversal Evaluation Agency" %}
+
+{# active menu color - nav methodology #}
+{% set menu_methodology_active = "active" %}
+{% set nav_international_scientific_committee_active = "active" %}
+
+{% block main_content %}
+<main id="main" class="underpage method-content">
+    <div class="container">
+        <div class="row">
+            <!-- methodology option -->
+            {% include "web/page/methodology/partial/methodology_option.html.twig" %}
+            <!-- end -->
+            <div class="col-sm-9 methodology_standar_content">
+                <h2 class="title">The EDUNIVERSAL International Scientific Committee</h2>
+                <p>The International Scientific Committee (ISC), is comprised of 11 members: two executive members within Eduniversal, and nine independent experts in higher education. All members have significant experience in the academic world and within their zone. The Committee is responsible for the Official Selection of the best 1000 business schools, monitors the Deans' Voting process, and oversees the EDUNIVERSAL Business Schools Ranking Methodology</p>
+                <ul class="row imgL">
+                    <li class="col-xs-4"><img src="{{ asset('assets/web') }}/images/committee/ISC1.jpg" alt=""></li>
+                    <li class="col-xs-4"><img src="{{ asset('assets/web') }}/images/committee/ISC2.JPG" alt=""></li>
+                    <li class="col-xs-4"><img src="{{ asset('assets/web') }}/images/committee/ISC3.jpg" alt=""></li>
+                    <li class="col-xs-4"><img src="{{ asset('assets/web') }}/images/committee/ISC4.jpg" alt=""></li>
+                    <li class="col-xs-4"><img src="{{ asset('assets/web') }}/images/committee/ISC5.JPG" alt=""></li>
+                    <li class="col-xs-4"><img src="{{ asset('assets/web') }}/images/committee/ISC6.jpg" alt=""></li>
+                </ul>
+                <br>
+                <div class="block-info2">
+                    <h4><b>THE 9 EXPERT MEMBERS OF THE INTERNATIONAL SCIENTIFIC COMMITTEE</b></h4>
+                    <h5>All the nine expert members are experienced and prominent personalities in the academic field of their geographical zone:</h5>
+                    <ul class="info2">
+                        <li class="clearfix">
+                            <div class="if-left">
+                                <div class="img-prof">
+                                    <img src="{{ asset('assets/web') }}/images/committee/1-SK.jpg" alt="Dr. Sherif Kamel" title="Dr. Sherif Kamel">
+                                </div>
+                                <h5>AFRICA</h5>
+                                <p>Dr. Sherif Kamel</p>
+                            </div>
+                            <div class="if-right">
+                                <p>Sherif Kamel is professor of management and dean of the school of business at The American University in Cairo. He served as senior advisor for strategic planning to the president of the university (2017) and vice president of the university for information management (2016). During his first spell as dean (2009-2014), the school achieved triple crown accreditation, introduced the Executive MBA, the master of science in finance, established the Center for Entrepreneurship and Innovation and the university accelerator; the Venture Lab. He helped raise close to 10 million US dollars in gifts, scholarships and sponsorships. He was associate dean for executive education (2008-2009) and director of executive education (2002-2008). Before joining the university, he led the training and professional development institute of the Cabinet of Egypt Information and Decision Support Center (1989-1992) and the Regional Information Technology Institute (1992-2001). Kamel is an Eisenhower Fellow. He is a board member of the American Chamber of Commerce in Egypt and the Egypt U.S. Business Council. He was a board member of the Egyptian American Enterprise Fund (2013-2016), the World Bank Knowledge Advisory Commission (2012-2014) and a founding member of the Internet Society of Egypt (1996).</p>
+                                <p>His research and teaching interests include management of information technology, information technology transfer to developing nations, organizational transformation, electronic business, decision support systems and entrepreneurship. His work is broadly published IS and management journals and books. He received several academic, professional and leadership awards including the AACSB International Influential Leaders Challenge Honoree, USA (2018); London School of Economics and Political Science Outstanding Alumni Award, UK (2017); best paper award of the International Conference on Information Resources Management, Canada (2016); The American University in Cairo Distinguished Alumni Faculty Service Award (2014); UNDP National Human Resource Development Award (2014); and The American University in Cairo President’s Catalyst of Change Award for Citizenship and Service (2013). Kamel holds a PhD in information systems from London School of Economics and Political Science, an MBA, a BA in business administration and an MA in Islamic art and architecture from the American University in Cairo.</p>
+                            </div>
+                        </li>
+                        <li class="clearfix">
+                            <div class="if-left">
+                                <div class="img-prof">
+                                    <img src="{{ asset('assets/web') }}/images/committee/2-AM.jpg" alt="Prof. Dr. Aneeta Madhok" title="Prof. Dr. Aneeta Madhok">
+                                </div>
+                                <h5>CENTRAL ASIA</h5>
+                                <p>Prof. Dr. Aneeta Madhok</p>
+                            </div>
+                            <div class="if-right">
+                                <p>Prof. Dr. Aneeta Madhok (PhD, PCC, SHRM-SCP) is Managing Director at Open Spaces Consulting and has been the Dean (Center for Human Resources) at S.P. Jain Center of Management, Dubai and Singapore and Dean (School of Business) at NMIMS Deemed University in India.</p>
+                                <p>She has contributed to the consulting profession as Chairperson of the International Council of Management Consulting Institutes (ICMCI) (2009-2011) over 49 countries worldwide, and is a global expert on Professional Development and Knowledge in the areas of Management Education, Human Resources and Management Consulting.</p>
+                            </div>
+                        </li>
+
+                        <li class="clearfix">
+                            <div class="if-left">
+                                <div class="img-prof">
+                                    <img src="{{ asset('assets/web') }}/images/committee/2-VK.jpg" alt="Dr. Virginijus Kundrotas" title="Dr. Virginijus Kundrotas">
+                                </div>
+                                <h5>EASTERN EUROPE</h5>
+                                <p>Dr. Virginijus Kundrotas</p>
+                            </div>
+                            <div class="if-right">
+                                <p>Virginijus Kundrotas is Doctor of Social Sciences (Education), Dean of Adizes Graduate School (USA), Managing Director of Adizes Institute for Lithuania, and certified Adizes Associate in the Adizes Methodology for Organizational transformation and change. He is President of the Baltic Management Development Association (BMDA), Vice-president of Central and East European Management Development Association (CEEMAN), EDAF committee member (EFMD); Member of Editorial Board of Baltic Journal of Management (UK), member of International Scientific Committee of the EDUNIVERSAL - Official selection of World Business Schools (France), Member of the Board of Trustees of Almaty Management University (Kazakhstan), Kazan Business School (Russia), etc. He also serves as a Board member of Lithuanian Free Market Institute, SC Linas, VilNews on-line magazine, and number of other institutions.</p>
+
+                                <p>Dr. Virginijus Kundrotas is Founding President of ISM University of Management and Economics, Lithuania (first private HEI in the country) performed in this position from year of establishment in 1999 till 2008. Virginijus Kundrotas delivers trainings and consults various organizations around the World on Change Management, Organizational transformation, Leadership, Business ethics and Corporate responsibility. He also coaches managers of various business and non-profit organizations. His extensive practical experiences and practice of managing organizations as well as deep theoretical knowledge of various management methodologies and approaches, makes him easy understandable and very well accepted among CEOs and other managers within companies.</p>
+
+                                <p>Dr. V.Kundrotas is visiting professor at number of Business Schools in USA (Adizes Graduate School), France (Kedge Business School), Poland (GFMD), Czech Republic (Prague University of Economics), Latvia (RTU, RISEBA, BA Business school), Lithuania (ISM University of Management and Economics, KTU), Kazakhstan (ALMU), Russia (IBS, Moscow, Kazan BS, Irkutsk Business school), etc.</p>
+
+                                <p>Dr. V. Kundrotas is a Founding President and member of Kauno Tauras Rotary club as well as member of Vilnius International Club.</p>
+                            </div>
+                        </li>
+
+
+                        <li class="clearfix">
+                            <div class="if-left">
+                                <div class="img-prof">
+                                    <img src="{{ asset('assets/web') }}/images/committee/4-NA.jpg" alt="Prof. Nehme Azoury" title="Prof. Nehme Azoury">
+                                </div>
+                                <h5>EURASIA &amp; MIDDLE EAST</h5>
+                                <p>Prof. Nehme Azoury</p>
+                            </div>
+                            <div class="if-right">
+                                <p>Nehme Azoury is a Professor and Deputy-President for research at the Holy Spirit University of Kaslik – USEK. He is also one of the eight members of the scientific committee of Eduniversal (the representative of the Eurasian region).</p>
+                                <p>Former Dean of the Faculty of Business, he lectures in the fields of marketing, strategy and Corporate Governance in several reputed universities namely, The Georges Washington University, which presented him with an appreciation award. As part of his research activities, he has to his credit several publications in internationally renowned scientific journals. To promote research in the Arab world, he is founder and editor of "The Arab Economic &amp; Business Journal". In addition, and beyond his academic and administrative activities, Nehme Azoury is currently Managing-partner at Widein, a consulting firm headquartered in Beirut.</p>
+                            </div>
+                        </li>
+
+                        <li class="clearfix">
+                            <div class="if-left">
+                                <div class="img-prof">
+                                    <img src="{{ asset('assets/web') }}/images/committee/5-SJP.jpg" alt="Prof. Sung Joo Park" title="Prof. Sung Joo Park">
+                                </div>
+                                <h5>FAR EAST ASIA</h5>
+                                <p>Prof. Sung Joo Park</p>
+                            </div>
+                            <div class="if-right">
+                                <p>Prof. Sung Joo Park is the former Dean and Vice president of KAIST (Korea Advanced Institute of Science and Technology). He is currently a professor emeritus at KAIST Business School. Holding a PhD from Michigan State University, he was also the founding president of AAPBS (Association of Asia-Pacific Business Schools,), and served as board members of the AACSB and the GFME (Global Foundation for Management Education) and is an advisor to EFMD. Also, he served as an advisor to Samsung Group and is a lifetime member of Korean Academy of Science &amp; Technology.
+                                </p>
+                            </div>
+                        </li>
+
+                        <li class="clearfix">
+                            <div class="if-left">
+                                <div class="img-prof">
+                                    <img src="{{ asset('assets/web') }}/images/committee/6-ER.jpg" alt="Prof. Edson Luiz Riccio" title="Prof. Edson Luiz Riccio">
+                                </div>
+                                <h5>LATIN AMERICA</h5>
+                                <p>Prof. Dr. Edson Luiz Riccio</p>
+                            </div>
+                            <div class="if-right">
+                                <p>Prof Dr. Edson Luiz Riccio is a Senior Professor at the School of Economics Business and Accountancy (FEA), University of São Paulo (USP) and well-established Researcher. His areas of teaching and research are International Management and Business Information Systems with extensive list of published works. He has been active as Visiting Professor in business schools in Europe. He was the Deputy Director of International Relations for the School of Business of USP for 19 years, from 1997 to 2016. He also works as an International Education Advisor. He is founder and Editor of the Journal of Information Systems and Technology Management (ISSN 1807-1775) ; founder and Chair of CONTECSI – International Conference on Information Systems and Technology Management (ISSN 2448-1041); Founder and Director of TECSI – Research Lab of Information Systems and Technology Management. He is founder and President of the Brazilian Chapter of AIS – Association for Information Systems. He holds a PhD in Business Information Systems from USP and an SEP in International Management from Stanford University. His professional career includes long experience as top executive in international corporations, in positions such as CIO and General Manager as well as Leader Consultant of Organizational Projects in large consulting organization.</p>
+                            </div>
+                        </li>
+
+                        <li class="clearfix">
+                            <div class="if-left">
+                                <div class="img-prof">
+                                    <img src="{{ asset('assets/web') }}/images/committee/7-GJ.jpg" alt="Prof. George M. Jabbour" title="Prof. George M. Jabbour">
+                                </div>
+                                <h5>NORTH AMERICA AND MASTERS RANKING BRANCH</h5>
+                                <p>Dr. George Jabbour</p>
+                            </div>
+                            <div class="if-right">
+                                <p>Dr. George Jabbour is the Associate Dean for Executive Programs, Professor of Finance, and Director of the Masters in Finance Program at The George Washington University School of Business. He has been a consultant and conducting professional training for the World Bank Group in Washington DC (USA), Vienna (Austria) and Islamabad (Pakistan), for The International Training Banking Center in Budapest (Hungary), the Center of Excellence in Management in Kuwait, and for Kipco Asset Management Group (KAMCO) in Kuwait. He was a Visiting Professor at Franklin College in Lugano (Switzerland), Dongseo University (South Korea), Holy Spirit University-Kaslik, Sorbonne University in Paris (France) and Renmin University in Beijing (China). He developed curriculum for BBA and Msc degrees in business and finance. He has several publications in professional refereed journals. He co-authored “The Option Trader Handbook” for trade adjustments. His research papers were presented in the US and around the world. He is a member of several leading professional finance organizations. He is a member of the editorial advisory board of five journals. Four of his co-authored papers won the best paper award. He has received several Teaching Excellence Awards. In addition to his academic career, Dr. Jabbour is very active in equity and derivatives trading. He was Senior Financial Analyst at Federal Home Loan Mortgage Corporation and a consultant to several American corporations and international organizations. He has a Ph.D. in Finance, an MBA in Finance, a BBA in Marketing, and BS in Mathematics.</p>
+                            </div>
+                        </li>
+
+                        <li class="clearfix">
+                            <div class="if-left">
+                                <div class="img-prof">
+                                    <img src="{{ asset('assets/web') }}/images/committee/8-MW.jpg" alt="Prof. Mike Wood" title="Prof. Mike Wood"></span>
+                                </div>
+                                <h5>OCEANIA</h5>
+                                <p>Prof. Mike Wood</p>
+                            </div>
+                            <div class="if-right">
+                                <p>Mike Wood’s career is diverse: he has been a journalist, academic, senior public servant as Public Service Commissioner, head of the Department of Local Government, chair of the WA Salaries and Allowances Tribunal, director of his strategy company and Dean of the Curtin Business School, At present, he is an adjunct Professor at the University of Notre Dame Australia in the Business School at its Fremantle campus where he recently designed two units on leadership in the Catholic intellectual tradition. Mike also undertakes work involving the international accreditation of business schools for the European Foundation for Management Development.</p>
+                                <p>Mike taught public policy at the University of Tasmania, at Curtin and UWA and leadership and strategy at Notre Dame. When in the public service, he contributed to the reform of Cabinet processes and to local government grants funding as chair of the WA Local Government Grants Commission. He has published on Australian local government, state administration, electoral behavior and federalism. He recently completed a period as chair of Member (trustees) for Ruah Community Services, having been the founding chair of its board in the 1990s. He served for several years on the St Thomas More College Council at the University of WA (he was senior student there in 1966) and was for a short time on the board of the former St Anne’s Hospital. Mike is a member of the International Scientific Committee at Eduniversal, a French organisation ranking. business schools. He married Judy in Tasmania in 1972 and they have two daughters, a son and a grandson – all of whom live in WA. Mike has had a lucky life and is forever grateful to his parents and for the exciting life he had at university with its academic and social life and the making of friends for life. He can be contacted at <a href="mailto:mikewood10@bigpond.com">mikewood10@bigpond.com</a></p>
+                            </div>
+                        </li>
+
+                        <li class="clearfix">
+                            <div class="if-left">
+                                <div class="img-prof">
+                                    <img src="{{ asset('assets/web') }}/images/committee/9-AS.jpg" alt="Mr. Axel Schumacher" title="Mr. Axel Schumacher">
+                                </div>
+                                <h5>WESTERN EUROPE</h5>
+                                <p>Mr. Axel Schumacher</p>
+                            </div>
+                            <div class="if-right">
+                                <p>Axel Schumacher was Director International Relations, Global University Systems (London) from May 2017 to July 2019. Between January 2016 and May 2017, he was Special Advisor to the Dean of the MCI-Management Center Innsbruck. From June 2002 to December 2015, he was Associate Dean for International Relations at the Business and Law Schools of the EBS Universität für Wirtschaft und Recht (EBS University of Business and Law) in Oestrich-Winkel and Wiesbaden (Germany). Previously he was Director of International Programmes at WHU, Otto Beisheim School of Management (Germany). He has been working in the field of International Relations for more than 35 years. Over this period he has initiated more than 300 university partnerships in 57 countries around the globe, including 50 dual degree agreements at the undergraduate and graduate levels. He has published research papers and contributed to books on the Concept of Private Universities in Germany and on Strategies of Internationalization for Business Schools.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div><!-- /.block-info2 -->
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

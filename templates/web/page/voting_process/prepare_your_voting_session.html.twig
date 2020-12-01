@@ -1,0 +1,149 @@
+{% extends web_layout_dir ~ "base.html.twig" %}
+
+{% set title = "Dean's vote 2020, Eduniversal Evaluation Agency" %}
+
+{# active menu color #}
+{% set menu_deans_session_active = "active" %}
+
+{% block main_content %}
+<main id="main" class="underpage step-content">
+    <div class="step-head">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6">
+                    <!-- col-sm-offset-1 col-sm-6 -->
+                    <ul class="step-sec clearfix">
+                        <li class="pull-left"><img src="{{ asset('assets/web') }}/images/step-1.png"></li>
+                        <li class="pull-right">
+                            <a href="{{ path('web_start_your_voting_session') }}">
+                                <img src="{{ asset('assets/web') }}/images/step-2-disable.png">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-offset-1 col-md-10">
+                <div class="voting-section">
+                    <div class="text-center">
+                        <h2 class="title-style">Prepare your voting session</h2>
+                    </div>
+                    <ul class="prepare-voting-list">
+                        <li>
+                            <div class="l-img">
+                                <img src="{{ asset('assets/web') }}/images/img-article.png">
+                            </div>
+                            <div class="r-text">
+                                <h5>Who can vote?</h5>
+                                <p>For reasons of transparency and neutrality, only Deans or Directors of the
+                                    Institution are
+                                    eligible to participate in the voting process. Nonetheless, this right can be
+                                    transferred to a
+                                    representative that can act on their behalf. In this case, please send your request
+                                    with the
+                                    detailed information about the replacement (name, surname, function and email
+                                    address) by email
+                                    at: <a href="mailto:deans.vote@eduniversal-group.com">deans.vote@eduniversal-group.com</a>
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="l-img">
+                                <img src="{{ asset('assets/web') }}/images/img-article2.png">
+                            </div>
+                            <div class="r-text">
+                                <h5>How to Start voting?</h5>
+                                <ul class="notes">
+                                    <li>Start by downloading <a href="static/document/2020-Eduniversal-Official-Selection-of-the-1000-Best-Business-Schools-in-154-countries.pdf" target="_blank">the list of the Eduniversal Official Selection of the 1,000
+                                            business schools
+                                            in 154 countries</a>. This step will familiarise you with the list of
+                                        institutions, it will
+                                        also give you a clearer idea on how to prepare your recommendations, making the
+                                        voting process
+                                        much faster.</li>
+                                    <li>You will need to login to your session first before you be redirected to the
+                                        voting platform.
+                                        In order to do that, you need to click on <a href="{{ app.request.scheme ~'://' ~ app.request.httpHost }}#sec-form-login"><strong>«
+                                                Start your voting
+                                                session 2020 »</strong></a> and then use the login and password <b>that
+                                            were communicated to
+                                            you by email</b>.</li>
+                                </ul>
+                                <p>
+                                    In case you have lost your credentials, please use the function <b>« forgot your
+                                        password »</b> in
+                                    order to receive new ones within 24hours. You can also contact us directly using
+                                    this email
+                                    address <a href="mailto:deans.vote@eduniversal-group.com">deans.vote@eduniversal-group.com</a>.
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="l-img">
+                                <img src="{{ asset('assets/web') }}/images/img-article3.png">
+                            </div>
+                            <div class="r-text">
+                                <h5>Terms & conditions</h5>
+                                <ul class="step1-rule">
+                                    <li>You are allowed to communicate your recommendations on no more than 50% of
+                                        business schools
+                                        per country. For example, if the list contains 10 business schools in Angola,
+                                        you can only
+                                        assign your vote to 5 institutions.</li>
+                                    <li>The countries are presented in an alphabetical order from Albania to Zimbabwe,
+                                        and so you will
+                                        have to navigate through them in this order.</li>
+                                    <li>Your country will be the last one in the list in the voting process (after
+                                        Zimbabwe), before
+                                        then you cannot vote for any institution in your country.</li>
+                                    <li>If you believe that you do not have enough information about a certain
+                                        institution to make a
+                                        responsible vote, or if you simply do not have any recommendations for certain
+                                        institutions in a
+                                        particular country, please select: "No, I don’t recommend any institution in
+                                        this country”</li>
+                                    <li>You are not allowed to vote for your own institution; that is why in your voting
+                                        session, your
+                                        institution doesn’t appear in the voting list for your country.</li>
+                                    <li>Do not forget to save before leaving the voting session, your information will
+                                        be
+                                        automatically restored when you go back, you can then continue your voting
+                                        session.<br>
+                                        Kindly note that once you submit your final recommendations, your voting session
+                                        is closed and
+                                        cannot be modified.</li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div> <!-- /.voting-section -->
+                <div class="row">
+                    <div class="col-sm-4">
+                        <a class="link-step" href="/about-eduniversal-dean-vote"><span class="lnr lnr-arrow-left"></span> About
+                            Eduniversal Dean's Vote</a>
+                    </div>
+                    <div class="col-sm-4 text-center">
+                        <a class="btn-tutorial" href="{{ path('web_voting_tutorial') }}">Voting tutorial</a>
+                    </div>
+                    <div class="col-sm-4 text-right">
+                        <!-- <a class="link-step" href="/voting-process/start-your-voting-session"><b>STEP 2:</b> Start your voting session 2020  <span class="lnr lnr-arrow-right"></span></a> -->
+                        <a class="link-step" href="{{ path('web_start_your_voting_session') }}"><b>STEP 2:</b> Start your
+                            voting session 2020 <span class="lnr lnr-arrow-right"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--/. row  -->
+        <div class="wp-btn-startvote">
+            <div>
+                <!-- <a href="/#sec-form-login" class="btn btn-primary">Start your voting session 2020</a> -->
+                <a href="{{ app.request.scheme ~'://' ~ app.request.httpHost }}#sec-form-login" class="btn btn-primary">Start your voting session 2020</a>
+            </div>
+            <hr>
+        </div>
+    </div>
+</main>
+{% endblock %}

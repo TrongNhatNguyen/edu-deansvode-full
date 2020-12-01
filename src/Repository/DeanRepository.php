@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Dean;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,9 +15,13 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class DeanRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $entityManager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         parent::__construct($registry, Dean::class);
+
+        $this->entityManager = $entityManager;
     }
 
     // /**
@@ -47,4 +52,12 @@ class DeanRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function changePassword($getUser, $password)
+    {
+            $deanUser = $getUser;
+            $deanUser->setPassword1($password);
+
+            $this->entityManager->persist($deanUser);
+            $this->entityManager->flush();
+    }
 }

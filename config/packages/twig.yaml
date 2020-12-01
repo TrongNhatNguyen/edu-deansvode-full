@@ -3,3 +3,20 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     exception_controller: null
+    globals:
+        domain_url: '%env(DOMAIN_URL)%'
+        js_folder: '%env(JS_FOLDER)%'
+        google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
+        include_matomo: '%env(INCLUDE_MATOMO)%'
+        matomo_analytics: '%env(MATOMO_ANALYTICS)%'
+        
+        ### general path WEB in template:
+        #component:
+        web_component_dir: 'web/component/'
+        # layout:
+        web_layout_dir: 'web/layout/'
+        # page:
+        web_page_dir: 'web/page/'
+        ## dean:
+        web_dean_dir: 'web/page/dean/'
+        
