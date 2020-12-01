@@ -13,4 +13,10 @@ twig:
         asset_admin_dir: 'assets/admin'
         asset_admin_css_dir: 'assets/admin/css'
         asset_admin_js_dir: 'assets/admin/js'
-        asset_admin_fonts_dir: 'assets/admin/fonts'
+        asset_admin_image_dir: 'assets/admin/images'
+
+        asset_admin_v2_dir: 'assets/admin/v2'
+        asset_admin_v2_css_dir: 'assets/admin/v2/css'
+        asset_admin_v2_js_dir: 'assets/admin/v2/js'
+        asset_admin_v2_image_dir: 'assets/admin/v2/img'
+        asset_admin_v2_fonts_dir: 'assets/admin/v2/fonts'

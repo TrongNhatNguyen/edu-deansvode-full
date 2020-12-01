@@ -5,6 +5,7 @@ namespace App\ViewModel\School;
 use Twig\Environment;
 use App\Service\ZoneService;
 use App\Service\CountryService;
+use Symfony\Component\HttpFoundation\Request;
 
 class SchoolTableViewModel
 {
@@ -20,6 +21,8 @@ class SchoolTableViewModel
 
     private $twig;
 
+    private $queryObject;
+
     public function __construct(
         CountryService $countryService,
         ZoneService $zoneService,
@@ -30,7 +33,7 @@ class SchoolTableViewModel
         $this->twig = $twig;
     }
 
-    public function renderMainSchoolTableHeader()
+    public function renderMainSchoolTableBody()
     {
         $countries = $this->countryService->getAllCountriesByAlphabeticalOrder();
         $zones = $this->zoneService->getAllZonesByAlphabeticalOrder();

@@ -1,0 +1,81 @@
+#cke_editor
+{
+    margin-left: 0;
+}
+
+.cke_editor textarea
+{
+    width: 100% !important;
+}
+
+textarea#note-content
+{
+    font-size: 11px;
+}
+
+.btn-new
+{
+    border-width: 1px;
+    border-radius: 30px;
+    padding-right: 14px;
+    padding-left: 14px;
+    font-size: 12px;
+}
+
+.custom-pill
+{
+    padding: 10px 10px !important;
+}
+
+.custom-pill-2
+{
+
+}
+
+.img-pill
+{
+    max-width: 70%;
+}
+
+.custom-big-text
+{
+    font-size: 28px !important;
+}
+
+.select-keyword
+{
+    font-size: 12px;
+}
+
+.breadcrumb-marketing a
+{
+    color: #c3c3c3;
+}
+
+.breadcrumb-marketing a.current
+{
+    color: #33385A;
+    cursor: default;
+    text-decoration: none;
+}
+
+#filter-for-last-year input
+{
+    float: left;
+    clear: none;
+    margin-right: 2px;
+}
+
+#filter-for-last-year label
+{
+    float: left;
+    clear: none;
+    display: block;
+    line-height: 24px;
+    margin-right: 20px;
+}
+
+#count_email {
+    margin-right: 5px;
+    margin-left: 5px;
+}

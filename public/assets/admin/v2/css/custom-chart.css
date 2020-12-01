@@ -1,0 +1,40 @@
+.donut-chart-label {
+    text-align: center;
+}
+.donut-chart-label ul {}
+.donut-chart-label ul li {
+    display: inline-block;
+    margin-right: 50px;
+}
+.c3-chart-arcs-title {
+    font-weight: bold;
+    dominant-baseline: middle;
+    font-size: 1.3em;
+}
+.custom-tooltip {
+    font-family: Roboto, sans-serif;
+    font-size: 12px;
+    background-color: #343952;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 5px;
+}
+
+.donut {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.donut-chart-title {
+    text-align: center;
+    vertical-align: middle;
+    position: absolute;
+}
+.donut-chart-title span {
+    font-size: 16px;
+    font-weight: bold;
+}
