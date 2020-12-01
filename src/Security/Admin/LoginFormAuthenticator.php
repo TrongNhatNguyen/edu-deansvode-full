@@ -91,7 +91,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             ]);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('admin_dashboard'));
+        return new RedirectResponse($this->urlGenerator->generate('admin_school_list'));
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)

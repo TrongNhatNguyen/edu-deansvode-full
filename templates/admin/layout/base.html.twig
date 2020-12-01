@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Dean Vote CMS Eduniversal Business School</title>
+    <link rel="shortcut icon" href="static/admin/assets/img/ico.ico" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>CMS Deanvote</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+        name='viewport' />
+    <!-- Fonts and icons -->
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin-ext"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+
+    <!-- CSS Files -->
+    <link href="{{ asset(asset_admin_v2_css_dir) }}/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{ asset(asset_admin_v2_css_dir) }}/simple-line-icons.css" rel="stylesheet" />
+    <link href="{{ asset(asset_admin_v2_css_dir) }}/form.css" rel="stylesheet" />
+    <link href="{{ asset(asset_admin_v2_css_dir) }}/bootstrap-datepicker.standalone.min.css" rel="stylesheet" />
+    <link href="{{ asset(asset_admin_v2_css_dir) }}/now-ui-dashboard.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link href="{{ asset(asset_admin_v2_css_dir) }}/custom.css" rel="stylesheet" />
+    <link href="{{ asset(asset_admin_v2_css_dir) }}/c3.min.css" rel="stylesheet" />
+    <link href="{{ asset(asset_admin_v2_css_dir) }}/custom-chart.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+
+    {% block style %}{% endblock %}
+</head>
+
+<body class="sidebar-mini">
+    <div class="wrapper">
+        <!-- Sidebar -->
+        {% include admin_layout_partial_dir ~ '\/' ~ 'sidebar.html.twig' %}
+        <!-- End Sidebar -->
+
+        <div class="main-panel">
+            <!-- Navbar -->
+            {% include admin_layout_partial_dir ~ '\/' ~ 'navbar.html.twig' %}
+            <!-- End Navbar -->
+
+            <div class="panel-header panel-header-sm">
+            </div>
+
+            {% block content %}{% endblock %}
+
+            {% include admin_layout_partial_dir ~ '\/' ~ 'footer.html.twig' %}
+        </div>
+    </div>
+</body>
+<!--   Core JS Files   -->
+
+<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/config.js"></script>
+<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/common.js"></script>
+<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/update.js"></script>
+<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/jquery.cookie.js"></script>
+<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/jquery-ui-1.10.3.custom.min.js"></script>
+<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/list.js"></script>
+<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/extend.js"></script>
+<script type="text/javascript">
+    var pagingCookie = "paging_limit_index";
+        $(document).ready(function() {
+    })
+</script>
+<!-- <script src="{{ asset(asset_admin_js_dir) }}/core/jquery.min.js"></script> -->
+<script src="{{ asset(asset_admin_js_dir) }}/core/popper.min.js"></script>
+<script src="{{ asset(asset_admin_js_dir) }}/core/bootstrap.min.js"></script>
+<script src="{{ asset(asset_admin_js_dir) }}/plugins/perfect-scrollbar.jquery.min.js"></script>
+<!--  Plugin    -->
+<script src="{{ asset(asset_admin_js_dir) }}/plugins/bootstrap-notify.js"></script>
+<script src="{{ asset(asset_admin_js_dir) }}/plugins/bootstrap-datepicker.min.js"></script>
+<script src="{{ asset(asset_admin_js_dir) }}/now-ui-dashboard.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ asset(asset_admin_js_dir) }}/jquery-migrate-3.0.0.min.js"></script>
+
+{% block javascript %}{% endblock %}
+
+</html>

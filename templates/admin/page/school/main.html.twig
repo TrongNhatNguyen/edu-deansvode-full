@@ -1,0 +1,249 @@
+{% extends 'admin/layout/base.html.twig' %}
+
+{% block content %}
+    <div class="content">
+        <div class="row align-items-center panel-heading-top">
+            <div class="col-12 col-md-4">
+                <div class="form-row filter-row mt-2">
+                    <div class="col-4 col-md-4 form-group form-group-primary">
+                        <select class="custom-select select-style-second form-control select-keyword"
+                            id="listField">
+                            <option value="name">School Name</option>
+                            <option value="id">School Id</option>
+                            <option value="dean_name">Dean Name</option>
+                        </select>
+                    </div>
+                    <div class="col-8 col-md-8">
+                        <div class="input-group no-border ">
+                            <span class="input-group-addon">
+                                <i class="now-ui-icons ui-1_zoom-bold"></i>
+                            </span>
+                            <input type="text" value="" class="form-control" placeholder="Search..."
+                                id="txtKeyword" />
+                        </div>
+
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary  d-none">Search</button>
+            </div>
+            <div class="col-12 col-md-8">
+                <div class="card-plain card-subcategories card mb-0">
+                    <div class="card-body" style="padding-right: 0">
+                        <ul class="nav nav-pills nav-pills-primary nav-pills-icons justify-content-end">
+                            <li class="nav-item" style="cursor: pointer">
+                                <a class="nav-link "
+                                    onclick="return change_year('/admin/test/index/year/2017');"
+                                    style="padding: 6px 8px;">
+                                    <span style="font-size: 1.1rem;">2017</span>
+                                    <i class="icon-svg"><img src="{{ asset(asset_admin_v2_image_dir) }}/path-year.svg"
+                                            class="img-pill"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item" style="cursor: pointer">
+                                <a class="nav-link "
+                                    onclick="return change_year('/admin/test/index/year/2018');"
+                                    style="padding: 6px 8px;">
+                                    <span style="font-size: 1.1rem;">2018</span>
+                                    <i class="icon-svg"><img src="{{ asset(asset_admin_v2_image_dir) }}/path-year.svg"
+                                            class="img-pill"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item" style="cursor: pointer">
+                                <a class="nav-link "
+                                    onclick="return change_year('/admin/test/index/year/2019');"
+                                    style="padding: 6px 8px;">
+                                    <span style="font-size: 1.1rem;">2019</span>
+                                    <i class="icon-svg"><img src="{{ asset(asset_admin_v2_image_dir) }}/path-year.svg"
+                                            class="img-pill"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item" style="cursor: pointer">
+                                <a class="nav-link active"
+                                    onclick="return change_year('/admin/test/index/year/2020');"
+                                    style="padding: 6px 8px;">
+                                    <span style="font-size: 1.1rem;">2020</span>
+                                    <i class="icon-svg"><img src="{{ asset(asset_admin_v2_image_dir) }}/path-year.svg"
+                                            class="img-pill"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+
+        <!-- row -->
+        <div class="card-plain">
+            <div class="d-flex align-items-center">
+                {% include admin_component_table_dir ~ '\/pagination.html.twig'  %}
+                <div class="ml-auto">
+                    <a class="btn btn-neutral" href="/admin/test/export-excel">EXPORT <i class="icon-svg"><img
+                                src="{{ asset(asset_admin_v2_image_dir) }}/excel.svg" alt="" width="20"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table text-center">
+                        {% include admin_component_table_dir ~ '\/table_header.html.twig'  %}
+                        {% include admin_component_table_dir ~ '\/table_body.html.twig'  %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="note-school-modal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <div class="logo text-center">
+                            <img src="{{ asset(asset_admin_v2_image_dir) }}/logo.png" />
+                        </div>
+                        <h4 class="modal-title">Note</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <textarea id="note-content" data-school=""></textarea>
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" onclick="save_note_school()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    
+    <script type="text/javascript">
+        var page_url = '/admin/test';
+        var selected_rows = [];
+
+        $(document).ready(function() {
+            list.url = page_url;
+            list.bindEvent();
+            list.loadCurrent('select[id=cboLimit]');
+            list.data.year = 2020;
+
+            $("#subzone").change(function() {
+                var id_subzone = $(this).val();
+                $.ajax({
+                    type: "POST",
+                    url: page_url + "/ajax-country",
+                    dataType: 'json',
+                    data: {
+                        id_subzone: id_subzone,
+                    },
+                    beforeSend: function() {
+                    },
+                    success: function(data) {
+                        if (data['status'] == 1) {
+                            $("#country_id").html(data['html']);
+                        }
+                    }
+                });
+            });
+        });
+
+        function show_note_school(school_id) {
+            if (school_id.length <= 0) {
+                return false;
+            }
+
+            $.ajax({
+                url: page_url + '/show-note-school',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: school_id },
+                success: function(response_data) {
+                    if (response_data['success'] == 1) {
+                        // console.log(response_data['note']);
+                        $('#note-content').html($.parseHTML(response_data['note']));
+                        $('#note-content').attr('data-school', school_id);
+                        $('#note-school-modal').modal('show');
+                    }
+                }
+            });
+        }
+
+        function get_report(element) {
+            var year_id = $(element).val();
+            var year_name = $('option:selected', element).text();
+            // var school_ids = new Array;
+            // $('#container tr').each(function(){
+            //     console.log($(this).attr('id'));
+            //     school_ids.push($(this).attr('id'));
+            // });
+
+            // if (year_id.length > 0 && school_ids.length > 0)
+            // {
+            //     $.ajax({
+            //         url: page_url + '/get-report',
+            //         type: 'post',
+            //         dataType: 'json',
+            //         data: { year_id: year_id, year_name: year_name, school_ids: school_ids },
+            //         success: function (response_data)
+            //         {
+            //             console.log(response_data);
+            //         }
+            //     });
+            // }
+            $('div[class*="report-"]').not('.report-' + year_name).css('display', 'none');
+            $('.report-' + year_name).css('display', 'block');
+        }
+
+        function save_note_school() {
+            var school_id = $('#note-content').attr('data-school');
+            var note_content = $('#note-content').val();
+
+            $.ajax({
+                url: page_url + '/save-note-school',
+                type: 'POST',
+                dataType: 'json',
+                data: { id: school_id, note: note_content },
+                success: function(response) {
+                    if (response.success == 1) {
+                        $('.note-' + school_id).html($.parseHTML(response.icon));
+                        $('#note-school-modal').modal('hide');
+                    }
+                }
+            });
+        }
+
+        function copy_vote(dean_id, year) {
+            $.confirm({
+                title: 'Copy Vote Data!',
+                content: 'Do you want to copy the previous data?',
+                type: 'dark',
+                buttons: {
+                    confirm: function() {
+                        $.ajax({
+                            type: "POST",
+                            url: page_url + "/copy-vote",
+                            dataType: 'json',
+                            data: {
+                                year: year,
+                                dean_id: dean_id,
+                            },
+                            success: function(data) {
+                                // console.log(data);
+                                requestPage(list.data.page);
+                                $.notify({
+                                    message: "Copy Successfully!",
+                                    type: 'info'
+                                });
+                            }
+                        });
+                    },
+                    cancel: function() { }
+                }
+            });
+        }
+    </script>
+{% endblock %}

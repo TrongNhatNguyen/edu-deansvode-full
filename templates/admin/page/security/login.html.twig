@@ -84,7 +84,7 @@
                     console.log(response);
 
                     if (response.status === 'success') {
-                        window.location.href = "{{ path('admin_dashboard') }}";
+                        window.location.href = "{{ path('admin_school_list') }}";
                     } else {
                         display_error(response.error);
                     }

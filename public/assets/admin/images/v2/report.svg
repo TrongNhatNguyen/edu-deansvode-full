@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="421.663 247.566 22.09 22.091">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+    </style>
+  </defs>
+  <g id="Group_8" data-name="Group 8" transform="translate(421.663 247.566)">
+    <rect id="Rectangle_6" data-name="Rectangle 6" class="cls-1" width="22.09" height="22.091"/>
+    <g id="Group_7" data-name="Group 7" transform="translate(2.761)">
+      <rect id="Rectangle_7" data-name="Rectangle 7" class="cls-2" width="9.204" height="1.841" transform="translate(3.682 11.966)"/>
+      <rect id="Rectangle_8" data-name="Rectangle 8" class="cls-2" width="7.363" height="1.841" transform="translate(3.682 8.284)"/>
+      <rect id="Rectangle_9" data-name="Rectangle 9" class="cls-2" width="9.204" height="1.841" transform="translate(3.682 15.648)"/>
+      <path id="Path_12" data-name="Path 12" class="cls-2" d="M17.727,1.841H15.886V.92a.92.92,0,1,0-1.841,0v.92H12.2V.92a.92.92,0,1,0-1.841,0v.92H8.523V.92A.87.87,0,0,0,7.6,0a.87.87,0,0,0-.92.92v.92H4.841A1.846,1.846,0,0,0,3,3.682V20.25a1.846,1.846,0,0,0,1.841,1.841H17.727a1.846,1.846,0,0,0,1.841-1.841V3.682A1.846,1.846,0,0,0,17.727,1.841ZM4.841,20.25V3.682H6.682V4.6a.87.87,0,0,0,.92.92.87.87,0,0,0,.92-.92v-.92h1.841V4.6a.92.92,0,1,0,1.841,0v-.92h1.841V4.6a.92.92,0,1,0,1.841,0v-.92h1.841V20.25Z" transform="translate(-3)"/>
+    </g>
+  </g>
+</svg>
