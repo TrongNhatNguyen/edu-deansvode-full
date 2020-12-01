@@ -28,7 +28,7 @@ class UpdatePassword
                     'error' => 'This account is not registered.',
                 ];
             }
-
+            
             $pass_random = $this->generateRandomPassword(6);
 
             $this->deanRepository->changePassword($getUser, $pass_random);

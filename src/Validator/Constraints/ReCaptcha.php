@@ -9,5 +9,5 @@ use Symfony\Component\Validator\Constraint;
  */
 class ReCaptcha extends Constraint
 {
-    public $message = '"{{ string }}"';
+    public $message = '{{ string }}';
 }

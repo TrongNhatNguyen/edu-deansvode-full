@@ -48,11 +48,13 @@ class ForgetPasswordController extends AbstractController
         // go to update:
         $result = $updatePassword->updatePassword($request->request->get('email'));
         
-        // mail confirm:
-        $userConfirm = $result['dataUser'];
-        $mailType = MailHelper::MAILER;
-        $messageConfirm = new SmsUserConfirm($userConfirm, $mailType);
-        $this->dispatchMessage($messageConfirm);
+        if ($result['status'] === 'success') {
+            // mail confirm:
+            $userConfirm = $result['dataUser'];
+            $mailType = MailHelper::MAILER;
+            $messageConfirm = new SmsUserConfirm($userConfirm, $mailType);
+            $this->dispatchMessage($messageConfirm);
+        }
 
         return $this->json([
             'notificate' => $result

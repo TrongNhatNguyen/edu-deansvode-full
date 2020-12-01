@@ -3,6 +3,12 @@
         <!-- <h5 class="head">Start your voting session 2020</h5> -->
         <h5 class="head">Voting Session 2020 - OPEN</h5>
 
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="block-wel">
+                <p class="text-wel">Welcome  <b class="cl_primary">{{ app.user.firstName }}</b> from <b class="cl_primary">ADEN International Business School</b></p>
+                <a href="{{ path('app_dean_logout') }}" class="btn-default">LOGOUT</a>
+            </div>
+        {% else %}
         <form name="login" id="loginForm" action="" method="POST" enctype="multipart/form-data">
             <div class="mb-block">
                 <div class="frgroup">
@@ -30,5 +36,7 @@
             <button class="btn-primary" type="submit">Sign In</button>
             <a href="{{ path('dean_foget_password') }}" class="link-forgot">Forgot your Password ?</a>
         </form>
+        {% endif %}
+
     </div>
 </section>
