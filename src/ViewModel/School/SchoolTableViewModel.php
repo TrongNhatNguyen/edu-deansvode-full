@@ -12,6 +12,8 @@ class SchoolTableViewModel
         [],
     ];
 
+    private $itemsPerPage = 50;
+
     private $countryService;
 
     private $zoneService;

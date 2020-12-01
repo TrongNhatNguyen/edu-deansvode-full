@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SchoolController extends AbstractController
 {
     /**
-     * @Route("/schools")
+     * @Route("/schools", name="admin_school_list")
      */
     public function viewMainSchools(SchoolTableViewModel $schoolTableViewModel)
     {
