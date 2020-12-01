@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helper;
+namespace App\Util\Helper;
 
 use Symfony\Component\HttpKernel\KernelInterface;
 

@@ -1,6 +1,8 @@
-{% extends "web/layout/base.html.twig" %}
-{% set type_header = 'dean_voting_session' %}
-{% set title = "Home - Dean's vote 2020, Eduniversal Evaluation Agency" %}
+{% extends web_layout_dir ~ "base.html.twig" %}
+{% set title = "Dean's voting session - Dean's vote 2020, Eduniversal Evaluation Agency" %}
+
+{# menu active collor #}
+{% set menu_voting_session_active = 'active' %}
 
 {% block main_content %}
 <main id="main" class="underpage">
@@ -11,8 +13,12 @@
                     <h2>Welcome to your Dean’s session 2020!</h2>
                 </div>
                 <div class="col-sm-5 acc-right">
-                    <a href="javascript:" class="btn btn-ac-name"><i class="sprite sprite-ic-user-circle" aria-hidden="true"></i>Vladimir Zabuga</a>
-                    <a href="/index/logout" class="btn btn-logout">LOGOUT</a>
+                    <a href="javascript:" class="btn btn-ac-name">
+                        <i class="sprite sprite-ic-user-circle" aria-hidden="true"></i>
+                        {{ app.user.firstName|default('') }}
+                        {{ app.user.lastName|default('') }}
+                    </a>
+                    <a href="{{ path('app_dean_logout') }}" class="btn btn-logout">LOGOUT</a>
                 </div>
             </div>
         </div>
@@ -867,5 +873,5 @@
 {% endblock %}
 
 {% block javascript %}
-    {% include "web/page/dean_voting_session/javascript/dean_voting_session_js.html.twig" %}
+    {% include web_dean_dir ~ "javascript/voting_session_js.html.twig" %}
 {% endblock %}

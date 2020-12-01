@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        {% include "web/layout/partial/stylesheets.html.twig" %}
+        {% include web_layout_dir ~ "global/stylesheets.html.twig" %}
         {% block matomo %}{% endblock %}
     </head>
     <body>
         {# ===== header menu ===== #}
-        {% if type_header is defined and "dean_voting_session" == type_header %}
-            {% include "web/component/partial/header_dean_voting_session.html.twig" %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            {% include web_layout_dir ~ "partial/header_voting_session.html.twig" %}
         {% else %}
-            {% include "web/component/partial/header.html.twig" %}
+            {% include web_layout_dir ~ "partial/header.html.twig" %}
         {% endif %}
         
         {% block main_content %}{% endblock %}
 
-        {% include "web/component/partial/footer.html.twig" %}
+        {% include web_layout_dir ~ "partial/footer.html.twig" %}
         {# =================== #}
-        {% include "web/component/loading_spiner/loading_spiner.html.twig" %}
+        {% include web_component_dir ~ "loading_spiner/loading_spiner.html.twig" %}
 
-        {{ include('web/layout/partial/js_footer.html.twig') }}
+        {{ include(web_layout_dir ~ 'global/js_footer.html.twig') }}
 
         {% block javascript %}{% endblock %}
     </body>

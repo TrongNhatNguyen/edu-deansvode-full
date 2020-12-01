@@ -6,7 +6,7 @@ use App\DTO\Request\ReCaptchaRequest;
 use App\Service\Web\ContactService;
 use App\DTO\Request\SendEmailRequest;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use App\Helper\MailHelper;
+use App\Util\Helper\MailHelper;
 use App\Message\SmsNotification;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

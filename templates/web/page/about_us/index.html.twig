@@ -1,10 +1,10 @@
-{% extends "web/layout/base.html.twig" %}
+{% extends web_layout_dir ~ "base.html.twig" %}
 
 {% set title = "About Eduniversal Dean's Vote" %}
 
 {% block matomo %}
     {% if include_matomo == "on" %}
-        {% include "web/layout/partial/matomo.html.twig" %}
+        {% include web_layout_dir ~ "global/matomo.html.twig" %}
     {% endif %}
 {% endblock %}
 

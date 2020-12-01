@@ -17,14 +17,14 @@
                     <div class="navbar-collapse collapse">
                         <nav>
                             <ul class="nav navbar-nav">
-                                <li class=""><a href="{{ path('web_home') }}">Home</a></li>
-                                <li class="active"><a href="#">My voting session</a></li>
+                                <li class="{{ menu_home_active|default('')  }}"><a href="{{ path('web_home') }}">Home</a></li>
+                                <li class="{{ menu_voting_session_active|default('')  }}"><a href="{{ path('dean_voting_session') }}">My voting session</a></li>
                                 <li id="ownerLink"><a href="javascript:void(0)" id="pdf-prev">Your last recommendations</a></li>
-                                <li class=""><a href="/make-sharing">COVID-19 Sharing Center</a></li>
+                                <li class="{{ menu_sharing_active|default('')  }}"><a href="/make-sharing">COVID-19 Sharing Center</a></li>
                                 <!-- <li class=""><a href="/student-interview">Students' Interviews</a></li> -->
                                 <li class="visible-xs "><a href="{{ 'web_home' != app.request.get('_route') ? app.request.scheme ~'://' ~ app.request.httpHost : path('web_home') }}#sec-contact">Contact</a></li>
                             </ul>
-                            <a href="{{ 'web_home' != app.request.get('_route') ? app.request.scheme ~'://' ~ app.request.httpHost : path('web_home') }}#sec-contact" class="btn-primary btn-contact hidden-xs">Contact</a>
+                            <a href="{{ 'web_home' != app.request.get('_route') ? app.request.scheme ~'://' ~ app.request.httpHost : path('web_home') }}#sec-contact" class="page-scroll btn-primary btn-contact hidden-xs">Contact</a>
                         </nav>
                     </div>
                 </div>

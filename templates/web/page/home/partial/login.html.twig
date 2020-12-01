@@ -3,17 +3,18 @@
         <!-- <h5 class="head">Start your voting session 2020</h5> -->
         <h5 class="head">Voting Session 2020 - OPEN</h5>
 
-        <form id="loginForm" action="{{ path('web_login') }}" method="POST" enctype="multipart/form-data">
+        <form name="login" id="loginForm" action="" method="POST" enctype="multipart/form-data">
             <div class="mb-block">
                 <div class="frgroup">
                     <span><i class="sprite sprite-ic-admin"></i>Login:</span>
-                    <input id="username" name="username" class="input-default ip-name" type="text" autocomplete="off">
+                    <input id="email" name="email" class="input-default ip-name" type="text" autocomplete="off">
                 </div>
                 <div class="frgroup">
                     <span><i class="sprite sprite-ic-pass"></i>Password:</span>
                     <input id="password" name="password" class="input-default ip-password" type="password" autocomplete="off">
                 </div>
             </div>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
             <div class="frcaptcha">
                 <span>Security Code</span>
                 <a class="refresh" onclick="refreshCode()" href="javascript:void(0);">
@@ -27,7 +28,7 @@
             </div>
             <!-- <input type="hidden" name="hidden_login" value="login"> -->
             <button class="btn-primary" type="submit">Sign In</button>
-            <a href="/content/forget-password" class="link-forgot">Forgot your Password ?</a>
+            <a href="{{ path('dean_foget_password') }}" class="link-forgot">Forgot your Password ?</a>
         </form>
     </div>
 </section>

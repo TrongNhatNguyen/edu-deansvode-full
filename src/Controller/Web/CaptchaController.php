@@ -2,7 +2,7 @@
 
 namespace App\Controller\Web;
 
-use App\Helper\CaptchaHelper;
+use App\Util\Helper\CaptchaHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;

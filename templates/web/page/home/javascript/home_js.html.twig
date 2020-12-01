@@ -101,7 +101,11 @@
                 }
             }).done(function (response) {
                 console.log(response);
-                handleResponse(response.notificate);
+                if (response.status == 'success') {
+                    redirectTo(response.url_response);
+                } else {
+                    alert(response.error);
+                }
             }).always(function () {
                 console.log('stop loading');
                 $('#overlay').fadeOut();
@@ -193,5 +197,10 @@
         setTimeout(function() {
             element.classList.remove("fa-spin");
         }, 500);
+    }
+
+    function redirectTo(url)
+    {
+        window.location.href = url;
     }
 </script>

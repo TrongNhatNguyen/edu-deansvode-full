@@ -9,3 +9,14 @@ twig:
         google_recaptcha_site_key: '%env(GOOGLE_RECAPTCHA_SITE_KEY)%'
         include_matomo: '%env(INCLUDE_MATOMO)%'
         matomo_analytics: '%env(MATOMO_ANALYTICS)%'
+        
+        ### general path WEB in template:
+        #component:
+        web_component_dir: 'web/component/'
+        # layout:
+        web_layout_dir: 'web/layout/'
+        # page:
+        web_page_dir: 'web/page/'
+        ## dean:
+        web_dean_dir: 'web/page/dean/'
+        
