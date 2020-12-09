@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Zone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,9 +15,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ZoneRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $entityManager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         parent::__construct($registry, Zone::class);
+        $this->entityManager = $entityManager;
     }
 
     // /**
@@ -47,4 +51,44 @@ class ZoneRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    // ======== CRUD:
+    public function createNewZone($zoneData)
+    {
+        $zone = new Zone();
+
+        $zone->setName($zoneData['name']);
+        $zone->setSlug($zoneData['slug']);
+        $zone->setImage($zoneData['image']);
+        $zone->setSort($zoneData['sort']);
+        $zone->setStatus($zoneData['status']);
+        $zone->setCreatedAt(new \DateTime('now'));
+        $zone->setUpdatedAt(new \DateTime('now'));
+
+        $this->entityManager->persist($zone);
+        $this->entityManager->flush();
+    }
+
+    public function updateZone($zoneData)
+    {
+        $ZoneUpdate = $this->findOneBy(['id' => $zoneData['id']]);
+
+        $ZoneUpdate->setName($zoneData['name']);
+        $ZoneUpdate->setSlug($zoneData['slug']);
+        $ZoneUpdate->setImage($zoneData['image']);
+        $ZoneUpdate->setSort($zoneData['sort']);
+        $ZoneUpdate->setStatus($zoneData['status']);
+        $ZoneUpdate->setUpdatedAt(new \DateTime('now'));
+
+        $this->entityManager->persist($ZoneUpdate);
+        $this->entityManager->flush();
+    }
+
+    public function deleteZone($id)
+    {
+        $zoneDel = $this->find($id);
+
+        $this->entityManager->remove($zoneDel);
+        $this->entityManager->flush();
+    }
 }

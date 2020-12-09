@@ -1,10 +1,10 @@
-{% extends web_layout_dir ~ "base.html.twig" %}
+{% extends web_layout_dir ~ "\/" ~ "base.html.twig" %}
 
 {% set title = "About Eduniversal Dean's Vote" %}
 
 {% block matomo %}
     {% if include_matomo == "on" %}
-        {% include web_layout_dir ~ "global/matomo.html.twig" %}
+        {% include web_layout_global_dir ~ "\/" ~ "matomo.html.twig" %}
     {% endif %}
 {% endblock %}
 
@@ -16,14 +16,14 @@
     <div class="container">
         <div class="box-aboutus clearfix">
             <div class="JSaboutus">
-                <!-- <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/a.jpg"></div> -->
-                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/b.jpg"></div>
-                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/c.jpg"></div>
-                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/d.jpg"></div>
-                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/e.jpg"></div>
-                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/f.jpg"></div>
-                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/g.jpg"></div>
-                <div class="item"><img src="{{ asset('assets/web') }}/images/slider-about/h.jpg"></div>
+                <!-- <div class="item"><img src="{{ asset(asset_web_image_dir) }}/slider-about/a.jpg"></div> -->
+                <div class="item"><img src="{{ asset(asset_web_image_dir) }}/slider-about/b.jpg"></div>
+                <div class="item"><img src="{{ asset(asset_web_image_dir) }}/slider-about/c.jpg"></div>
+                <div class="item"><img src="{{ asset(asset_web_image_dir) }}/slider-about/d.jpg"></div>
+                <div class="item"><img src="{{ asset(asset_web_image_dir) }}/slider-about/e.jpg"></div>
+                <div class="item"><img src="{{ asset(asset_web_image_dir) }}/slider-about/f.jpg"></div>
+                <div class="item"><img src="{{ asset(asset_web_image_dir) }}/slider-about/g.jpg"></div>
+                <div class="item"><img src="{{ asset(asset_web_image_dir) }}/slider-about/h.jpg"></div>
             </div>
             <div class="box" style="bottom: -150px; right: -150px;">
                 <div class="border">
@@ -72,7 +72,7 @@
                 <div class="panel-style">
                     <div class="panel_head">
                         <h3>Our Mission</h3>
-                        <img class="iccon-lg-center" src="{{ asset('assets/web') }}/images/fava-mission.png">
+                        <img class="iccon-lg-center" src="{{ asset(asset_web_image_dir) }}/fava-mission.png">
                     </div>
                     <div class="panel_content">
                         <p>To provide the tools and expertise to enable individuals, regardless of nationality,

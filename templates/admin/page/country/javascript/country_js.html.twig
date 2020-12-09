@@ -1,0 +1,316 @@
+<script type="text/javascript">
+    // == auto write slug when enter input name:
+    $(document).ready(function() {
+        update.bindEvent();
+    });
+    // ==========================
+
+    var url = "{{ path('admin_country') }}";
+    var view = {
+        url: "{{ path('admin_country') }}",
+        limit: {{ itemsPerPage }},
+        page: 1
+    };
+
+    $(document).ready(function() {
+        // [ create-update ] request - ajax:
+        $('body').on('submit', '#country-form', function(event) {
+            event.preventDefault();
+            var form_element = this;
+            var formData = new FormData(form_element);
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#overlay').fadeIn();
+                }
+            }).done(function(response) {
+                var name_error = document.getElementById("txt-country-title");
+                var slug_error = document.getElementById("txt-country-slug");
+                var iso_code_error = document.getElementById("txt-country-iso-code");
+                var zone_error = document.getElementById("txt-country-zone");
+                if (response.status === "success") {
+                    notifiSuccess(response.message);
+                    setTimeout(function(){
+                        redirectTo(response.url);
+                    }, 1500);
+                }
+                if (response.status === "failed" && response.error.name) {
+                    name_error.style.borderColor = "red";
+                    document.getElementById("name-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.error.name;
+                } else {
+                    name_error.style.borderColor = "";
+                    document.getElementById("name-error").innerHTML = '';
+                }
+                if (response.status === "failed" && response.error.slug) {
+                    slug_error.style.borderColor = "red";
+                    document.getElementById("slug-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.error.slug;
+                } else {
+                    slug_error.style.borderColor = "";
+                    document.getElementById("slug-error").innerHTML = '';
+                }
+                if (response.status === "failed" && response.error.isoCode) {
+                    iso_code_error.style.borderColor = "red";
+                    document.getElementById("iso-code-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.error.isoCode;
+                } else {
+                    iso_code_error.style.borderColor = "";
+                    document.getElementById("iso-code-error").innerHTML = '';
+                }
+                if (response.status === "failed" && response.error.zone) {
+                    zone_error.style.borderColor = "red";
+                    document.getElementById("zone-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.error.zone;
+                } else {
+                    zone_error.style.borderColor = "";
+                    document.getElementById("zone-error").innerHTML = '';
+                }
+            }).always(function () {
+                $('#overlay').fadeOut();
+            });
+        });
+
+        // paginate [page-limit] item - ajax:
+        $('#cboLimit').on('change', function(event) {
+            var value = $(this).val();
+
+            view.limit = value; 
+
+            load_data(build_url())
+            .done(function (response) {
+                if (response.status === 'success') {
+                    var template = $.parseHTML(response.html);
+                    $('#list-country-container').html(template);
+                }
+            }).always();
+        });
+
+        // filter countries by zone - ajax:
+        $("#filter-countries-by-zone").on('change', function(event) {
+            var value = $(this).val();
+
+            view.zone_id = value; 
+
+            load_data(build_url())
+            .done(function (response) {
+                if (response.status === 'success') {
+                    var template = $.parseHTML(response.html);
+                    $('#list-country-container').html(template);
+                }
+            }).always();
+        });
+
+        // filter countries by status - jax:
+        $("#filter-countries-by-status").on('change', function(event) {
+            var value = $(this).val();
+
+            view.status = value;
+
+            load_data(build_url())
+            .done(function (response) {
+                if (response.status === 'success') {
+                    var template = $.parseHTML(response.html);
+                    $('#list-country-container').html(template);
+                }
+            }).always();
+        });
+
+        // search country by [name-id] - ajax:
+        $("#search-country").keypress(function(event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13'){
+                var field = $("#field-search").val();
+                var text = $(this).val();
+
+                view.search = {
+                    field: field,
+                    text: text
+                };
+
+                load_data(build_url())
+                .done(function(response){
+                    var template = $.parseHTML(response.html);
+                    $('#list-country-container').html(template);
+                }).always();
+            }
+        });
+
+    }); // ====== end jquery
+
+    // remove country - ajax:
+    function removeCountry(country_id)
+    {
+        Swal.fire({
+        width: 350,
+        text: "Are you sure ?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#F4B85F',
+        cancelButtonColor: '#a1a1a1',
+        confirmButtonText: 'delete it'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'GET',
+                    dataType: 'json',
+                    url: '{{ path("admin_delete_country_action") }}',
+                    data: {
+                        country_id: country_id
+                    },
+                    beforeSend: function () {
+                        $('#overlay').fadeIn();
+                    },
+                    success: function(response) {
+                        // console.log(response);
+                        if (response.status === "success") {
+                            notifiSuccess(response.message);
+                            setTimeout(function() {
+                                redirectTo(response.url);
+                            }, 1000);
+                        } else {
+                            swal(response.error);
+                        }
+                    }
+                }).always(function () {
+                    $('#overlay').fadeOut();
+                });
+            }
+        })
+    }
+
+    // update [active - deactive] status - ajax:
+    function toggleStatus(country_id, element)
+    {
+        var current_status = $(element).attr('class');
+        var next_status;
+        var next_country_status;
+        
+        if (current_status == 'active') {
+            next_status = 'inactive';
+        } else {
+            next_status = 'active';
+            next_country_status = "on";
+        }
+        $.ajax({
+            type: 'POST',
+            url: '{{ path("admin_update_status_country_action") }}',
+            dataType: 'json',
+            data: {
+                country_id: country_id,
+                country_status: next_country_status
+            },
+            beforeSend: function () {
+                    $('#overlay').fadeIn();
+            },
+            success: function(response) {
+                if (response.status === 'success') {
+                    notifiSuccess(response.message);
+                    $(element).attr('class', next_status);
+                    $(element).html('<img src="{{ asset(asset_admin_image_dir) }}/' + next_status + '.svg" width="18">');
+                }
+            }
+        }).always(function () {
+            $('#overlay').fadeOut();
+        });
+    }
+
+    // get-show value input update - ajax:
+    function fillUpdateForm(country_id)
+    {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '{{ path("admin_show_country_update") }}',
+            data: {
+                country_id: country_id
+            },
+            success: function(response) {
+                if (response.status === "success") {
+                    var template = $.parseHTML(response.html);
+                    $("body").find("#update-span").html(template);
+                }
+            }
+        });
+    }
+
+    // sort [ASC - DESC] name - ajax:
+    function sortNameCountries(element)
+    {
+        var current_sort = $(element).attr('sort-type');
+        var next_name_sort;
+
+        if (current_sort == "ASC") {
+            next_name_sort = 'DESC';
+        } else {
+            next_name_sort = 'ASC';
+        }
+
+        view.name = next_name_sort;
+
+        load_data(build_url())
+        .done(function (response) {
+            if (response.status === 'success') {
+                var template = $.parseHTML(response.html);
+                $('#list-country-container').html(template);
+                $(element).attr('sort-type', next_name_sort);
+            }
+        }).always();
+    }
+
+    // build url request params:
+    function build_url()
+    {
+        let url = view.url + '?' + 'limit=' + view.limit + '&page=' + view.page;
+
+        /* if (view.hasOwnProperty('page')) {
+            url += '&page=' + ???;
+        } */
+
+        if (view.hasOwnProperty('name')) {
+            url += '&name=' + view.name;
+        }
+
+        if (view.hasOwnProperty('zone_id')) {
+            url += '&zone_id=' + view.zone_id;
+        }
+
+        if (view.hasOwnProperty('status')) {
+            url += '&status=' + view.status;
+        }
+
+        if (view.hasOwnProperty('search')) {
+            url += '&fieldSearch=' + view.search.field + '&textSearch=' + view.search.text;
+        }
+
+        return url;
+    }
+
+    function load_data(url)
+    {
+        return $.ajax({
+            url: url,
+            method: 'get',
+            dataType: 'json',
+        });
+    }
+
+    // partial response:
+    function notifiSuccess(message)
+    {
+        Swal.fire({
+            width: 280,
+            position: 'top-end',
+            icon: 'success',
+            text: message,
+            showConfirmButton: false,
+            timer: 1300,
+            timerProgressBar: true,
+        })
+    }
+    function redirectTo(url)
+    {
+        window.location.href = url;
+    }
+</script>

@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller\Security\Dean;
+namespace App\Controller\Dean;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class LoginFormController extends AbstractController
+class SecurityController extends AbstractController
 {
     /**
      * @Route("/dean-login", name="dean_login")

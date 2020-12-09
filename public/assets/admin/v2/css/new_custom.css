@@ -1,0 +1,6 @@
+/* ====================== new custom */
+.error
+{
+    font-style: italic !important;
+    color: rgb(238, 48, 0) !important;
+}

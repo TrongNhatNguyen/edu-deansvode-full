@@ -9,10 +9,12 @@
                 </button>
             </div>
             <nav aria-label="breadcrumb" class="nav-breadcrumb d-none d-lg-flex">
+
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/admin/new-school">School Manager</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Eduniversal Business Schools</li>
+                    <li class="breadcrumb-item"><a href="{{ path(url_breadcrumb_parent|default('admin_dashboard')) }}">{{ breadcrumb_parent|default('Dashboard') }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb|default('') }}</li>
                 </ol>
+
             </nav>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"

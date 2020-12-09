@@ -1,4 +1,4 @@
-{% extends web_layout_dir ~ "base.html.twig" %}
+{% extends web_layout_dir ~ "\/" ~ "base.html.twig" %}
 
 {% set title = "Dean's vote 2020, Eduniversal Evaluation Agency" %}
 
@@ -32,7 +32,7 @@
 
                 <div class="wp-step-process-ranking">
                     <div class="">
-                        <img src="{{ asset('assets/web') }}/images/step-process/SCHEMA-1.png" alt="" title="" />
+                        <img src="{{ asset(asset_web_image_dir) }}/step-process/SCHEMA-1.png" alt="" title="" />
                     </div>
                 </div><!-- /.wp-step-process-ranking -->
             </div>

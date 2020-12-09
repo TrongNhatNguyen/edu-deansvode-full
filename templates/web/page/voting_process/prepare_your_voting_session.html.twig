@@ -1,4 +1,4 @@
-{% extends web_layout_dir ~ "base.html.twig" %}
+{% extends web_layout_dir ~ "\/" ~  "base.html.twig" %}
 
 {% set title = "Dean's vote 2020, Eduniversal Evaluation Agency" %}
 
@@ -13,10 +13,10 @@
                 <div class="col-md-offset-3 col-md-6">
                     <!-- col-sm-offset-1 col-sm-6 -->
                     <ul class="step-sec clearfix">
-                        <li class="pull-left"><img src="{{ asset('assets/web') }}/images/step-1.png"></li>
+                        <li class="pull-left"><img src="{{ asset(asset_web_image_dir) }}/step-1.png"></li>
                         <li class="pull-right">
                             <a href="{{ path('web_start_your_voting_session') }}">
-                                <img src="{{ asset('assets/web') }}/images/step-2-disable.png">
+                                <img src="{{ asset(asset_web_image_dir) }}/step-2-disable.png">
                             </a>
                         </li>
                     </ul>
@@ -34,7 +34,7 @@
                     <ul class="prepare-voting-list">
                         <li>
                             <div class="l-img">
-                                <img src="{{ asset('assets/web') }}/images/img-article.png">
+                                <img src="{{ asset(asset_web_image_dir) }}/img-article.png">
                             </div>
                             <div class="r-text">
                                 <h5>Who can vote?</h5>
@@ -52,7 +52,7 @@
                         </li>
                         <li>
                             <div class="l-img">
-                                <img src="{{ asset('assets/web') }}/images/img-article2.png">
+                                <img src="{{ asset(asset_web_image_dir) }}/img-article2.png">
                             </div>
                             <div class="r-text">
                                 <h5>How to Start voting?</h5>
@@ -83,7 +83,7 @@
                         </li>
                         <li>
                             <div class="l-img">
-                                <img src="{{ asset('assets/web') }}/images/img-article3.png">
+                                <img src="{{ asset(asset_web_image_dir) }}/img-article3.png">
                             </div>
                             <div class="r-text">
                                 <h5>Terms & conditions</h5>

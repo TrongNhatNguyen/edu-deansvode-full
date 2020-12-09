@@ -1,10 +1,10 @@
-{% extends web_layout_dir ~ "base.html.twig" %}
+{% extends web_layout_dir ~ "\/" ~ "base.html.twig" %}
 
 {% set title = "Dean's vote 2020, Eduniversal Evaluation Agency" %}
 
 {% block matomo %}
     {% if include_matomo == "on" %}
-        {% include web_layout_dir ~ "/matomo.html.twig" %}
+        {% include web_layout_global_dir ~ "\/" ~ "matomo.html.twig" %}
     {% endif %}
 {% endblock %}
 
@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="header-bg bg-gala-dinner">
-                    <!-- <img src="{{ asset('assets/web') }}/images/galadinner/galadinner-1.jpg"/> -->
+                    {# <img src="{{ asset(asset_web_image_dir) }}/galadinner/galadinner-1.jpg"/> #}
                 </div>
             </div>
         </div>
@@ -52,27 +52,27 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner" style="height: 800px;">
                     <div class="item active">
-                        <img src="{{ asset('assets/web') }}/images/galadinner/slide_1.jpg" style="height: 800px;" alt="">
+                        <img src="{{ asset(asset_web_image_dir) }}/galadinner/slide_1.jpg" style="height: 800px;" alt="">
                     </div>
 
                     <div class="item">
-                        <img src="{{ asset('assets/web') }}/images/galadinner/slide_2.jpg" style="height: 800px;" alt="">
+                        <img src="{{ asset(asset_web_image_dir) }}/galadinner/slide_2.jpg" style="height: 800px;" alt="">
                     </div>
 
                     <div class="item">
-                        <img src="{{ asset('assets/web') }}/images/galadinner/slide_3.jpg" style="height: 800px;" alt="">
+                        <img src="{{ asset(asset_web_image_dir) }}/galadinner/slide_3.jpg" style="height: 800px;" alt="">
                     </div>
 
                     <div class="item">
-                        <img src="{{ asset('assets/web') }}/images/galadinner/slide_4.jpg" style="height: 800px;" alt="">
+                        <img src="{{ asset(asset_web_image_dir) }}/galadinner/slide_4.jpg" style="height: 800px;" alt="">
                     </div>
 
                     <div class="item">
-                        <img src="{{ asset('assets/web') }}/images/galadinner/slide_5.jpg" style="height: 800px;" alt="">
+                        <img src="{{ asset(asset_web_image_dir) }}/galadinner/slide_5.jpg" style="height: 800px;" alt="">
                     </div>
 
                     <div class="item">
-                        <img src="{{ asset('assets/web') }}/images/galadinner/slide_6.jpg" style="height: 800px;" alt="">
+                        <img src="{{ asset(asset_web_image_dir) }}/galadinner/slide_6.jpg" style="height: 800px;" alt="">
                     </div>
                 </div>
 

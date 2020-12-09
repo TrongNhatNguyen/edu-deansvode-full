@@ -19,8 +19,9 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-            
+
         admin:
+            pattern: ^/login
             anonymous: lazy
             provider: app_admin_provider
             guard:
@@ -30,16 +31,16 @@ security:
                 path: admin_logout
                 target: admin_login
 
-        dean:
-            anonymous: lazy
-            provider: app_dean_provider
-            guard:
-                authenticators:
-                    - App\Security\Dean\LoginFormAuthenticator
-            logout:
-                path: app_dean_logout
-                # where to redirect after logout
-                target: web_home
+        # dean:
+        #     anonymous: lazy
+        #     provider: app_dean_provider
+        #     guard:
+        #         authenticators:
+        #             - App\Security\Dean\LoginFormAuthenticator
+        #     logout:
+        #         path: app_dean_logout
+        #         # where to redirect after logout
+        #         target: web_home
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

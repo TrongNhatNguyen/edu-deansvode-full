@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Country;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,9 +15,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CountryRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $entityManager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         parent::__construct($registry, Country::class);
+        $this->entityManager = $entityManager;
     }
 
     // /**
@@ -47,4 +51,46 @@ class CountryRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    // ========== CRUD:
+    public function createNewCountry($countryData)
+    {
+        $country = new Country();
+
+        $country->setName($countryData['name']);
+        $country->setZone($countryData['zone']);
+        $country->setSlug($countryData['slug']);
+        $country->setIsoCode($countryData['iso_code']);
+        $country->setSort($countryData['sort']);
+        $country->setStatus($countryData['status']);
+        $country->setCreatedAt(new \DateTime('now'));
+        $country->setUpdatedAt(new \DateTime('now'));
+
+        $this->entityManager->persist($country);
+        $this->entityManager->flush();
+    }
+
+    public function updateCountry($countryData)
+    {
+        $countryUpdate = $this->findOneBy(['id' => $countryData['id']]);
+
+        $countryUpdate->setName($countryData['name']);
+        $countryUpdate->setZone($countryData['zone']);
+        $countryUpdate->setSlug($countryData['slug']);
+        $countryUpdate->setIsoCode($countryData['iso_code']);
+        $countryUpdate->setSort($countryData['sort']);
+        $countryUpdate->setStatus($countryData['status']);
+        $countryUpdate->setUpdatedAt(new \DateTime('now'));
+
+        $this->entityManager->persist($countryUpdate);
+        $this->entityManager->flush();
+    }
+
+    public function deleteCountry($id)
+    {
+        $countryDel = $this->find($id);
+
+        $this->entityManager->remove($countryDel);
+        $this->entityManager->flush();
+    }
 }

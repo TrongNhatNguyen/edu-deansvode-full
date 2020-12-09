@@ -294,13 +294,13 @@ var list ={
 
 	
 	bindEvent: function(){
-			$('select[rel=listFilter]').each(function(){
-				$(this).change(function(){
-					list.makeFilterText($(this));
-					list.show();
+			// $('select[rel=listFilter]').each(function(){
+			// 	$(this).change(function(){
+			// 		list.makeFilterText($(this));
+			// 		list.show();
 					
-				})			
-			});
+			// 	})			
+			// });
 			
 			$('#btnSearch').click(function(){
 				list.makeSearch();

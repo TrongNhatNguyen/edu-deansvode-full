@@ -1,7 +1,6 @@
-
 var update ={
 	
-	url				: '/admin/index/update',
+	url				: '{{ path("admin_area") }}',
 	currentObj 		: null,
 	finder			: null,
 	fileItemHTML	: '',

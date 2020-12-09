@@ -1,4 +1,4 @@
-{% extends web_layout_dir ~ "base.html.twig" %}
+{% extends web_layout_dir ~ "\/" ~ "base.html.twig" %}
 {% set title = "Dean's voting session - Dean's vote 2020, Eduniversal Evaluation Agency" %}
 
 {# menu active collor #}
@@ -15,8 +15,7 @@
                 <div class="col-sm-5 acc-right">
                     <a href="javascript:" class="btn btn-ac-name">
                         <i class="sprite sprite-ic-user-circle" aria-hidden="true"></i>
-                        {{ app.user.firstName|default('') }}
-                        {{ app.user.lastName|default('') }}
+                        {{ app.user.email|default('') }}
                     </a>
                     <a href="{{ path('app_dean_logout') }}" class="btn btn-logout">LOGOUT</a>
                 </div>
@@ -101,643 +100,643 @@
                             <div class="scroll-pane">
                                 <ul id="list_country">
                                     <li id='cid_1'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/albania.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/albania.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p><b>Albania</b></p>
                                     </li>
                                     <li id='cid_2'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/algeria.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/algeria.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Algeria</p>
                                     </li>
                                     <li id='cid_3'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/angola.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/angola.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Angola</p>
                                     </li>
                                     <li id='cid_4'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/argentina.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/argentina.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Argentina</p>
                                     </li>
                                     <li id='cid_5'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/armenia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/armenia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Armenia</p>
                                     </li>
                                     <li id='cid_6'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/australia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/australia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Australia</p>
                                     </li>
                                     <li id='cid_7'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/austria.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/austria.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Austria</p>
                                     </li>
                                     <li id='cid_8'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/azerbaijan.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/azerbaijan.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Azerbaijan</p>
                                     </li>
                                     <li id='cid_9'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/bangladesh.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/bangladesh.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Bangladesh</p>
                                     </li>
                                     <li id='cid_10'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/barbados.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/barbados.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Barbados</p>
                                     </li>
                                     <li id='cid_11'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/belarus.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/belarus.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Belarus</p>
                                     </li>
                                     <li id='cid_12'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/belgium.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/belgium.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Belgium</p>
                                     </li>
                                     <li id='cid_13'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/belize.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/belize.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Belize</p>
                                     </li>
                                     <li id='cid_14'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/benin.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/benin.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Benin</p>
                                     </li>
                                     <li id='cid_15'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/bhutan.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/bhutan.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Bhutan</p>
                                     </li>
                                     <li id='cid_16'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/bolivia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/bolivia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Bolivia</p>
                                     </li>
                                     <li id='cid_17'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/bosniaherzegovina.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/bosniaherzegovina.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Bosnia-Herzegovina</p>
                                     </li>
                                     <li id='cid_18'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/brazil.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/brazil.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Brazil</p>
                                     </li>
                                     <li id='cid_19'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/brunei.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/brunei.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Brunei</p>
                                     </li>
                                     <li id='cid_20'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/bulgaria.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/bulgaria.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Bulgaria</p>
                                     </li>
                                     <li id='cid_21'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/cambodia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/cambodia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Cambodia</p>
                                     </li>
                                     <li id='cid_22'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/cameroon.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/cameroon.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Cameroon</p>
                                     </li>
                                     <li id='cid_23'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/canada.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/canada.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Canada</p>
                                     </li>
                                     <li id='cid_24'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/cayman-islands-uk.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/cayman-islands-uk.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Cayman Islands (U.K.)</p>
                                     </li>
                                     <li id='cid_25'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/chile.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/chile.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Chile</p>
                                     </li>
                                     <li id='cid_26'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/china.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/china.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>China</p>
                                     </li>
                                     <li id='cid_27'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/colombia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/colombia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Colombia</p>
                                     </li>
                                     <li id='cid_28'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/congo.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/congo.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Congo</p>
                                     </li>
                                     <li id='cid_29'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/costa-rica.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/costa-rica.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Costa Rica</p>
                                     </li>
                                     <li id='cid_30'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/croatia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/croatia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Croatia</p>
                                     </li>
                                     <li id='cid_31'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/cuba.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/cuba.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Cuba</p>
                                     </li>
                                     <li id='cid_32'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/cyprus.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/cyprus.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Cyprus</p>
                                     </li>
                                     <li id='cid_33'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/czech-republic.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/czech-republic.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Czech Republic</p>
                                     </li>
                                     <li id='cid_34'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/denmark.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/denmark.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Denmark</p>
                                     </li>
                                     <li id='cid_35'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/djibouti.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/djibouti.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Djibouti</p>
                                     </li>
                                     <li id='cid_36'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/dominican-rep.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/dominican-rep.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Dominican Rep.</p>
                                     </li>
                                     <li id='cid_37'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/ecuador.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/ecuador.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Ecuador</p>
                                     </li>
                                     <li id='cid_38'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/egypt.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/egypt.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Egypt</p>
                                     </li>
                                     <li id='cid_39'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/el-salvador.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/el-salvador.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>El Salvador</p>
                                     </li>
                                     <li id='cid_40'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/estonia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/estonia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Estonia</p>
                                     </li>
                                     <li id='cid_41'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/ethiopia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/ethiopia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Ethiopia</p>
                                     </li>
                                     <li id='cid_42'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/fiji-islands.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/fiji-islands.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Fiji Islands</p>
                                     </li>
                                     <li id='cid_43'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/finland.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/finland.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Finland</p>
                                     </li>
                                     <li id='cid_44'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/france.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/france.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>France</p>
                                     </li>
                                     <li id='cid_45'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/gabon.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/gabon.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Gabon</p>
                                     </li>
                                     <li id='cid_46'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/georgia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/georgia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Georgia</p>
                                     </li>
                                     <li id='cid_47'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/germany.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/germany.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Germany</p>
                                     </li>
                                     <li id='cid_48'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/ghana.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/ghana.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Ghana</p>
                                     </li>
                                     <li id='cid_49'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/greece.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/greece.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Greece</p>
                                     </li>
                                     <li id='cid_50'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/guam-usa.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/guam-usa.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Guam (U.S.A.)</p>
                                     </li>
                                     <li id='cid_51'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/guatemala.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/guatemala.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Guatemala</p>
                                     </li>
                                     <li id='cid_52'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/guyana.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/guyana.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Guyana</p>
                                     </li>
                                     <li id='cid_53'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/haiti.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/haiti.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Haiti</p>
                                     </li>
                                     <li id='cid_54'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/hawaii-usa.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/hawaii-usa.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Hawaii (U.S.A)</p>
                                     </li>
                                     <li id='cid_55'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/honduras.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/honduras.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Honduras</p>
                                     </li>
                                     <li id='cid_56'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/hong-kong-sarchina.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/hong-kong-sarchina.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Hong Kong (S.A.R.,China)</p>
                                     </li>
                                     <li id='cid_57'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/hungary.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/hungary.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Hungary</p>
                                     </li>
                                     <li id='cid_58'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/iceland.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/iceland.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Iceland</p>
                                     </li>
                                     <li id='cid_59'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/india.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/india.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>India</p>
                                     </li>
                                     <li id='cid_60'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/indonesia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/indonesia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Indonesia</p>
                                     </li>
                                     <li id='cid_61'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/iran.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/iran.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Iran</p>
                                     </li>
                                     <li id='cid_62'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/ireland.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/ireland.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Ireland</p>
                                     </li>
                                     <li id='cid_63'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/israel.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/israel.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Israel</p>
                                     </li>
                                     <li id='cid_64'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/italy.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/italy.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Italy</p>
                                     </li>
                                     <li id='cid_65'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/ivory-coast.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/ivory-coast.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Ivory Coast</p>
                                     </li>
                                     <li id='cid_66'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/jamaica.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/jamaica.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Jamaica</p>
                                     </li>
                                     <li id='cid_67'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/japan.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/japan.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Japan</p>
                                     </li>
                                     <li id='cid_69'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/jordan.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/jordan.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Jordan</p>
                                     </li>
                                     <li id='cid_70'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/kazakhstan.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/kazakhstan.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Kazakhstan</p>
                                     </li>
                                     <li id='cid_71'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/kenya.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/kenya.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Kenya</p>
                                     </li>
                                     <li id='cid_72'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/kingdom-of-bahrain.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/kingdom-of-bahrain.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Kingdom of Bahrain</p>
                                     </li>
                                     <li id='cid_164'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/kosovo.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/kosovo.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Kosovo</p>
                                     </li>
                                     <li id='cid_73'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/kuwait.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/kuwait.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Kuwait</p>
                                     </li>
                                     <li id='cid_74'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/kyrgyzstan.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/kyrgyzstan.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Kyrgyzstan</p>
                                     </li>
                                     <li id='cid_75'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/laos-pdr.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/laos-pdr.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Laos PDR</p>
                                     </li>
                                     <li id='cid_76'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/latvia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/latvia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Latvia</p>
                                     </li>
                                     <li id='cid_77'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/lebanon.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/lebanon.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Lebanon</p>
                                     </li>
                                     <li id='cid_78'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/lesotho.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/lesotho.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Lesotho</p>
                                     </li>
                                     <li id='cid_79'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/lithuania.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/lithuania.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Lithuania</p>
                                     </li>
                                     <li id='cid_80'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/luxembourg.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/luxembourg.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Luxembourg</p>
                                     </li>
                                     <li id='cid_81'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/macau-sarchina.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/macau-sarchina.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Macau (S.A.R.,China)</p>
                                     </li>
                                     <li id='cid_82'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/macedonia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/macedonia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Macedonia</p>
                                     </li>
                                     <li id='cid_83'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/madagascar.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/madagascar.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Madagascar</p>
                                     </li>
                                     <li id='cid_84'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/malawi.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/malawi.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Malawi</p>
                                     </li>
                                     <li id='cid_85'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/malaysia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/malaysia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Malaysia</p>
                                     </li>
                                     <li id='cid_86'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/maldives.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/maldives.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Maldives</p>
                                     </li>
                                     <li id='cid_87'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/mali.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/mali.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Mali</p>
                                     </li>
                                     <li id='cid_88'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/malta.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/malta.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Malta</p>
                                     </li>
                                     <li id='cid_89'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/mauritania.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/mauritania.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Mauritania</p>
                                     </li>
                                     <li id='cid_90'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/mauritius.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/mauritius.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Mauritius</p>
                                     </li>
                                     <li id='cid_91'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/mexico.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/mexico.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Mexico</p>
                                     </li>
                                     <li id='cid_92'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/moldova.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/moldova.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Moldova</p>
                                     </li>
                                     <li id='cid_93'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/monaco.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/monaco.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Monaco</p>
                                     </li>
                                     <li id='cid_94'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/mongolia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/mongolia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Mongolia</p>
                                     </li>
                                     <li id='cid_95'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/montenegro.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/montenegro.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Montenegro</p>
                                     </li>
                                     <li id='cid_96'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/morocco.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/morocco.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Morocco</p>
                                     </li>
                                     <li id='cid_97'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/mozambique.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/mozambique.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Mozambique</p>
                                     </li>
                                     <li id='cid_98'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/namibia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/namibia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Namibia</p>
                                     </li>
                                     <li id='cid_99'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/nepal.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/nepal.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Nepal</p>
                                     </li>
                                     <li id='cid_100'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/netherlands.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/netherlands.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Netherlands</p>
                                     </li>
                                     <li id='cid_101'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/new-zealand.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/new-zealand.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>New Zealand</p>
                                     </li>
                                     <li id='cid_102'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/nicaragua.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/nicaragua.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Nicaragua</p>
                                     </li>
                                     <li id='cid_103'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/nigeria.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/nigeria.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Nigeria</p>
                                     </li>
                                     <li id='cid_104'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/norway.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/norway.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Norway</p>
                                     </li>
                                     <li id='cid_105'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/oman.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/oman.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Oman</p>
                                     </li>
                                     <li id='cid_106'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/pakistan.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/pakistan.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Pakistan</p>
                                     </li>
                                     <li id='cid_107'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/palestinian-authority.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/palestinian-authority.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Palestinian Authority</p>
                                     </li>
                                     <li id='cid_108'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/panama.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/panama.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Panama</p>
                                     </li>
                                     <li id='cid_109'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/papua-new-guinea.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/papua-new-guinea.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Papua New Guinea</p>
                                     </li>
                                     <li id='cid_110'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/paraguay.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/paraguay.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Paraguay</p>
                                     </li>
                                     <li id='cid_111'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/peru.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/peru.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Peru</p>
                                     </li>
                                     <li id='cid_112'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/philippines.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/philippines.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Philippines</p>
                                     </li>
                                     <li id='cid_113'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/poland.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/poland.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Poland</p>
                                     </li>
                                     <li id='cid_114'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/portugal.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/portugal.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Portugal</p>
                                     </li>
                                     <li id='cid_115'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/puerto-rico-usa.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/puerto-rico-usa.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Puerto Rico (U.S.A.)</p>
                                     </li>
                                     <li id='cid_116'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/qatar.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/qatar.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Qatar</p>
                                     </li>
                                     <li id='cid_117'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/rdc.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/rdc.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>RDC</p>
                                     </li>
                                     <li id='cid_118'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/romania.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/romania.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Romania</p>
                                     </li>
                                     <li id='cid_123'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/rwanda.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/rwanda.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Rwanda</p>
                                     </li>
                                     <li id='cid_124'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/samoa.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/samoa.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Samoa</p>
                                     </li>
                                     <li id='cid_125'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/saudi-arabia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/saudi-arabia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Saudi Arabia</p>
                                     </li>
                                     <li id='cid_126'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/senegal.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/senegal.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Senegal</p>
                                     </li>
                                     <li id='cid_127'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/serbia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/serbia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Serbia</p>
                                     </li>
                                     <li id='cid_128'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/sierra-leone.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/sierra-leone.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Sierra Leone</p>
                                     </li>
                                     <li id='cid_129'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/singapore.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/singapore.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Singapore</p>
                                     </li>
                                     <li id='cid_130'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/slovakia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/slovakia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Slovakia</p>
                                     </li>
                                     <li id='cid_131'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/slovenia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/slovenia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Slovenia</p>
                                     </li>
                                     <li id='cid_132'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/somalia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/somalia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Somalia</p>
                                     </li>
                                     <li id='cid_133'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/south-africa.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/south-africa.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>South Africa</p>
                                     </li>
                                     <li id='cid_134'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/south-korea.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/south-korea.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>South Korea</p>
                                     </li>
                                     <li id='cid_135'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/spain.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/spain.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Spain</p>
                                     </li>
                                     <li id='cid_136'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/sri-lanka.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/sri-lanka.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Sri Lanka</p>
                                     </li>
                                     <li id='cid_137'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/sudan.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/sudan.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Sudan</p>
                                     </li>
                                     <li id='cid_138'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/suriname.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/suriname.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Suriname</p>
                                     </li>
                                     <li id='cid_139'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/swaziland.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/swaziland.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Swaziland</p>
                                     </li>
                                     <li id='cid_140'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/sweden.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/sweden.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Sweden</p>
                                     </li>
                                     <li id='cid_141'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/switzerland.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/switzerland.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Switzerland</p>
                                     </li>
                                     <li id='cid_142'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/syria.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/syria.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Syria</p>
                                     </li>
                                     <li id='cid_143'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/taiwan.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/taiwan.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Taiwan</p>
                                     </li>
                                     <li id='cid_144'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/tanzania.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/tanzania.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Tanzania</p>
                                     </li>
                                     <li id='cid_145'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/thailand.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/thailand.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Thailand</p>
                                     </li>
                                     <li id='cid_146'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/togo.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/togo.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Togo</p>
                                     </li>
                                     <li id='cid_147'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/trinidad---tobago.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/trinidad---tobago.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Trinidad & Tobago</p>
                                     </li>
                                     <li id='cid_148'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/tunisia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/tunisia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Tunisia</p>
                                     </li>
                                     <li id='cid_149'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/turkey.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/turkey.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Turkey</p>
                                     </li>
                                     <li id='cid_150'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/usa.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/usa.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>U.S.A.</p>
                                     </li>
                                     <li id='cid_151'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/uganda.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/uganda.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Uganda</p>
                                     </li>
                                     <li id='cid_152'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/ukraine.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/ukraine.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Ukraine</p>
                                     </li>
                                     <li id='cid_153'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/united-arab-emirates.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/united-arab-emirates.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>United Arab Emirates</p>
                                     </li>
                                     <li id='cid_154'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/united-kingdom.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/united-kingdom.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>United Kingdom</p>
                                     </li>
                                     <li id='cid_155'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/uruguay.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/uruguay.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Uruguay</p>
                                     </li>
                                     <li id='cid_156'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/uzbekistan.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/uzbekistan.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Uzbekistan</p>
                                     </li>
                                     <li id='cid_157'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/vanuatu.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/vanuatu.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Vanuatu</p>
                                     </li>
                                     <li id='cid_158'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/venezuela.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/venezuela.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Venezuela</p>
                                     </li>
                                     <li id='cid_159'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/vietnam.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/vietnam.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Vietnam</p>
                                     </li>
                                     <li id='cid_160'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/virgin-islands-usa.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/virgin-islands-usa.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Virgin Islands (U.S.A.)</p>
                                     </li>
                                     <li id='cid_161'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/yemen.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/yemen.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Yemen</p>
                                     </li>
                                     <li id='cid_162'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/zambia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/zambia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Zambia</p>
                                     </li>
                                     <li id='cid_163'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/zimbabwe.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/zimbabwe.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Zimbabwe</p>
                                     </li>
                                     <li id='cid_119'>
-                                        <img src="{{ asset('assets/web') }}/images/flags/russia.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";' />
+                                        <img src="{{ asset(asset_web_image_dir) }}/flags/russia.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";' />
                                         <p>Russia </p>
                                     </li>
                                 </ul>
@@ -762,7 +761,7 @@
                                         <tbody>
                                             <tr>
                                                 <td width="50%" class="td1">
-                                                    <p id="flags-img"><img src="{{ asset('assets/web') }}/images/flags/albania.png" onerror='this.src="{{ asset('assets/web') }}/images/flags/no-flag.png";'></p>
+                                                    <p id="flags-img"><img src="{{ asset(asset_web_image_dir) }}/flags/albania.png" onerror='this.src="{{ asset(asset_web_image_dir) }}/flags/no-flag.png";'></p>
                                                 </td>
                                                 <td width="50%" class="td2"><span class="ctrname">Albania</span></td>
                                             </tr>
@@ -809,7 +808,7 @@
                                         <span id="bNoRecommend">
                                             <span class="no_mid_button"><input finish="false" rel="noRecommend" type="button" id="no_recmd" class="button_login" value="No, I don't have recommendations for this country"></span>
                                         </span>
-                                        <div id="loading_top"><img src="{{ asset('assets/web') }}/images/loading-big.gif"></div>
+                                        <div id="loading_top"><img src="{{ asset(asset_web_image_dir) }}/loading-big.gif"></div>
                                     </div>
                                 </div>
                             </div>
@@ -834,7 +833,7 @@
                             </div>
                             <!-- end content-school-->
                             <div class="content_school_b">
-                                <div id="loading"><img src="{{ asset('assets/web') }}/images/loading-big.gif"></div>
+                                <div id="loading"><img src="{{ asset(asset_web_image_dir) }}/loading-big.gif"></div>
                             </div>
                             <div class="divcenterbutton">
 
@@ -873,5 +872,5 @@
 {% endblock %}
 
 {% block javascript %}
-    {% include web_dean_dir ~ "javascript/voting_session_js.html.twig" %}
+    {% include web_dean_dir ~ "\/" ~ "javascript/voting_session_js.html.twig" %}
 {% endblock %}

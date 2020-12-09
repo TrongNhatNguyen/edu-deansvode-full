@@ -1,0 +1,113 @@
+{% extends admin_layout_dir ~ "\/" ~ "base.html.twig" %}
+{% set title = "Dean Vote CMS Area" %}
+
+{% set breadcrumb_parent = "Schools Manager" %}
+{% set url_breadcrumb_parent = "admin_school_list" %}
+{% set breadcrumb = "Area" %}
+
+{% block content %}
+<div class="content">
+    <div class="row align-items-center panel-heading-top">
+        <div class="col-12 col-md-4">
+            <div class="form-row filter-row mt-2">
+                <div class="col-4 col-md-4 form-group form-group-primary">
+                    <select class="custom-select select-style-second form-control select-keyword" id="field-search">
+                        <option value="name">Zone Name</option>
+                        <option value="id">Zone Id</option>
+                    </select>
+                </div>
+                <div class="col-8 col-md-8">
+                    <div class="input-group no-border ">
+                        <span class="input-group-addon">
+                            <i class="now-ui-icons ui-1_zoom-bold"></i>
+                        </span>
+                        <!-- <input type="text" value="" class="form-control" id="txtKeyword2" placeholder="Search..."> -->
+                        <input type="text" class="form-control" placeholder="Search..." id="search-area">
+                    </div>
+
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary  d-none">Search</button>
+        </div>
+        <div class="col-12 col-md-6">
+        </div>
+    </div>
+    <hr>
+
+    <!-- row -->
+    <div class="card-plain">
+        <div class="d-flex align-items-center">
+            <div class="form-inline mr-4">
+                <label>Show
+                    <select class="form-control form-control-sm mx-2" id="cboLimit">
+                        <option value="10">10</option>
+                        <option value="25" selected>25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select> items of
+                    <span id="spnTotalRows" style="margin: 0 10px; color: #cb9e6e;">{{ listAreas.getTotalItemCount|default('') }}</span> items
+                </label>
+            </div>
+            <div class="w-paging">
+                <div id="spnPaging">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-plain -->
+
+    <div class="row">
+        <div class="col-12 col-md-7">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table text-center">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <div class="dropdown">
+                                            <a href="#" data-toggle="dropdown"><i class="material-icons">more_vert</i></a>
+                                            <div class="dropdown-menu select-dropdown dropdown-menu-left" x-placement="bottom-end">
+                                                <a class="dropdown-item" href="javascript:void(0)" id="remove-selected"><i class="material-icons">delete</i></a>
+                                                <a class="dropdown-item" href="#">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheckAll" />
+                                                        <label class="custom-control-label" for="customCheckAll"></label>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th> ID </th>
+                                    <th> Area
+                                        <span onclick="sortNameArea(this);" sort-type="DESC" class="sorting"></span>
+                                    </th>
+                                    <th> Active <br>
+                                        <select class="custom-select-filter" id="filter-areas-by-status" rel="listFilter">
+                                            <option value="" selected>All</option>
+                                            <option value="0">Deactive</option>
+                                            <option value="1">Active</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                            </thead>
+                            {# list area #}
+                            <tbody class="list-area" id="list-area-container">
+                                {% include admin_area_dir ~ "\/" ~ "partial/list_area.html.twig" %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {# form area #}
+        <div class="col-12 col-md-5" id="update-span">
+            {% include admin_area_dir ~ "\/" ~ "partial/form_create_area.html.twig" %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {% include admin_area_dir ~ "\/" ~ "javascript/area_js.html.twig" %}
+{% endblock %}

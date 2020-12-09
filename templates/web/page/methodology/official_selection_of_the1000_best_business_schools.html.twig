@@ -1,4 +1,4 @@
-{% extends web_layout_dir ~ "base.html.twig" %}
+{% extends web_layout_dir ~ "\/" ~ "base.html.twig" %}
 
 {% set title = "Dean's vote 2020, Eduniversal Evaluation Agency" %}
 
@@ -33,7 +33,7 @@
                 <p>After the Palme classification (from 1 to 5) has been set, an international Deans Vote determines the rank within each Palme category. The final ranking shows, within each Palme category, the best business schools in each country.</p>
                 <p>The EDUNIVERSAL ranking highlights the best academic opportunities for students around the world in these 9 zones:</p>
                 <br>
-                <img src="/{{ asset('assets/web') }}/images/zones.jpg" alt="">
+                <img src="/{{ asset_web_image_dir }}/zones.jpg" alt="">
                 <p>&nbsp;</p>
                 <br><b>Example of the data taken into consideration, according to the method of quotas, in the determination of the number of schools per country in the Eduniversal Official Selection:</b></p>
                 <div class="table-responsive wp-tb-official">

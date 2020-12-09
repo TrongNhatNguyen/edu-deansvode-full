@@ -1,0 +1,30 @@
+
+<div class="card p-lg-4">
+    <div class="card-header">
+        <h4 class="card-title line-center">INFO UPDATE</h4>
+    </div>
+    <div class="card-body ">
+        {# <div id="update-message"></div> #}
+        <form method="POST" action="{{ path('admin_update_area_action') }}" id="area-form">
+            {# get id #}
+            <input type="hidden" name="area_id" value="{{ id|default("") }}">
+            <div class="form-group">
+                <label for="">Area<span class="ic-require">*</span></label>
+                <input type="text" name="area_name" class="form-control form-control-lg to-alias" id="txt-area-title" value="{{ name|default("") }}" onchange="handle_edit_info(this)" required />
+                <p class="error" id="name-error" for="area_name"></p>
+            </div>
+            <div class="form-group">
+                <label for="">Alias<span class="ic-require">*</span></label>
+                <input type="text" name="area_slug" class="form-control form-control-lg input-alias" id="txt-area-slug" value="{{ slug|default("") }}" onchange="handle_edit_info(this)" required />
+                <p class="error" id="slug-error" for="area_slug"></p>
+            </div>
+            <div class="d-flex flex-nowrap align-items-center">
+                <div class="custom-control custom-checkbox mr-4">
+                    <input type="checkbox" name="area_status" class="custom-control-input" id="checkboxActive" onchange="handle_edit_info(this)" {% if status is defined and status == 1 %}checked{% endif %} />
+                    <label class="custom-control-label" for="checkboxActive">Active</label>
+                </div>
+                <button type="submit" class="btn btn-second btn-round btn-sm">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

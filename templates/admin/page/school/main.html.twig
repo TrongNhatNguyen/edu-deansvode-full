@@ -1,4 +1,9 @@
-{% extends 'admin/layout/base.html.twig' %}
+{% extends admin_layout_dir ~ "\/" ~ 'base.html.twig' %}
+{% set title = "Dean Vote CMS School Manager" %}
+
+{% set breadcrumb_parent = "Schools Manager" %}
+{% set url_breadcrumb_parent = "admin_school_list" %}
+{% set breadcrumb = "School Manager" %}
 
 {% block content %}
     <div class="content">

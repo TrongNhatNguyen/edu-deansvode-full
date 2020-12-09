@@ -1,0 +1,151 @@
+{% extends admin_layout_dir ~ "\/" ~ "base.html.twig" %}
+{% set title = "Dean Vote CMS Country" %}
+
+{% set breadcrumb_parent = "Schools Manager" %}
+{% set url_breadcrumb_parent = "admin_school_list" %}
+{% set breadcrumb = "Country" %}
+
+{% block content %}
+<div class="content">
+    <div class="row align-items-center panel-heading-top">
+        <div class="col-12 col-md-6">
+            <div class="form-row filter-row mt-2">
+                <div class="col-4 col-md-4 form-group form-group-primary">
+                    <select class="custom-select select-style-second form-control select-keyword" id="field-search">
+                        <option value="name" selected>Country Name</option>
+                        <option value="id">Country Id</option>
+                    </select>
+                </div>
+                <div class="col-8 col-md-7 col-xl-6">
+                    <div class="input-group no-border ">
+                        <span class="input-group-addon">
+                            <i class="now-ui-icons ui-1_zoom-bold"></i>
+                        </span>
+                        <input type="text" value="" class="form-control" placeholder="Search..." id="search-country">
+                    </div>
+
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary d-none">Search</button>
+        </div>
+        <div class="col-12 col-md-6">
+
+        </div>
+    </div>
+    <hr>
+
+    <!-- row -->
+    <div class="card-plain">
+        <div class="d-flex align-items-center">
+            <div class="form-inline">
+                <label>Show
+                    <span class="item-perpage">
+                        <select class="custom-select form-control form-control-sm mx-2" id="cboLimit">
+                                <option value="25" selected>25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                        </select>
+                    </span> items of
+                    <span id="spnTotalRows" style="margin: 0 10px; color: #cb9e6e;">{{ countries.getTotalItemCount|default('') }}</span> items
+                </label>
+            </div>
+            <div class="w-paging">
+                <div id="spnPaging">
+                    <span style="float: left;padding: 5px;">in page:</span>
+                    <ul class="pagination mb-0">
+
+                        <!-- <li><a>First</a></li> -->
+
+                        <li class="page-item">
+                            <a class="page-link" style="cursor: not-allowed;"><i class="fas fa-step-backward"></i></a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" style="cursor: not-allowed;"><i class="fas fa-caret-left"></i></a>
+                        </li>
+                        
+                        <li class="page-item active">
+                            <a class="page-link" href="javascript:void(0)">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="javascript:void(0)">2</a>
+                        </li>
+                        
+
+                        <li class="page-item">
+                            <a onclick="requestPage('2')" href="javascript:void(0)" class="page-link"><i class="fas fa-caret-right"></i></a>
+                        </li>
+                        <li class="page-item">
+                            <a onclick="requestPage('4')" href="javascript:void(0)" class="page-link" aria-label="Last"><i class="fas fa-step-forward"></i></a>
+                        </li>
+
+
+
+                    </ul>
+                    {# {{ knp_pagination_render(countries) }} #}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-plain -->
+
+    <div class="row">
+        <div class="col-12 col-md-7">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table text-center">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <div class="dropdown">
+                                            <a href="#" data-toggle="dropdown"><i class="material-icons">more_vert</i></a>
+                                            <div class="dropdown-menu select-dropdown dropdown-menu-left" x-placement="bottom-end">
+                                                <a class="dropdown-item" href="javascript:void(0)" id="remove-selected"><i class="material-icons">delete</i></a>
+                                                <a class="dropdown-item" href="javascript:void(0)">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <!-- <input type="checkbox" class="custom-control-input" id="customCheckAll" onchange="handle_select_row(this);" /> -->
+                                                        <input type="checkbox" class="custom-control-input" id="customCheckAll" />
+                                                        <label class="custom-control-label" for="customCheckAll"></label>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th> ID </th>
+                                     <th> ISO Code <br>
+                                    <th class="sorting" onclick="sortNameCountries(this)" sort-type="DESC"> Country Name </th>
+                                    <th class="sorting"> Zone <br>
+                                        <select class="custom-select-filter" id="filter-countries-by-zone">
+                                            <option value="">All</option>
+                                            {% for zone in zones %}
+                                                <option value="{{ zone.id }}">{{ zone.name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </th>
+                                    <th> Active <br>
+                                        <select class="custom-select-filter" id="filter-countries-by-status" rel="listFilter">
+                                            <option value="" selected>All</option>
+                                            <option value="0">Deactive</option>
+                                            <option value="1">Active</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="list-country-container">
+                                {% include admin_country_dir ~ "\/" ~ "partial/list_country.html.twig" %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-5" id="update-span">
+            {% include admin_country_dir ~ "\/" ~ "partial/form_create_country.html.twig" %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {% include admin_country_dir ~ "\/" ~ "javascript/country_js.html.twig" %}
+{% endblock %}

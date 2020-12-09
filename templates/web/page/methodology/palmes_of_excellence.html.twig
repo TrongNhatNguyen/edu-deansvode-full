@@ -1,4 +1,4 @@
-{% extends web_layout_dir ~ "base.html.twig" %}
+{% extends web_layout_dir ~ "\/" ~ "base.html.twig" %}
 
 {% set title = "Dean's vote 2020, Eduniversal Evaluation Agency" %}
 
@@ -22,7 +22,7 @@
                 <h4 class="text-center">EDUNIVERSAL EVALUATION SYSTEM (EES): A 3-STEP PROCESS TO ESTABLISH A<br> BUSINESS SCHOOL’S RANKING IN 154 COUNTRIES</h4>
 
                 <div class="step-process-ranking text-center clearfix">
-                    <img src="{{ asset('assets/web') }}/images/step-process/SCHEMA-2.png" alt="" />
+                    <img src="{{ asset(asset_web_image_dir) }}/step-process/SCHEMA-2.png" alt="" />
                 </div>
 
                 <p></p>
@@ -38,7 +38,7 @@
                     The Eduniversal Ranking System does not compare, for example, schools in one country to another country.
                     Rather, it simply ranks the best schools within each country and within each Palme league.</p>
                 <div class="ulI text-center">
-                    <img src="{{ asset('assets/web') }}/images/step-process/SCHEMA-3.png" alt="" />
+                    <img src="{{ asset(asset_web_image_dir) }}/step-process/SCHEMA-3.png" alt="" />
                 </div>
                 <p>&nbsp;</p>
                 <p>&nbsp;</p>

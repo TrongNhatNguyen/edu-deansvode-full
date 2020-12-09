@@ -27,7 +27,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'web_home';
+    public const LOGIN_ROUTE = 'dean_login';
 
     private $entityManager;
     private $urlGenerator;
@@ -54,8 +54,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function supports(Request $request)
     {
-        return self::LOGIN_ROUTE === $request->attributes->get('_route')
-            && $request->isMethod('POST');
+        // return self::LOGIN_ROUTE === $request->attributes->get('_route')
+        //     && $request->isMethod('POST');
+        return $request->isMethod('POST');
     }
 
     public function getCredentials(Request $request)

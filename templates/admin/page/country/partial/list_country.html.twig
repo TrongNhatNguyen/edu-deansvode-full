@@ -1,0 +1,28 @@
+{% for country in countries %}
+    <tr id="{{ country.id }}">
+    <td class="td-btn">
+        <a onclick="fillUpdateForm({{ country.id }});" href="javascript:void(0)"><i class="far fa-edit"></i></a><br>
+        <a onclick="removeCountry({{ country.id }});" href="javascript:void(0)"><i class="far fa-trash-alt"></i></a><br>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input check-row" id="customCheck164" value="164" onchange="handle_select_row(this);" />
+            <label class="custom-control-label" for="customCheck164"></label>
+        </div>
+    </td>
+
+    <td>{{ country.id }}</td>
+
+    <td><a href="#">{{ country.isoCode }}</a></td>
+
+    <td><a href="#">{{ country.name }}</a></td>
+
+    <td><a href="#">{{ country.zone.name }}</a></td>
+
+    <td id="cell-status">
+        {% if country.status == 1 %}
+        <a onclick="toggleStatus({{ country.id }}, this)" class="active" style="cursor: pointer;"><img src="{{ asset(asset_admin_image_dir) }}/active.svg" width="18"></a>
+        {% else %}
+        <a onclick="toggleStatus({{ country.id }}, this)" class="inactive" style="cursor: pointer;"><img src="{{ asset(asset_admin_image_dir) }}/inactive.svg" width="18"></a>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}

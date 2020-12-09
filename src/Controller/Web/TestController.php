@@ -2,8 +2,8 @@
 
 namespace App\Controller\Web;
 
-use App\Service\VoteSessionService;
-use App\Service\ZoneService;
+use App\Service\Web\VoteSessionService;
+use App\Service\Web\ZoneService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,7 +23,7 @@ class TestController extends AbstractController
      */
     public function index()
     {
-        $allZones = $this->ZoneService->getAllZonesByAlphabeticalOrder();
+        $allZones = $this->ZoneService->getAllZonesActiveByAlphaOrder();
         dd($allZones);
         return true;
     }
