@@ -1,0 +1,19 @@
+<div class="card-plain card-subcategories card mb-0">
+    <div class="card-body" style="padding-right: 0">
+        <ul class="nav nav-pills nav-pills-primary nav-pills-icons justify-content-end">
+            {% for voteSession in voteSessions|reverse %}
+                {% set active = voteSession.year == (voteSessions|first).year ? 'active' : '' %}
+
+                <li class="nav-item" style="cursor: pointer">
+                    <a class="nav-link {{ active }}"
+                        onclick="return change_year({{ voteSession.year }});"
+                        style="padding: 6px 8px;">
+                        <span style="font-size: 1.1rem;">{{ voteSession.year }}</span>
+                        <i class="icon-svg"><img src="{{ asset(asset_admin_v2_image_dir) }}/path-year.svg"
+                                class="img-pill"></i>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>

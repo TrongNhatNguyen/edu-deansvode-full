@@ -13,6 +13,18 @@ class VoteSessionService
         $this->voteSessionRepository = $voteSessionRepository;
     }
 
+    public function getLatestSessionYears(int $limit)
+    {
+        $queryBuilder = $this->voteSessionRepository->createQueryBuilder('v');
+        $queryBuilder
+            ->select()
+            ->setMaxResults($limit)
+            ->orderBy('v.year', 'DESC')
+            ;
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
     public function getVoteSessionByStatus($year = null, $status = 1)
     {
         try {

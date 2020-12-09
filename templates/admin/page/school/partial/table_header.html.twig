@@ -1,0 +1,87 @@
+<thead>
+    <tr>
+        <th>
+            <div class="dropdown">
+                <a href="#" data-toggle="dropdown"><i
+                        class="material-icons">more_vert</i></a>
+                <div class="dropdown-menu select-dropdown dropdown-menu-left"
+                    x-placement="bottom-end">
+                    <a class="dropdown-item" href="javascript:void(0)"
+                        id="remove-selected"><i class="material-icons">delete</i></a>
+                    <a class="dropdown-item" href="#">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input"
+                                id="customCheckAll">
+                            <label class="custom-control-label"
+                                for="customCheckAll"></label>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </th>
+        <th> ID </th>
+        <th>AREA<br>
+            <select class="custom-select-filter" id="subzone" rel="listFilter">
+                <option value="all">All</option>
+                {% for zone in zones %}
+                    <option value="{{ zone.id }}">{{ zone.name }}</option>
+                {% endfor %}
+            </select>
+        </th>
+        <th> COUNTRY<br>
+            <select id="country_id" rel="listFilter" class="custom-select-filter">
+                <option value="all">All</option>
+                {% for country in countries %}
+                    <option value="{{ country.id }}">{{ country.name }}</option>
+                {% endfor %}
+            </select>
+        </th>
+        <th>PALMES<br>
+            <select id="palm_id" rel="listFilter" class="custom-select-filter">
+                <option value="all">All</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </th>
+        <th class="text-left">SCHOOL NAME</th>
+        <th>DEAN'S NAME</th>
+        <th>VOTED STATUS<br />
+            <select id="vote_status" rel="listFilter" class="custom-select-filter">
+                <option value="all">All</option>
+                <option value="unvote">Unvote</option>
+                <option value="voting">Voting</option>
+                <option value="voted">Voted</option>
+            </select>
+        </th>
+        <th class="sorting_asc" data-field="vote_number">VOTED<br>NUMBER</th>
+        <th>VOTED TYPE<br />
+            <select id="vote_type" rel="listFilter" class="custom-select-filter">
+                <option value="all">All</option>
+                <option value="real">Real</option>
+                <option value="quick process">Quick Process</option>
+                <option value="report">Report</option>
+            </select>
+        </th>
+        <th>ACTIVE<br>
+            <select class="custom-select-filter" id="active" rel="listFilter">
+                <option value="all">All</option>
+                <option value="0">Deactive</option>
+                <option value="1">Active</option>
+            </select>
+        </th>
+        <th>REPORT<br>
+            <select class="custom-select-filter" style="width: 70px;"
+                onchange="get_report(this)">
+                <option value="2017">2017</option>
+                <option value="2018">2018</option>
+                <option value="2019">2019</option>
+                <option value="2020" selected>2020</option>
+            </select>
+        </th>
+        <th>NOTE</th>
+        <th class="text-right">LOGIN</th>
+    </tr>
+</thead>

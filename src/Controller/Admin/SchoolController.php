@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\ViewModel\School\SchoolTableViewModel;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -13,8 +14,10 @@ class SchoolController extends AbstractController
     /**
      * @Route("/schools", name="admin_school_list")
      */
-    public function viewMainSchools()
+    public function viewMainSchools(SchoolTableViewModel $schoolTableViewModel)
     {
-        return $this->render('admin/page/school/main.html.twig');
+        return $this->render('admin/page/school/main.html.twig', [
+            'schoolTableViewModel' => $schoolTableViewModel,
+        ]);
     }
 }
