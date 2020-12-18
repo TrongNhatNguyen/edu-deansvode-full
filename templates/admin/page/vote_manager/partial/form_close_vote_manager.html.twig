@@ -1,0 +1,13 @@
+<form id="form-vote-manager" class="form-inline form-filter-top" method="POST" action="{{ path('admin_close_vote_session_action') }}">
+    <div class="d-block pt-4 form-has-checkbox text-center">
+        <big>INPUT CAMPAIGN YEAR (NUMBER ONLY)</big><br>
+        <div class="d-inline-block custom-control custom-checkbox checkbox-sm"></div>
+    </div>
+    <input class="form-control" name="vote_session_id" type="hidden" value="{{ openingVoteSession.id }}">
+    <div class="form-group ml-3">
+        <input type="text" name="year" value="{{ openingVoteSession.year }}" class="form-control" readonly>
+    </div>
+    <button type="submit" class="btn btn-second btn-round px-3 ml-3">
+        <i class="now-ui-icons media-1_button-pause" title="Close current voting session"></i> End
+    </button>
+</form>

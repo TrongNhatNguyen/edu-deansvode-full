@@ -1,0 +1,76 @@
+{% extends admin_layout_dir ~ "\/" ~ "base.html.twig" %}
+{% set title = "Dean Vote CMS Vote Manager" %}
+
+{% set breadcrumb_parent = "Vote Manager" %}
+{% set url_breadcrumb_parent = "admin_vote_manager" %}
+
+{% block content %}
+<div class="content">
+
+    <div class="row align-items-center panel-heading-top">
+        <div class="col-9" id="form-container">
+                {% if openingVoteSession is null %}
+                    {% include admin_vote_manager_dir ~ "\/" ~ "partial/form_start_new_vote_manager.html.twig" %}
+                {% else %}
+                    {% include admin_vote_manager_dir ~ "\/" ~ "partial/form_close_vote_manager.html.twig" %}
+                {% endif %}
+        </div>
+        <div class="col-3">
+            <button class="btn btn-neutral float-right" id="exportToExcel">
+                EXPORT
+                <i class="icon-svg"><img src="{{ asset(asset_admin_image_dir) }}/excel.svg" alt="" width="20"></i>
+            </button>
+        </div>
+    </div>
+
+    <hr>
+    
+    <div class="row">
+        <div class="clearfix"></div>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table2excel table text-center" id="tableData">
+                            <thead>
+                                <tr>
+                                    <th nowrap="">
+                                        Campaign Year
+                                        <br>
+                                    </th>
+                                    <th nowrap="">
+                                        Start Time
+                                        <br>
+                                    </th>
+                                    <th nowrap="">
+                                        End Time
+                                        <br>
+                                    </th>
+                                    <th nowrap="">
+                                        Active
+                                        <br>
+                                        <select class="custom-select-filter" id="filter-vote-session">
+                                            <option value="" selected>All</option>
+                                            <option value="0">Deactive</option>
+                                            <option value="1">Active</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="list-container">
+                                {% include admin_vote_manager_dir ~ "\/" ~ "partial/list_vote_manager.html.twig" %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {% include admin_vote_manager_dir ~ "\/" ~ "javascript/vote_manager_js.html.twig" %}
+{% endblock %}

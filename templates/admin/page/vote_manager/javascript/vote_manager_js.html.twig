@@ -1,0 +1,121 @@
+<script type="text/javascript">
+    var url = "{{ path('admin_vote_manager') }}";
+    var url_export = "{{ path('admin_export_data_vote_session') }}";
+    var view = {
+        url: "{{ path('admin_vote_manager') }}",
+        url_export: "{{ path('admin_export_data_vote_session') }}"
+    };
+
+    $(document).ready(function() {
+        // Export Excell file:
+        $('body').on('click', '#exportToExcel', function(event) {
+            window.location.href = build_url_export();
+        });
+
+        // [create-update] vote session - ajax:
+        $('body').on('submit', '#form-vote-manager', function(event) {
+            event.preventDefault();
+            var form_element = this;
+            var formData = new FormData(form_element);
+            $.ajax({
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#overlay').fadeIn();
+                }
+            }).done(function (response) {
+                if (response.status === 'success') {
+                    notifiSuccess(response.message);
+                    if (response.mailNotifi) {
+                        setTimeout(function() {
+                            notifiSuccess(response.mailNotifi);;
+                        }, 1000);
+                    }
+                    var htmlForm = $.parseHTML(response.htmlForm);
+                    var htmlList = $.parseHTML(response.htmlList);
+                    $('#form-container').html(htmlForm);
+                    $('#list-container').html(htmlList);
+                }
+            }).always(function() {
+                $('#overlay').fadeOut();
+            });
+        });
+
+        // filter [open-close] vote-session - ajax:
+        $('body').on('change', '#filter-vote-session', function(event) {
+            var status = $(this).val();
+            view.status = status;
+            console.log(status);
+            load_data(build_url())
+            .done(function(response) {
+                if (response.status === 'success') {
+                    var template = $.parseHTML(response.html);
+                    $('#list-container').html(template);
+                }
+            }).always();
+        });
+    });
+    
+    // build url request params:
+    function build_url()
+    {
+        let url = view.url + '?';
+
+        if (view.hasOwnProperty('status')) {
+            url += "status=" + view.status;
+        }
+
+        return url;
+    }
+
+    function build_url_export()
+    {
+        let url_export = view.url_export + '?';
+
+        if (view.hasOwnProperty('status')) {
+            url_export += "status=" + view.status;
+        }
+
+        return url_export;
+    }
+
+    function load_data(url)
+    {
+        return $.ajax({
+            url: url,
+            method: 'GET',
+            dataType: 'json',
+        });
+    }
+    
+    // partial response:
+    function notifiSuccess(message)
+    {
+        Swal.fire({
+            width: 280,
+            position: 'top-end',
+            icon: 'success',
+            text: message,
+            showConfirmButton: false,
+            timer: 1300,
+            timerProgressBar: true,
+        })
+    }
+    function notifiInfo(message)
+    {
+        Swal.fire({
+            width: 280,
+            position: 'top-end',
+            icon: 'info',
+            text: message,
+            showConfirmButton: false,
+            timer: 1300,
+            timerProgressBar: true,
+        })
+    }
+</script>
+

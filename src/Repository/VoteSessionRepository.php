@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\VoteSession;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,9 +15,12 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class VoteSessionRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $entityManager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         parent::__construct($registry, VoteSession::class);
+        $this->entityManager = $entityManager;
     }
 
     // /**
@@ -47,4 +51,22 @@ class VoteSessionRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function voteSessionAction($data)
+    {
+        try {
+            $this->entityManager->persist($data);
+            $this->entityManager->flush();
+
+            return [
+                'status' => 'success',
+                'message' => 'successful enforcement!'
+            ];
+        } catch (\Exception $ex) {
+            return [
+                'status' => 'failed',
+                'error' => $ex->getMessage()
+            ];
+        }
+    }
 }

@@ -19,7 +19,7 @@ class ZoneService
     }
 
     /// ================================ CRUD:
-    public function createZoneAction($data)
+    public function createZone($data)
     {
         try {
             // validate:
@@ -64,7 +64,7 @@ class ZoneService
         }
     }
 
-    public function updateZoneAction($data)
+    public function updateZone($data)
     {
         try {
             // data default:
@@ -101,7 +101,7 @@ class ZoneService
         }
     }
 
-    public function updateStatusAction($data)
+    public function updateStatus($data)
     {
         $getArea = $this->getZoneById($data['area_id']);
 
@@ -111,7 +111,7 @@ class ZoneService
         return $this->updateZoneAction($data);
     }
 
-    public function deleteZoneAction($id)
+    public function deleteZone($id)
     {
         try {
             if (!$this->getZoneById($id)) {
@@ -149,7 +149,86 @@ class ZoneService
     }
     /// ================================.
 
-    //save value params (search-sort-filter by query):
+    //(search-sort-filter by query params):
+    public function getAllZonesQuery()
+    {
+        $queryBuilder = $this->zoneRepository->createQueryBuilder('z');
+        return $queryBuilder->select();
+    }
+
+    public function getListZoneQuery($reqParams)
+    {
+        $listQuery = $this->buildZoneListQuery($reqParams);
+
+        $queryBuilder = $this->getListQueryByConditions($listQuery);
+
+        $listPaginate = $this->getListQueryByPagination($listQuery);
+
+        return [
+            'page' => $listPaginate['page'],
+            'limit' => $listPaginate['limit'],
+            'queryBuilder' => $queryBuilder
+        ];
+    }
+
+    public function getExportZoneList($reqParams)
+    {
+        $listQuery = $this->buildZoneListQuery($reqParams);
+
+        $queryBuilder = $this->getListQueryByConditions($listQuery);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function getListQueryByConditions($ListQuery)
+    {
+        $queryBuilder = $this->zoneRepository->createQueryBuilder('z')->select();
+        if (!empty($ListQuery->conditions)) {
+            foreach ($ListQuery->conditions as $key => $value) {
+                if ($value == null) {
+                    $key = "";
+                }
+                switch ($key) {
+                    case 'status':
+                        $queryBuilder->andWhere('z.status = :val')
+                        ->setParameter('val', $value);
+                        break;
+                        
+                    case 'search':
+                        $queryBuilder->andWhere('z.'.$value['fieldSearch'].' LIKE :keyword')
+                        ->setParameter('keyword', '%'.$value['textSearch'].'%');
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        if (!empty($ListQuery->orders)) {
+            foreach ($ListQuery->orders as $key => $value) {
+                $queryBuilder->addOrderBy('z.'.$key, $value);
+            }
+        }
+
+        return $queryBuilder;
+    }
+
+    public function getListQueryByPagination($ListQuery)
+    {
+        $page = '';
+        $limit = '';
+
+        if (!empty($ListQuery->page)) {
+            $page = $ListQuery->page;
+        }
+
+        if (!empty($ListQuery->limit)) {
+            $limit = $ListQuery->limit;
+        }
+
+        return ['page' => $page, 'limit' => $limit];
+    }
+
     public function buildZoneListQuery($params)
     {
         $zoneListQuery = new ZoneListQuery();
@@ -184,63 +263,6 @@ class ZoneService
 
         return $zoneListQuery;
     }
-
-    public function getAllZonesQuery()
-    {
-        $queryBuilder = $this->zoneRepository->createQueryBuilder('z');
-        return $queryBuilder->select();
-    }
-
-    public function getListZoneQuery($zoneListQuery)
-    {
-        $queryBuilder = $this->zoneRepository->createQueryBuilder('z')->select();
-
-        if (!empty($zoneListQuery->conditions)) {
-            foreach ($zoneListQuery->conditions as $key => $value) {
-                if ($value == null) {
-                    $key = "";
-                }
-                switch ($key) {
-                    case 'status':
-                        $queryBuilder->andWhere('z.'.$key.' = :val')
-                        ->setParameter('val', $value);
-                        break;
-                        
-                    case 'search':
-                        $queryBuilder->andWhere('z.'.$value['fieldSearch'].' LIKE :keyword')
-                        ->setParameter('keyword', '%'.$value['textSearch'].'%');
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        if (!empty($zoneListQuery->orders)) {
-            foreach ($zoneListQuery->orders as $key => $value) {
-                $queryBuilder->addOrderBy('z.'.$key, $value);
-            }
-        }
-
-        if (!empty($zoneListQuery->page)) {
-            $page = $zoneListQuery->page;
-        } else {
-            $page = 1;
-        }
-
-        if (!empty($zoneListQuery->limit)) {
-            $limit = $zoneListQuery->limit;
-        } else {
-            $limit = 25;
-        }
-
-        return [
-            'page' => $page,
-            'limit' => $limit,
-            'queryBuilder' => $queryBuilder
-        ];
-    }
-
 
 
     // == count items:

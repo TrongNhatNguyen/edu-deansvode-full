@@ -42,10 +42,10 @@
                 </div>
             </li>
             <li class="">
-                <!-- <a href="/admin/new-report">
-          <i><img src="{{ asset(asset_admin_v2_image_dir) }}/report.svg" width="22"></i>
-          <p>Report</p>
-      </a> -->
+                {# <a href="/admin/new-report">
+                    <i><img src="{{ asset(asset_admin_v2_image_dir) }}/report.svg" width="22"></i>
+                    <p>Report</p>
+                </a> #}
                 <a data-toggle="collapse" href="#pagesReport" aria-expanded="false">
                     <i><img src="{{ asset(asset_admin_v2_image_dir) }}/report.svg" width="22"></i>
                     <p>Report</p> <b class="caret"></b>
@@ -105,7 +105,7 @@
                 </a>
             </li>
             <li class="">
-                <a href="/admin/new-session-manager">
+                <a href="{{ path('admin_vote_manager') }}">
                     <i><img src="{{ asset(asset_admin_v2_image_dir) }}/session-manager.svg" width="22"></i>
                     <p>Session manager</p>
                 </a>

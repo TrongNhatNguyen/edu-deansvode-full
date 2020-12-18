@@ -6,20 +6,20 @@
         <div id="update-message"></div>
         <form action="{{ path('admin_update_country_action') }}" method="POST" id="country-form">
             {# get id #}
-            <input type="hidden" name="country_id" value="{{ id|default("") }}">
+            <input type="hidden" name="country_id" value="{{ countryUpdate.id|default("") }}">
             <div class="form-group">
                 <label for="">Country Name<span class="ic-require">*</span></label>
-                <input type="text" name="country_name" class="form-control form-control-lg to-alias" id="txt-country-title" value="{{ name|default("") }}" required />
+                <input type="text" name="country_name" class="form-control form-control-lg to-alias" id="txt-country-title" value="{{ countryUpdate.name|default("") }}" required />
                 <p class="error" id="name-error" for=""></p>
             </div>
             <div class="form-group">
                 <label for="">Alias<span class="ic-require">*</span></label>
-                <input type="text" name="country_slug" class="form-control form-control-lg input-alias" id="txt-country-slug" value="{{ slug|default("") }}" required />
+                <input type="text" name="country_slug" class="form-control form-control-lg input-alias" id="txt-country-slug" value="{{ countryUpdate.slug|default("") }}" required />
                 <p class="error" id="slug-error" for=""></p>
             </div>
             <div class="form-group">
                 <label for="">ISO Code<span class="ic-require">*</span></label>
-                <input type="text" name="country_iso_code" class="form-control form-control-lg" id="txt-country-iso-code" value="{{ iso_code|default("") }}" oninput="this.value = this.value.toUpperCase()" required />
+                <input type="text" name="country_iso_code" class="form-control form-control-lg" id="txt-country-iso-code" value="{{ countryUpdate.isoCode|default("") }}" oninput="this.value = this.value.toUpperCase()" required />
                 <p class="error" id="iso-code-error"></p>
             </div>
             <div class="form-group">
@@ -27,14 +27,14 @@
                 <select id="txt-country-zone" class="form-control form-control-lg" name="zone_id" required>
                     <option value="">-- Choose a zone --</option>
                     {% for zone in zones %}
-                        <option value="{{ zone.id }}" {% if zone.id == zone_id %}selected{% endif %}>{{ zone.name }}</option>
+                        <option value="{{ zone.id }}" {% if zone.id == countryUpdate.zone.id %}selected{% endif %}>{{ zone.name }}</option>
                     {% endfor %}
                 </select>
                 <p class="error" id="zone-error"></p>
             </div>
             <div class="d-flex flex-nowrap align-items-center">
                 <div class="custom-control custom-checkbox mr-4">
-                    <input type="checkbox" name="country_status" class="custom-control-input" id="checkboxActive" {% if status is defined and status == 1 %}checked{% endif %} />
+                    <input type="checkbox" name="country_status" class="custom-control-input" id="checkboxActive" {% if countryUpdate.status is defined and countryUpdate.status == 1 %}checked{% endif %} />
                     <label class="custom-control-label" for="checkboxActive">Active</label>
                 </div>
                 <button type="submit" class="btn btn-second btn-round btn-sm">Submit</button>

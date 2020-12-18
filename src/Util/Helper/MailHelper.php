@@ -57,7 +57,7 @@ class MailHelper
                 'message' => 'email successfuly sent!',
             ];
         } catch (\Exception $ex) {
-            $this->logger->info('Email not send!');
+            $this->logger->info('Email not send: ' . $ex->getMessage());
             return [
                 'status' => 'failed',
                 'message' => 'mailing failed',
@@ -96,6 +96,19 @@ class MailHelper
                             'email' => $data['email1'],
                             'password' => $data['password1']
                             ]),
+            'body_type' => 'text/html'
+        ];
+
+        return $contentMail;
+    }
+
+    public function contentMailStartCampaign($infoDean)
+    {
+        $contentMail = [
+            'subject' => 'DeansVote 2020 - new vote session already start!',
+            'from' => $_ENV['START_NEW_CAMPAIGN_MAIL'],
+            'to' => $infoDean['email1'],
+            'body' => $this->twig->render('email/mail_start_campaign.html.twig', ['infoDean' => $infoDean]),
             'body_type' => 'text/html'
         ];
 

@@ -8,11 +8,11 @@
 {% block content %}
 <div class="content">
     <div class="row align-items-center panel-heading-top">
-        <div class="col-12 col-md-4">
+        <div class="col-6 col-md-6">
             <div class="form-row filter-row mt-2">
                 <div class="col-4 col-md-4 form-group form-group-primary">
                     <select class="custom-select select-style-second form-control select-keyword" id="field-search">
-                        <option value="name">Zone Name</option>
+                        <option value="name" selected>Zone Name</option>
                         <option value="id">Zone Id</option>
                     </select>
                 </div>
@@ -21,7 +21,6 @@
                         <span class="input-group-addon">
                             <i class="now-ui-icons ui-1_zoom-bold"></i>
                         </span>
-                        <!-- <input type="text" value="" class="form-control" id="txtKeyword2" placeholder="Search..."> -->
                         <input type="text" class="form-control" placeholder="Search..." id="search-area">
                     </div>
 
@@ -29,7 +28,12 @@
             </div>
             <button type="submit" class="btn btn-primary  d-none">Search</button>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-6 col-md-6">
+            <div id="dvjson"></div>
+            <button class="btn btn-neutral float-right" id="exportToExcel">
+                EXPORT
+                <i class="icon-svg"><img src="{{ asset(asset_admin_image_dir) }}/excel.svg" alt="" width="20"></i>
+            </button>
         </div>
     </div>
     <hr>
@@ -39,7 +43,7 @@
         <div class="d-flex align-items-center">
             <div class="form-inline mr-4">
                 <label>Show
-                    <select class="form-control form-control-sm mx-2" id="cboLimit">
+                    <select class="custom-select form-control form-control-sm mx-2" id="cboLimit">
                         <option value="10">10</option>
                         <option value="25" selected>25</option>
                         <option value="50">50</option>
@@ -61,7 +65,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table text-center">
+                        <table class="table text-center" id="tableData">
                             <thead>
                                 <tr>
                                     <th>

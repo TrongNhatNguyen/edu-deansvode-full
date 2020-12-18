@@ -11,9 +11,8 @@ class SmsUserConfirmHandler implements MessageHandlerInterface
 {
     private $mailHelper;
 
-    public function __construct(
-        MailHelper $mailHelper
-    ) {
+    public function __construct(MailHelper $mailHelper)
+    {
         $this->mailHelper = $mailHelper;
     }
 

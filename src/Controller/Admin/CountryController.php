@@ -4,9 +4,11 @@ namespace App\Controller\Admin;
 
 use App\Service\Admin\ZoneService;
 use App\Service\Admin\CountryService;
+use App\Util\Helper\PaginateHelper;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -14,74 +16,68 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class CountryController extends AbstractController
 {
+    protected $defaultPage = 1;
+    protected $defaultItemPerPage = 25;
+
     private $countryService;
     private $zoneService;
+    private $paginateHelper;
 
-    public function __construct(CountryService $countryService, ZoneService $zoneService)
-    {
+    public function __construct(
+        CountryService $countryService,
+        ZoneService $zoneService,
+        PaginateHelper $paginateHelper
+    ) {
         $this->countryService = $countryService;
         $this->zoneService = $zoneService;
+        $this->paginateHelper = $paginateHelper;
     }
 
 
     /**
      * @Route("/country", name="admin_country")
      */
-    public function index(Request $request, PaginatorInterface $paginator)
+    public function index(Request $request)
     {
+        $reqParams = $request->query->all();
 
-        $queryParams = $request->query->all();
-
-        if (empty($queryParams)) {
+        if (empty($reqParams)) {
             $zones = $this->zoneService->getAllZones();
-
             $countriesQuery = $this->countryService->getAllCountriesQuery();
-            $pagination = $paginator->paginate(
-                $countriesQuery, /* query NOT result */
-                $request->query->getInt('page', 1),
-                25
-            );
+            $pagination = $this->paginateHelper->paginateHelper($countriesQuery);
 
             return $this->render('admin/page/country/index.html.twig', [
                 'zones' => $zones,
                 'countries' => $pagination,
-                'itemsPerPage' => 25 // custom default
+                'itemsPerPage' => $this->defaultItemPerPage
             ]);
         }
 
-        $countryListQuery = $this->countryService->buildCountryListQuery($queryParams);
-        $newList = $this->countryService->getListCountry($countryListQuery);
-        $pagination = $paginator->paginate(
-            $newList['queryBuilder'], /* query NOT result */
-            $request->query->getInt('page', $newList['page']),
-            $newList['limit']
-        );
-        $html = $this->renderView('admin/page/country/partial/list_country.html.twig', [
-            'countries' => $pagination
-        ]);
+        $newList = $this->countryService->getListCountry($reqParams);
+        $pagination = $this->paginateHelper->paginateHelper($newList['queryBuilder'], $newList['page'], $newList['limit']);
 
         return $this->json([
             'status' => "success",
-            'html' => $html
+            'html' => $this->renderView('admin/page/country/partial/list_country.html.twig', ['countries' => $pagination])
         ]);
     }
 
     /**
-     * @Route("/#create-country-action", name="admin_create_country_action")
+     * @Route("/#create-country", name="admin_create_country_action")
      */
-    public function createCountryAction(Request $request)
+    public function create(Request $request)
     {
         $data = $request->request->all();
 
-        $result = $this->countryService->createCountryAction($data);
+        $result = $this->countryService->createCountry($data);
 
         return $this->json($result);
     }
 
     /**
-     * @route("/#show-update-country", name="admin_show_country_update", methods="GET")
+     * @route("/#show-country-info", name="admin_show_country_info")
      */
-    public function showUpdateCountry(Request $request)
+    public function showCurrentInfo(Request $request)
     {
         $country_id = $request->query->get('country_id');
         $countryUpdate = $this->countryService->getCountryById($country_id);
@@ -89,52 +85,42 @@ class CountryController extends AbstractController
         $zones = $this->zoneService->getAllZones();
 
         $html = $this->renderView('admin/page/country/partial/form_update_country.html.twig', [
-
             'zones' => $zones,
-
-            'id' => $countryUpdate->getId(),
-            'zone_id' => $countryUpdate->getZone()->getId(),
-            'name' => $countryUpdate->getName(),
-            'slug' => $countryUpdate->getSlug(),
-            'iso_code' => $countryUpdate->getIsoCode(),
-            'status' => $countryUpdate->getStatus()
+            'countryUpdate' => $countryUpdate
         ]);
 
-        return $this->json([
-            'status' => 'success',
-            'html' => $html
-        ]);
+        return $this->json(['status' => 'success', 'html' => $html]);
     }
 
     /**
-     * @route("/#update-country-action", name="admin_update_country_action")
+     * @route("/#update-country", name="admin_update_country_action")
      */
-    public function updateCountryAction(Request $request)
+    public function update(Request $request)
     {
         $data = $request->request->all();
-        $result = $this->countryService->updateCountryAction($data);
+        $result = $this->countryService->updateCountry($data);
 
         return $this->json($result);
     }
 
     /**
-     * @route("/#update-status-country-action", name="admin_update_status_country_action")
+     * @route("/#update-status-country", name="admin_update_status_country_action")
      */
-    public function updateStatusCountryAction(Request $request)
+    public function updateStatus(Request $request)
     {
         $data = $request->request->all();
-        $result = $this->countryService->updateStatusAction($data);
+        $result = $this->countryService->updateStatusCountry($data);
 
         return $this->json($result);
     }
 
     /**
-     * @route("/#delete-country-action", name="admin_delete_country_action")
+     * @route("/#delete-country", name="admin_delete_country_action")
      */
-    public function deleteCountryAction(Request $request)
+    public function delete(Request $request)
     {
         $country_id = $request->query->get('country_id');
-        $result = $this->countryService->deleteCountryAction($country_id);
+        $result = $this->countryService->deleteCountry($country_id);
 
         return $this->json($result);
     }

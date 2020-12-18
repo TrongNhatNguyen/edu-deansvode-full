@@ -37,6 +37,7 @@ twig:
         #page:
         admin_country_dir: 'admin/page/country'
         admin_area_dir: 'admin/page/area'
+        admin_vote_manager_dir: 'admin/page/vote_manager'
 
         #public asset:
         asset_admin_dir: 'assets/admin'

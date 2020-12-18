@@ -380,24 +380,24 @@ var common = {
         });
     },
     sendMailStartCompaign: function(count){
-        $.ajax({
-            type: "POST",
-            url: "/admin/new-session-manager/send-mail-dean",
-            dataType: 'json',
-            data: {
-                count: count,
-            },
-            success: function(resp) {
-                //console.log(resp.sqlString,resp.MailNotSend);
-                if(resp.success==1 ){
-                    setTimeout('common.sendMailStartCompaign(' + resp.count + ')', 5000);
-                    $('#count_email').html(resp.count);
+        // $.ajax({
+        //     type: "POST",
+        //     url: "/admin/new-session-manager/send-mail-dean",
+        //     dataType: 'json',
+        //     data: {
+        //         count: count,
+        //     },
+        //     success: function(resp) {
+        //         //console.log(resp.sqlString,resp.MailNotSend);
+        //         if(resp.success==1 ){
+        //             setTimeout('common.sendMailStartCompaign(' + resp.count + ')', 5000);
+        //             $('#count_email').html(resp.count);
 
-                }else{
-                    $('#success').html('');
-                }
-            }
-        });
+        //         }else{
+        //             $('#success').html('');
+        //         }
+        //     }
+        // });
     },
     sendMailMarketing: function(count){
         $('#message').hide();

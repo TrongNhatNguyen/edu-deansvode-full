@@ -1,0 +1,16 @@
+<form class="form-inline form-filter-top" method="POST" action="{{ path('admin_start_new_vote_session_action') }}" id="form-vote-manager">
+    <div class="d-block pt-4 form-has-checkbox text-center">
+        <big>INPUT CAMPAIGN YEAR (NUMBER ONLY)</big><br>
+
+        <div class="d-inline-block custom-control custom-checkbox checkbox-sm">
+            <input type="checkbox" class="custom-control-input" name="isSendMail" id="emailtodeanCheck">
+            <label class="custom-control-label" for="emailtodeanCheck">Send email to all deans when start campaign</label>
+        </div>
+    </div>
+    <div class="form-group ml-3">
+        <input type="number" name="year" class="form-control" id="txt-vote-manager" required autofocus>
+    </div>
+    <button type="submit" class="btn btn-second btn-round px-3 ml-3">
+        <i class="now-ui-icons media-1_button-play" title="Start new voting session"></i> Start
+    </button>
+</form>

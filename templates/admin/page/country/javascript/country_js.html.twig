@@ -6,13 +6,21 @@
     // ==========================
 
     var url = "{{ path('admin_country') }}";
+    var url_export = "{{ path('admin_export_data_country') }}";
     var view = {
         url: "{{ path('admin_country') }}",
+        url_export: "{{ path('admin_export_data_country') }}",
         limit: {{ itemsPerPage }},
         page: 1
     };
 
     $(document).ready(function() {
+        // export Excel;
+        $('body').on('click', '#exportToExcel', function (event) {
+            console.log('export!');
+            window.location.href = build_url_export();
+        });
+
         // [ create-update ] request - ajax:
         $('body').on('submit', '#country-form', function(event) {
             event.preventDefault();
@@ -137,6 +145,10 @@
             }
         });
 
+        $("#checkAll").click(function(){
+            $('#customCheck').not(this).prop('checked', this.checked);
+        });
+
     }); // ====== end jquery
 
     // remove country - ajax:
@@ -216,13 +228,13 @@
         });
     }
 
-    // get-show value input update - ajax:
+    // get-show country info - ajax:
     function fillUpdateForm(country_id)
     {
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '{{ path("admin_show_country_update") }}',
+            url: '{{ path("admin_show_country_info") }}',
             data: {
                 country_id: country_id
             },
@@ -285,6 +297,29 @@
         }
 
         return url;
+    }
+
+    function build_url_export()
+    {
+        let url_export = view.url_export + '?act=export_data';
+
+        if (view.hasOwnProperty('name')) {
+            url_export += '&name=' + view.name;
+        }
+
+        if (view.hasOwnProperty('zone_id')) {
+            url_export += '&zone_id=' + view.zone_id;
+        }
+
+        if (view.hasOwnProperty('status')) {
+            url_export += '&status=' + view.status;
+        }
+
+        if (view.hasOwnProperty('search')) {
+            url_export += '&fieldSearch=' + view.search.field + '&textSearch=' + view.search.text;
+        }
+
+        return url_export;
     }
 
     function load_data(url)

@@ -7,12 +7,12 @@
         <br>
         <a onclick="removeArea({{ area.id }})" href="javascript:void(0)"><i class="far fa-trash-alt"></i></a><br>
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input check-row" id="customCheck9" value="9" onchange="handle_select_row(this);" />
+            <input type="checkbox" class="custom-control-input check-row" id="customCheck" value="9" />
             <label class="custom-control-label" for="customCheck9"></label>
         </div>
     </td>
     <td>{{ area.id }}</td>
-    <td><a href="#">{{ area.name }}</a></td>
+    <td>{{ area.name }}</td>
     <td id="cell-status">
         {% if area.status == 1 %}
         <a onclick="toggleStatus({{ area.id }}, this)" class="active" style="cursor: pointer;"><img src="{{ asset(asset_admin_image_dir) }}/active.svg" width="18"></a>

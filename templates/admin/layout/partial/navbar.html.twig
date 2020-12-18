@@ -11,8 +11,11 @@
             <nav aria-label="breadcrumb" class="nav-breadcrumb d-none d-lg-flex">
 
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ path(url_breadcrumb_parent|default('admin_dashboard')) }}">{{ breadcrumb_parent|default('Dashboard') }}</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb|default('') }}</li>
+                    <li class="breadcrumb-item "><a href="{{ path(url_breadcrumb_parent|default('admin_dashboard')) }}">{{ breadcrumb_parent|default('Dashboard') }}</a></li>
+                    {% if breadcrumb is defined %}
+                    <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb }}</li>
+                    {% endif %}
+                    
                 </ol>
 
             </nav>

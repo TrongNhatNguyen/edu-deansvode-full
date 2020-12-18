@@ -5,7 +5,6 @@ namespace App\Service\Admin;
 use App\DTO\QueryObject\Country\CountryListQuery;
 use App\Repository\CountryRepository;
 use App\Repository\ZoneRepository;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\Routing\RouterInterface;
 
 class CountryService
@@ -26,7 +25,7 @@ class CountryService
 
 
     // =============== CRUD:
-    public function createCountryAction($data)
+    public function createCountry($data)
     {
         try {
             // validate:
@@ -73,7 +72,7 @@ class CountryService
         }
     }
 
-    public function updateCountryAction($data)
+    public function updateCountry($data)
     {
         try {
             // data default:
@@ -113,7 +112,7 @@ class CountryService
         }
     }
 
-    public function updateStatusAction($data)
+    public function updateStatusCountry($data)
     {
         $getCountry = $this->getCountryById($data['country_id']);
 
@@ -125,7 +124,7 @@ class CountryService
         return $this->updateCountryAction($data);
     }
 
-    public function deleteCountryAction($id)
+    public function deleteCountry($id)
     {
         try {
             if (!$this->getCountryById($id)) {
@@ -170,7 +169,92 @@ class CountryService
     }
     // =====================================
 
-    // save value params (search-sort-filter by query):
+    // (search-sort-filter by query):
+    public function getAllCountriesQuery()
+    {
+        $queryBuilder = $this->countryRepository->createQueryBuilder('c');
+
+        return $queryBuilder->select();
+    }
+
+    public function getListCountry($reqParams)
+    {
+        $listQuery = $this->buildCountryListQuery($reqParams);
+
+        $queryBuilder = $this->getListQueryByConditions($listQuery);
+
+        $listPaginate = $this->getListQueryByPagination($listQuery);
+        return [
+            'page' => $listPaginate['page'],
+            'limit' => $listPaginate['limit'],
+            'queryBuilder' => $queryBuilder
+        ];
+    }
+    public function getExportCountryList($reqParams)
+    {
+        $listQuery = $this->buildCountryListQuery($reqParams);
+
+        $queryBuilder = $this->getListQueryByConditions($listQuery);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function getListQueryByConditions($listQuery)
+    {
+        $queryBuilder = $this->countryRepository->createQueryBuilder('c')->select();
+        if (!empty($listQuery->conditions)) {
+            foreach ($listQuery->conditions as $key => $value) {
+                if ($value == null) {
+                    $key = "";
+                }
+
+                switch ($key) {
+                    case 'zone_id':
+                        $zone = $this->zoneRepository->find($value);
+                        $queryBuilder->andWhere('c.zone = :zone_val')
+                        ->setParameter('zone_val', $zone);
+                        break;
+
+                    case 'status':
+                        $queryBuilder->andWhere('c.'.$key.' = :val')
+                        ->setParameter('val', $value);
+                        break;
+
+                    case 'search':
+                        $queryBuilder->andWhere('c.'.$value['fieldSearch'].' LIKE :keyword')
+                        ->setParameter('keyword', '%'.$value['textSearch'].'%');
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
+        if (!empty($listQuery->orders)) {
+            foreach ($listQuery->orders as $key => $value) {
+                $queryBuilder->addOrderBy('c.'.$key, $value);
+            }
+        }
+
+        return $queryBuilder;
+    }
+
+    public function getListqueryByPagination($listQuery)
+    {
+        $page = '';
+        $limit = '';
+        
+        if (!empty($listQuery->page)) {
+            $page = $listQuery->page;
+        }
+
+        if (!empty($listQuery->limit)) {
+            $limit = $listQuery->limit;
+        }
+
+        return ['page' => $page, 'limit' => $limit];
+    }
+
     public function buildCountryListQuery(array $params)
     {
         $countryListQuery = new CountryListQuery();
@@ -213,70 +297,6 @@ class CountryService
         }
 
         return $countryListQuery;
-    }
-
-    public function getAllCountriesQuery()
-    {
-        $queryBuilder = $this->countryRepository->createQueryBuilder('c');
-
-        return $queryBuilder->select();
-    }
-
-    public function getListCountry(CountryListQuery $countryListQuery)
-    {
-        $queryBuilder = $this->countryRepository->createQueryBuilder('c')->select();
-
-        if (!empty($countryListQuery->conditions)) {
-            foreach ($countryListQuery->conditions as $key => $value) {
-                if ($value == null) {
-                    $key = "";
-                }
-
-                switch ($key) {
-                    case 'zone_id':
-                        $zone = $this->zoneRepository->find($value);
-                        $queryBuilder->andWhere('c.zone = :zone_val')
-                        ->setParameter('zone_val', $zone);
-                        break;
-
-                    case 'status':
-                        $queryBuilder->andWhere('c.'.$key.' = :val')
-                        ->setParameter('val', $value);
-                        break;
-                        
-                    case 'search':
-                        $queryBuilder->andWhere('c.'.$value['fieldSearch'].' LIKE :keyword')
-                        ->setParameter('keyword', '%'.$value['textSearch'].'%');
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        if (!empty($countryListQuery->orders)) {
-            foreach ($countryListQuery->orders as $key => $value) {
-                $queryBuilder->addOrderBy('c.'.$key, $value);
-            }
-        }
-        
-        if (!empty($countryListQuery->page)) {
-            $page = $countryListQuery->page;
-        } else {
-            $page = 1;
-        }
-
-        if (!empty($countryListQuery->limit)) {
-            $limit = $countryListQuery->limit;
-        } else {
-            $limit = 25;
-        }
-
-        return [
-            'page' => $page,
-            'limit' => $limit,
-            'queryBuilder' => $queryBuilder
-        ];
     }
 
 

@@ -6,13 +6,22 @@
     // =====================================
 
     var url = "{{ path('admin_area') }}";
+    var url_export = "{{ path('admin_export_area_data') }}";
     var view = {
         url: "{{ path('admin_area') }}",
+        url_export: "{{ path('admin_export_area_data') }}",
         limit: {{ itemsPerPage }},
         page: 1
     };
 
+
     $(document).ready(function() {
+        // Export Excell file:
+        $('body').on('click', '#exportToExcel', function(event) {
+            console.log('export!');
+            window.location.href = build_url_export();
+        });
+
         // [create-update] area - ajax:
         $('body').on('submit', '#area-form', function(event) {
             event.preventDefault();
@@ -108,13 +117,13 @@
 
     }); // end jquery
 
-    // show update value input:
+    // show update current info:
     function fillUpdateForm(area_id)
     {
         $.ajax({
             type: 'GET',
             dataType: 'json',
-            url: '{{ path("admin_show_area_update") }}',
+            url: '{{ path("admin_show_area_info") }}',
             data: {
                 area_id: area_id
             },
@@ -242,6 +251,26 @@
 
         return url;
     }
+
+    function build_url_export()
+    {
+        let url_export = view.url_export + '?act=export_data';
+
+        if (view.hasOwnProperty('name')) {
+            url_export += '&name=' + view.name;
+        }
+
+        if (view.hasOwnProperty('status')) {
+            url_export += '&status=' + view.status;
+        }
+
+        if (view.hasOwnProperty('search')) {
+            url_export += '&fieldSearch=' + view.search.field + '&textSearch=' + view.search.text;
+        }
+
+        return url_export;
+    }
+
     function load_data(url)
     {
         return $.ajax({

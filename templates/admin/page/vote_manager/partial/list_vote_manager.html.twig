@@ -1,0 +1,20 @@
+{% for voteSession in listVoteSession %}
+<tr id="{{ voteSession.id }}">
+    <td>{{ voteSession.year }}</td>
+    <td>
+        {{ voteSession.beginAt|format_datetime('long', 'medium') }}
+    </td>
+    <td>
+        {{ voteSession.closedAt is empty ? "" : voteSession.closedAt|format_datetime('long', 'medium') }}
+    </td>
+    <td align="center">
+        <a href="javascript:void(0)">
+            {% if voteSession.closedAt is empty %}
+                <img src="{{ asset(asset_admin_image_dir) }}/active.svg" width="18">
+            {% else %}
+                <img src="{{ asset(asset_admin_image_dir) }}/inactive.svg" width="18">
+            {% endif %}
+        </a>
+    </td>
+</tr>
+{% endfor %}

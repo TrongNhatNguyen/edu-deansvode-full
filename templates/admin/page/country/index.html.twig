@@ -8,7 +8,7 @@
 {% block content %}
 <div class="content">
     <div class="row align-items-center panel-heading-top">
-        <div class="col-12 col-md-6">
+        <div class="col-6 col-md-6">
             <div class="form-row filter-row mt-2">
                 <div class="col-4 col-md-4 form-group form-group-primary">
                     <select class="custom-select select-style-second form-control select-keyword" id="field-search">
@@ -21,15 +21,18 @@
                         <span class="input-group-addon">
                             <i class="now-ui-icons ui-1_zoom-bold"></i>
                         </span>
-                        <input type="text" value="" class="form-control" placeholder="Search..." id="search-country">
+                        <input type="text" class="form-control" placeholder="Search..." id="search-country">
                     </div>
-
                 </div>
             </div>
             <button type="submit" class="btn btn-primary d-none">Search</button>
         </div>
-        <div class="col-12 col-md-6">
-
+        <div class="col-6 col-md-6">
+            <div id="dvjson"></div>
+            <button class="btn btn-neutral float-right" id="exportToExcel">
+                EXPORT
+                <i class="icon-svg"><img src="{{ asset(asset_admin_image_dir) }}/excel.svg" alt="" width="20"></i>
+            </button>
         </div>
     </div>
     <hr>
@@ -62,7 +65,7 @@
                         <li class="page-item">
                             <a class="page-link" style="cursor: not-allowed;"><i class="fas fa-caret-left"></i></a>
                         </li>
-                        
+
                         <li class="page-item active">
                             <a class="page-link" href="javascript:void(0)">1</a>
                         </li>
@@ -93,7 +96,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table text-center">
+                        <table class="table text-center" id="tableData">
                             <thead>
                                 <tr>
                                     <th>
@@ -103,7 +106,6 @@
                                                 <a class="dropdown-item" href="javascript:void(0)" id="remove-selected"><i class="material-icons">delete</i></a>
                                                 <a class="dropdown-item" href="javascript:void(0)">
                                                     <div class="custom-control custom-checkbox">
-                                                        <!-- <input type="checkbox" class="custom-control-input" id="customCheckAll" onchange="handle_select_row(this);" /> -->
                                                         <input type="checkbox" class="custom-control-input" id="customCheckAll" />
                                                         <label class="custom-control-label" for="customCheckAll"></label>
                                                     </div>
