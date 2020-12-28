@@ -52,7 +52,7 @@ class VoteSessionRepository extends ServiceEntityRepository
     }
     */
 
-    public function voteSessionAction($data)
+    public function voteSession($data)
     {
         try {
             $this->entityManager->persist($data);

@@ -9,13 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin")
+ * @Route("/admin", name="admin_")
  */
 class AreaController extends AbstractController
 {
-    protected $defaultPage = 1;
-    protected $defaultItemPerPage = 25;
-
     private $zoneService;
     private $paginateHelper;
 
@@ -28,7 +25,7 @@ class AreaController extends AbstractController
     }
 
     /**
-     * @Route("/area", name="admin_area")
+     * @Route("/area", name="area")
      */
     public function index(Request $request)
     {
@@ -39,22 +36,32 @@ class AreaController extends AbstractController
             $pagination = $this->paginateHelper->paginateHelper($allAreasQuery);
 
             return $this->render('admin/page/area/index.html.twig', [
-                'listAreas' => $pagination,
-                'itemsPerPage' => $this->defaultItemPerPage
+                'pagination' => $pagination,
+                'listAreas' => $pagination->getItems(),
+                'itemsPerPage' => $this->paginateHelper->defaultItemPerPage
             ]);
         }
 
-        $newList = $this->zoneService->getListZoneQuery($reqParams);
-        $pagination = $this->paginateHelper->paginateHelper($newList['queryBuilder'], $newList['page'], $newList['limit']);
+        $listQuery = $this->zoneService->buildZoneListQuery($reqParams);
+        $areaQueryBuilder = $this->zoneService->getZoneQueryBuilder($listQuery);
+
+        $this->paginateHelper->setPage($listQuery->page);
+        $this->paginateHelper->setItemsPerPage($listQuery->limit);
+        $pagination = $this->paginateHelper->paginateHelper($areaQueryBuilder);
 
         return $this->json([
             'status' => 'success',
-            'html' => $this->renderView('admin/page/area/partial/list_area.html.twig', ['listAreas' => $pagination])
+            'html' => $this->renderView('admin/page/area/partial/list_area.html.twig', [
+                'listAreas' => $pagination->getItems()
+            ]),
+            'htmlPaging' => $this->renderView('admin/page/area/partial/paging_area.html.twig', [
+                'pagination' => $pagination
+            ])
         ]);
     }
 
     /**
-     * @Route("/#create-area", name="admin_create_area_action")
+     * @Route("/#create-area", name="create_area_action")
      */
     public function create(Request $request)
     {
@@ -65,7 +72,7 @@ class AreaController extends AbstractController
     }
 
     /**
-     * @Route("/#show-area-info", name="admin_show_area_info")
+     * @Route("/#show-area-info", name="show_area_info")
      */
     public function showCurrentInfo(Request $request)
     {
@@ -81,7 +88,7 @@ class AreaController extends AbstractController
     }
 
     /**
-     * @Route("/#update-area", name="admin_update_area_action")
+     * @Route("/#update-area", name="update_area_action")
      */
     public function update(Request $request)
     {
@@ -92,7 +99,7 @@ class AreaController extends AbstractController
     }
 
     /**
-     * @Route("/#update-status-area", name="admin_update_status_area_action")
+     * @Route("/#update-status-area", name="update_status_area_action")
      */
     public function updateStatus(Request $request)
     {
@@ -103,7 +110,7 @@ class AreaController extends AbstractController
     }
 
     /**
-     * @Route("/#delete-area", name="admin_delete_area_action")
+     * @Route("/#delete-area", name="delete_area_action")
      */
     public function delete(Request $request)
     {

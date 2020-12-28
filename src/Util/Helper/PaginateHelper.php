@@ -3,34 +3,35 @@
 namespace App\Util\Helper;
 
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class PaginateHelper
 {
-    protected $defaultPage = 1;
-    protected $defaultItemPerPage = 25;
+    public $defaultPage = 1;
+    public $defaultItemPerPage = 25;
 
-    private $requestStack;
     private $paginator;
 
-    public function __construct(RequestStack $requestStack, PaginatorInterface $paginator)
+    public function __construct(PaginatorInterface $paginator)
     {
-        $this->requestStack = $requestStack;
         $this->paginator = $paginator;
     }
- 
-    public function paginateHelper($queryBuilder, $page = null, $itemPerPage = null)
+
+    public function setItemsPerPage(int $itemsPerPage)
     {
-        if (!$page) {
-            $page = $this->defaultPage;
-        }
-        if (!$itemPerPage) {
-            $itemPerPage = $this->defaultItemPerPage;
-        }
+        $this->defaultItemPerPage = $itemsPerPage;
+    }
+
+    public function setPage(int $page)
+    {
+        $this->defaultPage = $page;
+    }
+ 
+    public function paginateHelper($queryBuilder)
+    {
         return $this->paginator->paginate(
             $queryBuilder,
-            $this->requestStack->getCurrentRequest()->query->getInt('page', $page),
-            $itemPerPage
+            $this->defaultPage,
+            $this->defaultItemPerPage
         );
     }
 }

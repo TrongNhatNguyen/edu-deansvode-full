@@ -40,9 +40,9 @@ class CountryService
             $data['country_sort'] = 0;
 
             if (isset($data['country_status']) && $data['country_status'] === "on") {
-                $data['country_status'] = 0;
-            } else {
                 $data['country_status'] = 1;
+            } else {
+                $data['country_status'] = 0;
             }
 
             // relationship:
@@ -121,7 +121,7 @@ class CountryService
         $data['country_slug'] = $getCountry->getSlug();
         $data['country_iso_code'] = $getCountry->getIsoCode();
 
-        return $this->updateCountryAction($data);
+        return $this->updateCountry($data);
     }
 
     public function deleteCountry($id)
@@ -176,30 +176,16 @@ class CountryService
 
         return $queryBuilder->select();
     }
-
-    public function getListCountry($reqParams)
-    {
-        $listQuery = $this->buildCountryListQuery($reqParams);
-
-        $queryBuilder = $this->getListQueryByConditions($listQuery);
-
-        $listPaginate = $this->getListQueryByPagination($listQuery);
-        return [
-            'page' => $listPaginate['page'],
-            'limit' => $listPaginate['limit'],
-            'queryBuilder' => $queryBuilder
-        ];
-    }
+    
     public function getExportCountryList($reqParams)
     {
         $listQuery = $this->buildCountryListQuery($reqParams);
-
-        $queryBuilder = $this->getListQueryByConditions($listQuery);
+        $queryBuilder = $this->getCountryQueryBuilder($listQuery);
 
         return $queryBuilder->getQuery()->getResult();
     }
 
-    public function getListQueryByConditions($listQuery)
+    public function getCountryQueryBuilder($listQuery)
     {
         $queryBuilder = $this->countryRepository->createQueryBuilder('c')->select();
         if (!empty($listQuery->conditions)) {
@@ -237,22 +223,6 @@ class CountryService
         }
 
         return $queryBuilder;
-    }
-
-    public function getListqueryByPagination($listQuery)
-    {
-        $page = '';
-        $limit = '';
-        
-        if (!empty($listQuery->page)) {
-            $page = $listQuery->page;
-        }
-
-        if (!empty($listQuery->limit)) {
-            $limit = $listQuery->limit;
-        }
-
-        return ['page' => $page, 'limit' => $limit];
     }
 
     public function buildCountryListQuery(array $params)
@@ -299,22 +269,6 @@ class CountryService
         return $countryListQuery;
     }
 
-
-    //= count items:
-    public function countAllItems()
-    {
-        $Results = count((array) $this->getAllCountries());
-
-        return $Results;
-    }
-    public function countPagesByItems($pageSize = 25)
-    {
-        $totalResults = count((array) $this->getAllCountries());
-
-        $results = ceil($totalResults / $pageSize);
-
-        return $results;
-    }
 
     // =========== function default:
     public function getAllCountries()

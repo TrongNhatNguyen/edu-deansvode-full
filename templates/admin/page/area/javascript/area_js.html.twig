@@ -7,6 +7,7 @@
 
     var url = "{{ path('admin_area') }}";
     var url_export = "{{ path('admin_export_area_data') }}";
+    var deafault_page = 1;
     var view = {
         url: "{{ path('admin_area') }}",
         url_export: "{{ path('admin_export_area_data') }}",
@@ -70,12 +71,12 @@
             var value = $(this).val();
 
             view.status = value;
-
+            view.page = deafault_page;
             load_data(build_url())
                 .done(function(response) {
                     if (response.status === "success") {
-                        var template = $.parseHTML(response.html);
-                        $('#list-area-container').html(template);
+                        $('#list-area-container').html(response.html);
+                        $('#area-paging').html(response.htmlPaging);
                     }
                 }).always();
         });
@@ -89,8 +90,8 @@
             load_data(build_url())
             .done(function(response) {
                 if (response.status === "success") {
-                    var template = $.parseHTML(response.html);
-                    $('#list-area-container').html(template);
+                    $('#list-area-container').html(response.html);
+                    $('#area-paging').html(response.htmlPaging);
                 }
             }).always();
         });
@@ -106,11 +107,11 @@
                     field: field,
                     text: text
                 };
-
+                view.page = deafault_page;
                 load_data(build_url())
                 .done(function(response){
-                    var template = $.parseHTML(response.html);
-                    $('#list-area-container').html(template);
+                    $('#list-area-container').html(response.html);
+                    $('#area-paging').html(response.htmlPaging);
                 }).always();
             }
         });
@@ -129,8 +130,7 @@
             },
             success: function(response) {
                 if (response.status === "success") {
-                    var template = $.parseHTML(response.html);
-                    $('#update-span').html(template);
+                    $('#update-span').html(response.html);
                 }
             }
         });
@@ -224,9 +224,7 @@
         load_data(build_url())
         .done(function(response) {
             if (response.status === 'success') {
-                var template = $.parseHTML(response.html);
-                $('#list-area-container').html(template);
-                
+                $('#list-area-container').html(response.html);
                 $(element).attr('sort-type', next_sort);
             }
         }).always();

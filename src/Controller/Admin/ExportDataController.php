@@ -15,7 +15,7 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 /**
- * @Route("/admin")
+ * @Route("/admin", name="admin_")
  */
 class ExportDataController extends AbstractController
 {
@@ -34,7 +34,7 @@ class ExportDataController extends AbstractController
     }
 
     /**
-     * @Route("/export-area-data", name="admin_export_area_data")
+     * @Route("/export-area-data", name="export_area_data")
      */
     public function exportAreaData(Request $request)
     {
@@ -91,12 +91,12 @@ class ExportDataController extends AbstractController
     }
 
     /**
-     * @Route("/export-data-country", name="admin_export_data_country")
+     * @Route("/export-data-country", name="export_data_country")
      */
     public function exportCountryData(Request $request)
     {
         $reqParams = $request->query->all();
-        $listData = $this->countryService->getExportCountryList($reqParams);
+        $countryList = $this->countryService->getExportCountryList($reqParams);
 
         $spreadsheet = new Spreadsheet();
         $writer      = new Xlsx($spreadsheet);
@@ -123,7 +123,7 @@ class ExportDataController extends AbstractController
         $sheet->setCellValue('I3', 'DATE UPDATE');
         // tbody:
         $lignes = 4;
-        foreach ($listData as $data) {
+        foreach ($countryList as $data) {
             $sheet->setCellValue('A'.$lignes, $data->getId());
             $sheet->setCellValue('B'.$lignes, $data->getIsoCode());
             $sheet->setCellValue('C'.$lignes, $data->getName());
@@ -153,7 +153,7 @@ class ExportDataController extends AbstractController
     }
 
     /**
-     * @Route("/export-data-vote-session", name="admin_export_data_vote_session")
+     * @Route("/export-data-vote-session", name="export_data_vote_session")
      */
     public function exportVoteSessionData(Request $request)
     {

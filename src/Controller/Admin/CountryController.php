@@ -12,13 +12,10 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin")
+ * @Route("/admin", name="admin_")
  */
 class CountryController extends AbstractController
 {
-    protected $defaultPage = 1;
-    protected $defaultItemPerPage = 25;
-
     private $countryService;
     private $zoneService;
     private $paginateHelper;
@@ -35,7 +32,7 @@ class CountryController extends AbstractController
 
 
     /**
-     * @Route("/country", name="admin_country")
+     * @Route("/country", name="country")
      */
     public function index(Request $request)
     {
@@ -44,26 +41,39 @@ class CountryController extends AbstractController
         if (empty($reqParams)) {
             $zones = $this->zoneService->getAllZones();
             $countriesQuery = $this->countryService->getAllCountriesQuery();
+
             $pagination = $this->paginateHelper->paginateHelper($countriesQuery);
 
             return $this->render('admin/page/country/index.html.twig', [
                 'zones' => $zones,
-                'countries' => $pagination,
-                'itemsPerPage' => $this->defaultItemPerPage
+                'countries' => $pagination->getItems(),
+                'pagination' => $pagination,
+                'numberOfPage' => ceil($pagination->getTotalItemCount() / $pagination->getItemNumberPerPage()),
+                'itemsPerPage' => $this->paginateHelper->defaultItemPerPage
             ]);
         }
 
-        $newList = $this->countryService->getListCountry($reqParams);
-        $pagination = $this->paginateHelper->paginateHelper($newList['queryBuilder'], $newList['page'], $newList['limit']);
+        $listQuery = $this->countryService->buildCountryListQuery($reqParams);
+        $countryQueryBuilder = $this->countryService->getCountryQueryBuilder($listQuery);
+
+        $this->paginateHelper->setPage($listQuery->page);
+        $this->paginateHelper->setItemsPerPage($listQuery->limit);
+        $pagination = $this->paginateHelper->paginateHelper($countryQueryBuilder);
 
         return $this->json([
             'status' => "success",
-            'html' => $this->renderView('admin/page/country/partial/list_country.html.twig', ['countries' => $pagination])
+            'html' => $this->renderView('admin/page/country/partial/list_country.html.twig', [
+                'countries' => $pagination->getItems()
+            ]),
+            'htmlPaging' => $this->renderView('admin/page/country/partial/paging_country.html.twig', [
+                'pagination' => $pagination,
+                'numberOfPage' => ceil($pagination->getTotalItemCount() / $pagination->getItemNumberPerPage())
+            ])
         ]);
     }
 
     /**
-     * @Route("/#create-country", name="admin_create_country_action")
+     * @Route("/#create-country", name="create_country_action")
      */
     public function create(Request $request)
     {
@@ -75,7 +85,7 @@ class CountryController extends AbstractController
     }
 
     /**
-     * @route("/#show-country-info", name="admin_show_country_info")
+     * @route("/#show-country-info", name="show_country_info")
      */
     public function showCurrentInfo(Request $request)
     {
@@ -93,7 +103,7 @@ class CountryController extends AbstractController
     }
 
     /**
-     * @route("/#update-country", name="admin_update_country_action")
+     * @route("/#update-country", name="update_country_action")
      */
     public function update(Request $request)
     {
@@ -104,7 +114,7 @@ class CountryController extends AbstractController
     }
 
     /**
-     * @route("/#update-status-country", name="admin_update_status_country_action")
+     * @route("/#update-status-country", name="update_status_country_action")
      */
     public function updateStatus(Request $request)
     {
@@ -115,7 +125,7 @@ class CountryController extends AbstractController
     }
 
     /**
-     * @route("/#delete-country", name="admin_delete_country_action")
+     * @route("/#delete-country", name="delete_country_action")
      */
     public function delete(Request $request)
     {

@@ -108,7 +108,7 @@ class ZoneService
         $data['area_name'] = $getArea->getName();
         $data['area_slug'] = $getArea->getSlug();
 
-        return $this->updateZoneAction($data);
+        return $this->updateZone($data);
     }
 
     public function deleteZone($id)
@@ -156,19 +156,11 @@ class ZoneService
         return $queryBuilder->select();
     }
 
-    public function getListZoneQuery($reqParams)
+    public function getZoneQueryBuilder($listQuery)
     {
-        $listQuery = $this->buildZoneListQuery($reqParams);
-
         $queryBuilder = $this->getListQueryByConditions($listQuery);
 
-        $listPaginate = $this->getListQueryByPagination($listQuery);
-
-        return [
-            'page' => $listPaginate['page'],
-            'limit' => $listPaginate['limit'],
-            'queryBuilder' => $queryBuilder
-        ];
+        return $queryBuilder;
     }
 
     public function getExportZoneList($reqParams)
@@ -215,9 +207,6 @@ class ZoneService
 
     public function getListQueryByPagination($ListQuery)
     {
-        $page = '';
-        $limit = '';
-
         if (!empty($ListQuery->page)) {
             $page = $ListQuery->page;
         }
@@ -262,27 +251,6 @@ class ZoneService
         }
 
         return $zoneListQuery;
-    }
-
-
-    // == count items:
-    public function countAllItems()
-    {
-        $Results = count((array) $this->getAllZones());
-
-        return $Results;
-    }
-    public function countPagesByItems($pageSize = 25)
-    {
-        $totalResults = count((array) $this->getAllZones());
-
-        if ($totalResults % $pageSize == 0) {
-            $results = floor($totalResults / $pageSize);
-        } else {
-            $results = floor($totalResults / $pageSize + 1);
-        }
-
-        return $results;
     }
 
 

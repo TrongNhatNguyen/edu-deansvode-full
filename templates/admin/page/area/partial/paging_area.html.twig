@@ -1,0 +1,18 @@
+
+<div class="d-flex align-items-center">
+    <div class="form-inline mr-4">
+        <label>Show
+            <select class="custom-select form-control form-control-sm mx-2" id="cboLimit">
+                <option value="10">10</option>
+                <option value="25" selected>25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select> items of
+            <span id="spnTotalRows" style="margin: 0 10px; color: #cb9e6e;">{{ pagination.getTotalItemCount|default('') }}</span> items
+        </label>
+    </div>
+    <div class="w-paging">
+        <div id="spnPaging">
+        </div>
+    </div>
+</div>

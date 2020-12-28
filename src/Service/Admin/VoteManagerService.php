@@ -4,10 +4,8 @@ namespace App\Service\Admin;
 
 use App\DTO\QueryObject\VoteSession\VoteSessionListQuery;
 use App\Entity\VoteSession;
-use App\Message\SmsMailCampaign;
 use App\Repository\DeanRepository;
 use App\Repository\VoteSessionRepository;
-use App\Util\Helper\MailHelper;
 
 class VoteManagerService
 {
@@ -49,7 +47,7 @@ class VoteManagerService
             $voteSession->setStatus(0);
             $voteSession->setUpdatedAt(new \DateTime('now'));
 
-            return $this->voteSessionRepository->voteSessionAction($voteSession);
+            return $this->voteSessionRepository->voteSession($voteSession);
         } catch (\Exception $ex) {
             return [
                 'status' => 'failed',
@@ -71,7 +69,7 @@ class VoteManagerService
             $newVoteSession->setCreatedAt(new \DateTime('now'));
             $newVoteSession->setUpdatedAt(new \DateTime('now'));
 
-            return $this->voteSessionRepository->voteSessionAction($newVoteSession);
+            return $this->voteSessionRepository->voteSession($newVoteSession);
         } catch (\Exception $ex) {
             return [
                 'status' => 'failed',

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @route("/admin")
+ * @route("/admin", name="admin_")
  */
 class VoteManagerController extends AbstractController
 {
@@ -23,7 +23,7 @@ class VoteManagerController extends AbstractController
 
 
     /**
-     * @route("/vote-manager", name="admin_vote_manager")
+     * @route("/vote-manager", name="vote_manager")
      */
     public function index(Request $request)
     {
@@ -48,7 +48,7 @@ class VoteManagerController extends AbstractController
     }
 
     /**
-     * @route("/#close-vote-session", name="admin_close_vote_session_action")
+     * @route("/#close-vote-session", name="close_vote_session_action")
      */
     public function closeVoteSession(Request $request)
     {
@@ -67,7 +67,7 @@ class VoteManagerController extends AbstractController
     }
 
     /**
-     * @route("/#start-new-vote-session", name="admin_start_new_vote_session_action")
+     * @route("/#start-new-vote-session", name="start_new_vote_session_action")
      */
     public function startNewVoteSession(Request $request)
     {

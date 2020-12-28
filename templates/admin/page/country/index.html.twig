@@ -37,57 +37,9 @@
     </div>
     <hr>
 
-    <!-- row -->
-    <div class="card-plain">
-        <div class="d-flex align-items-center">
-            <div class="form-inline">
-                <label>Show
-                    <span class="item-perpage">
-                        <select class="custom-select form-control form-control-sm mx-2" id="cboLimit">
-                                <option value="25" selected>25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                        </select>
-                    </span> items of
-                    <span id="spnTotalRows" style="margin: 0 10px; color: #cb9e6e;">{{ countries.getTotalItemCount|default('') }}</span> items
-                </label>
-            </div>
-            <div class="w-paging">
-                <div id="spnPaging">
-                    <span style="float: left;padding: 5px;">in page:</span>
-                    <ul class="pagination mb-0">
-
-                        <!-- <li><a>First</a></li> -->
-
-                        <li class="page-item">
-                            <a class="page-link" style="cursor: not-allowed;"><i class="fas fa-step-backward"></i></a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" style="cursor: not-allowed;"><i class="fas fa-caret-left"></i></a>
-                        </li>
-
-                        <li class="page-item active">
-                            <a class="page-link" href="javascript:void(0)">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="javascript:void(0)">2</a>
-                        </li>
-                        
-
-                        <li class="page-item">
-                            <a onclick="requestPage('2')" href="javascript:void(0)" class="page-link"><i class="fas fa-caret-right"></i></a>
-                        </li>
-                        <li class="page-item">
-                            <a onclick="requestPage('4')" href="javascript:void(0)" class="page-link" aria-label="Last"><i class="fas fa-step-forward"></i></a>
-                        </li>
-
-
-
-                    </ul>
-                    {# {{ knp_pagination_render(countries) }} #}
-                </div>
-            </div>
-        </div>
+    <!-- Paging of table -->
+    <div class="card-plain" id="spnPaging">
+        {% include admin_country_dir ~ "\/" ~ "partial/paging_country.html.twig" %}
     </div>
     <!-- /.card-plain -->
 

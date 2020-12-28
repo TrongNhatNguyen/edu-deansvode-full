@@ -4,9 +4,9 @@
         update.bindEvent();
     });
     // ==========================
-
     var url = "{{ path('admin_country') }}";
     var url_export = "{{ path('admin_export_data_country') }}";
+    var deafault_page = 1;
     var view = {
         url: "{{ path('admin_country') }}",
         url_export: "{{ path('admin_export_data_country') }}",
@@ -80,17 +80,67 @@
             });
         });
 
-        // paginate [page-limit] item - ajax:
-        $('#cboLimit').on('change', function(event) {
-            var value = $(this).val();
+        // paginate [limit] item - ajax:
+        $('body').on('change', '#cboLimit', function(event) {
+            var current_page = parseInt($('#ulPaging').attr('current-page'));
+            var number_of_page = parseInt($('#ulPaging').attr('number-of-page'));
+            var total_item = parseInt($('#spnTotalRows').attr('total-item'));
+            var value = parseInt($(this).val());
+            var next_number_of_page = Math.ceil(total_item / value);
 
-            view.limit = value; 
+            if (current_page > next_number_of_page) {
+                view.page = next_number_of_page;
+            }
+            
+            console.log(current_page);
+            console.log(view.page);
+            view.limit = value;
 
             load_data(build_url())
             .done(function (response) {
                 if (response.status === 'success') {
-                    var template = $.parseHTML(response.html);
-                    $('#list-country-container').html(template);
+                    $('#list-country-container').html(response.html);
+                    $('#spnPaging').html(response.htmlPaging);
+                }
+            }).always();
+        });
+        // paginate [page] item - ajax:
+        $('body').on('click', '.page-item a', function(event) {
+            var current_page = parseInt($('#ulPaging').attr('current-page'));
+            var number_of_page = parseInt($('#ulPaging').attr('number-of-page'));
+            var i = 1;
+            var page_label = $(this).attr('page-label');
+
+            if (isNaN(page_label) === true) {
+                if (page_label === 'previous') {
+                    if (current_page <= i) {
+                        view.page = 1;
+                    } else {
+                        view.page = current_page - i;
+                    }
+                }
+                if (page_label === 'next') {
+                    if (current_page === number_of_page) {
+                        view.page = number_of_page;
+                    } else {
+                        view.page = current_page + i;
+                    }
+                }
+                if (page_label === 'first') {
+                    view.page = 1;
+                }
+                if (page_label === 'last') {
+                    view.page = number_of_page;
+                }
+            } else {
+                view.page = page_label;
+            }
+
+            load_data(build_url())
+            .done(function (response) {
+                if (response.status === 'success') {
+                    $('#list-country-container').html(response.html);
+                    $('#spnPaging').html(response.htmlPaging);
                 }
             }).always();
         });
@@ -99,13 +149,14 @@
         $("#filter-countries-by-zone").on('change', function(event) {
             var value = $(this).val();
 
-            view.zone_id = value; 
-
+            view.zone_id = value;
+            view.page = deafault_page;
             load_data(build_url())
             .done(function (response) {
                 if (response.status === 'success') {
                     var template = $.parseHTML(response.html);
                     $('#list-country-container').html(template);
+                    $('#spnPaging').html(response.htmlPaging);
                 }
             }).always();
         });
@@ -115,12 +166,12 @@
             var value = $(this).val();
 
             view.status = value;
-
+            view.page = deafault_page;
             load_data(build_url())
             .done(function (response) {
                 if (response.status === 'success') {
-                    var template = $.parseHTML(response.html);
-                    $('#list-country-container').html(template);
+                    $('#list-country-container').html(response.html);
+                    $('#spnPaging').html(response.htmlPaging);
                 }
             }).always();
         });
@@ -136,17 +187,14 @@
                     field: field,
                     text: text
                 };
-
+                view.page = deafault_page;
                 load_data(build_url())
                 .done(function(response){
                     var template = $.parseHTML(response.html);
                     $('#list-country-container').html(template);
+                    $('#spnPaging').html(response.htmlPaging);
                 }).always();
             }
-        });
-
-        $("#checkAll").click(function(){
-            $('#customCheck').not(this).prop('checked', this.checked);
         });
 
     }); // ====== end jquery
@@ -266,6 +314,7 @@
             if (response.status === 'success') {
                 var template = $.parseHTML(response.html);
                 $('#list-country-container').html(template);
+                $('#spnPaging').html(response.htmlPaging);
                 $(element).attr('sort-type', next_name_sort);
             }
         }).always();
