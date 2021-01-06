@@ -53,42 +53,15 @@ class ZoneRepository extends ServiceEntityRepository
     */
 
     // ======== CRUD:
-    public function createNewZone($zoneData)
+    public function fetching($zone)
     {
-        $zone = new Zone();
-
-        $zone->setName($zoneData['name']);
-        $zone->setSlug($zoneData['slug']);
-        $zone->setImage($zoneData['image']);
-        $zone->setSort($zoneData['sort']);
-        $zone->setStatus($zoneData['status']);
-        $zone->setCreatedAt(new \DateTime('now'));
-        $zone->setUpdatedAt(new \DateTime('now'));
-
         $this->entityManager->persist($zone);
         $this->entityManager->flush();
     }
 
-    public function updateZone($zoneData)
+    public function remove($zone)
     {
-        $ZoneUpdate = $this->findOneBy(['id' => $zoneData['id']]);
-
-        $ZoneUpdate->setName($zoneData['name']);
-        $ZoneUpdate->setSlug($zoneData['slug']);
-        $ZoneUpdate->setImage($zoneData['image']);
-        $ZoneUpdate->setSort($zoneData['sort']);
-        $ZoneUpdate->setStatus($zoneData['status']);
-        $ZoneUpdate->setUpdatedAt(new \DateTime('now'));
-
-        $this->entityManager->persist($ZoneUpdate);
-        $this->entityManager->flush();
-    }
-
-    public function deleteZone($id)
-    {
-        $zoneDel = $this->find($id);
-
-        $this->entityManager->remove($zoneDel);
+        $this->entityManager->remove($zone);
         $this->entityManager->flush();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Service\Admin;
 
 use App\DTO\QueryObject\Country\CountryListQuery;
+use App\Entity\Country;
 use App\Repository\CountryRepository;
 use App\Repository\ZoneRepository;
 use Symfony\Component\Routing\RouterInterface;
@@ -23,45 +24,27 @@ class CountryService
         $this->router = $router;
     }
 
-
     // =============== CRUD:
-    public function createCountry($data)
+    public function createCountry($createRequest)
     {
         try {
-            // validate:
-            $validCountry = $this->validCountryCustom($data);
-            if (!empty($validCountry)) {
-                return [
-                    'status' => 'failed',
-                    'error' => $validCountry
-                ];
-            }
-            // data default:
-            $data['country_sort'] = 0;
+            $zone = $this->zoneRepository->find((int) $createRequest->zoneId);
+            $country = new Country();
 
-            if (isset($data['country_status']) && $data['country_status'] === "on") {
-                $data['country_status'] = 1;
-            } else {
-                $data['country_status'] = 0;
-            }
-
-            // relationship:
-            $zone = $this->zoneRepository->find((int) $data['zone_id']);
-
-            $countryData = [
-                'zone' => $zone,
-                'name' => $data['country_name'],
-                'slug' => $data['country_slug'],
-                'iso_code' => $data['country_iso_code'],
-                'sort' => $data['country_sort'],
-                'status' => $data['country_status']
-            ];
-
-            $this->countryRepository->createNewCountry($countryData);
+            $country->setZone($zone);
+            $country->setName($createRequest->name);
+            $country->setSlug($createRequest->slug);
+            $country->setIsoCode($createRequest->isoCode);
+            $country->setSort($createRequest->sort);
+            $country->setStatus($createRequest->status);
+            $country->setCreatedAt(new \DateTime('now'));
+            $country->setUpdatedAt(new \DateTime('now'));
+            
+            $this->countryRepository->fetching($country);
 
             return [
                 'status' => 'success',
-                'message' => 'create new country is successfully!',
+                'message' => 'create new country successfully!',
                 'url' => $this->router->generate('admin_country')
             ];
         } catch (\Exception $ex) {
@@ -72,36 +55,25 @@ class CountryService
         }
     }
 
-    public function updateCountry($data)
+    public function updateCountry($updateRequest)
     {
         try {
-            // data default:
-            $data['country_sort'] = 0;
+            $zone = $this->zoneRepository->find((int) $updateRequest->zoneId);
+            $country = $this->countryRepository->find((int) $updateRequest->id);
 
-            if (isset($data['country_status']) && $data['country_status'] === "on") {
-                $data['country_status'] = 1;
-            } else {
-                $data['country_status'] = 0;
-            }
+            $country->setZone($zone);
+            $country->setName($updateRequest->name);
+            $country->setSlug($updateRequest->slug);
+            $country->setIsoCode($updateRequest->isoCode);
+            $country->setSort($updateRequest->sort);
+            $country->setStatus($updateRequest->status);
+            $country->setUpdatedAt(new \DateTime('now'));
 
-            // relationship:
-            $zone = $this->zoneRepository->find((int) $data['zone_id']);
-
-            $countryData = [
-                'zone' => $zone,
-                'id' => $data['country_id'],
-                'name' => $data['country_name'],
-                'slug' => $data['country_slug'],
-                'iso_code' => $data['country_iso_code'],
-                'sort' => $data['country_sort'],
-                'status' => $data['country_status']
-            ];
-
-            $this->countryRepository->updateCountry($countryData);
+            $this->countryRepository->fetching($country);
 
             return [
                 'status' => 'success',
-                'message' => 'update country is successfully!',
+                'message' => 'update country successfully!',
                 'url' => $this->router->generate('admin_country')
             ];
         } catch (\Exception $ex) {
@@ -112,29 +84,34 @@ class CountryService
         }
     }
 
-    public function updateStatusCountry($data)
+    public function updateStatusCountry($updateStatusRequest)
     {
-        $getCountry = $this->getCountryById($data['country_id']);
+        try {
+            $country = $this->countryRepository->find((int) $updateStatusRequest->id);
 
-        $data['zone_id'] = $getCountry->getZone()->getId();
-        $data['country_name'] = $getCountry->getName();
-        $data['country_slug'] = $getCountry->getSlug();
-        $data['country_iso_code'] = $getCountry->getIsoCode();
+            $country->setStatus($updateStatusRequest->status);
+            $country->setUpdatedAt(new \DateTime('now'));
 
-        return $this->updateCountry($data);
+            $this->countryRepository->fetching($country);
+
+            return [
+                'status' => 'success',
+                'message' => 'Update status successfully!'
+            ];
+        } catch (\Exception $ex) {
+            return [
+                'status' => 'failed',
+                'error' => $ex->getMessage()
+            ];
+        }
     }
 
     public function deleteCountry($id)
     {
         try {
-            if (!$this->getCountryById($id)) {
-                return [
-                    'status' => 'failed',
-                    'error' => 'cannot delete country that do not exist'
-                ];
-            }
+            $country = $this->countryRepository->find((int) $id);
 
-            $this->countryRepository->deleteCountry($id);
+            $this->countryRepository->remove($country);
 
             return [
                 'status' => 'success',
@@ -147,25 +124,6 @@ class CountryService
                 'error' => $ex->getMessage()
             ];
         }
-    }
-
-    public function validCountryCustom($data)
-    {
-        $error = [];
-        if ($this->getCountryByName($data['country_name'])) {
-            $error['name'] = "Name is already exists.";
-        }
-        if ($this->getCountryBySlug($data['country_slug'])) {
-            $error['slug'] = "Alias is already exists.";
-        }
-        if ($this->getCountryByIsoCode($data['country_iso_code'])) {
-            $error['isoCode'] = "iso-code is already exists.";
-        }
-        if (!$this->zoneRepository->findOneBy(['id' => $data['zone-id']])) {
-            $error['zone'] = "this area is not exists.";
-        }
-        
-        return $error;
     }
     // =====================================
 
@@ -284,9 +242,10 @@ class CountryService
 
         return $result;
     }
+
     public function getCountryByName($name)
     {
-        $criteria = ['name' => $name, 'status' => 1];
+        $criteria = ['name' => $name];
         $result = $this->countryRepository->findOneBy((array) $criteria);
 
         return $result;
@@ -294,7 +253,7 @@ class CountryService
 
     public function getCountryBySlug($slug)
     {
-        $criteria = ['slug' => $slug, 'status' => 1];
+        $criteria = ['slug' => $slug];
         $result = $this->countryRepository->findOneBy((array) $criteria);
 
         return $result;
@@ -302,7 +261,7 @@ class CountryService
     
     public function getCountryByIsoCode($isoCode)
     {
-        $criteria = ['isoCode' => $isoCode, 'status' => 1];
+        $criteria = ['isoCode' => $isoCode];
         $result = $this->countryRepository->findOneBy((array) $criteria);
 
         return $result;

@@ -2,8 +2,15 @@
 
 namespace App\Controller\Admin;
 
+use App\DTO\Request\Area\CreateRequest;
+use App\DTO\Request\Area\CurrentRequest;
+use App\DTO\Request\Area\RemoveRequest;
+use App\DTO\Request\Area\UpdateRequest;
+use App\DTO\Request\Area\UpdateStatusRequest;
+
 use App\Service\Admin\ZoneService;
 use App\Util\Helper\PaginateHelper;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,7 +32,7 @@ class AreaController extends AbstractController
     }
 
     /**
-     * @Route("/area", name="area")
+     * @Route("/area", name="area", methods={"GET"})
      */
     public function index(Request $request)
     {
@@ -63,22 +70,29 @@ class AreaController extends AbstractController
     /**
      * @Route("/#create-area", name="create_area_action")
      */
-    public function create(Request $request)
+    public function create(CreateRequest $createRequest)
     {
-        $data = $request->request->all();
-        $result = $this->zoneService->createZone($data);
+        // validation:
+        if (isset($createRequest->errors)) {
+            return $this->json(['status' => 'failed', 'messages' => $createRequest->errors]);
+        }
+
+        $result = $this->zoneService->createZone($createRequest);
 
         return $this->json($result);
     }
 
     /**
-     * @Route("/#show-area-info", name="show_area_info")
+     * @Route("/#show-area-info", name="show_area_info", methods={"GET"})
      */
-    public function showCurrentInfo(Request $request)
+    public function showCurrentInfo(CurrentRequest $currentRequest)
     {
-        $id = $request->query->get('area_id');
-        
-        $areaUpdate = $this->zoneService->getZoneById($id);
+        // validation:
+        if (isset($currentRequest->errors)) {
+            return $this->json(['status' => 'failed', 'messages' => $currentRequest->errors]);
+        }
+
+        $areaUpdate = $this->zoneService->getZoneById($currentRequest->id);
 
         $html = $this->renderView('admin/page/area/partial/form_update_area.html.twig', [
             'areaUpdate' => $areaUpdate
@@ -90,10 +104,14 @@ class AreaController extends AbstractController
     /**
      * @Route("/#update-area", name="update_area_action")
      */
-    public function update(Request $request)
+    public function update(UpdateRequest $updateRequest)
     {
-        $data = $request->request->all();
-        $result = $this->zoneService->updateZone($data);
+        // validation:
+        if (isset($updateRequest->errors)) {
+            return $this->json(['status' => 'failed', 'messages' => $updateRequest->errors]);
+        }
+
+        $result = $this->zoneService->updateZone($updateRequest);
 
         return $this->json($result);
     }
@@ -101,21 +119,29 @@ class AreaController extends AbstractController
     /**
      * @Route("/#update-status-area", name="update_status_area_action")
      */
-    public function updateStatus(Request $request)
+    public function updateStatus(UpdateStatusRequest $updateStatusRequest)
     {
-        $data = $request->request->all();
-        $result = $this->zoneService->updateStatus($data);
+        //validation:
+        if (isset($updateStatusRequest->errors)) {
+            return $this->json(['status' => 'failed', 'messages' => $updateStatusRequest->errors]);
+        }
+
+        $result = $this->zoneService->updateStatus($updateStatusRequest);
 
         return $this->json($result);
     }
 
     /**
-     * @Route("/#delete-area", name="delete_area_action")
+     * @Route("/#delete-area", name="delete_area_action", methods={"GET"})
      */
-    public function delete(Request $request)
+    public function remove(RemoveRequest $removeRequest)
     {
-        $id = $request->query->get('area_id');
-        $result = $this->zoneService->deleteZone($id);
+        // validation:
+        if (isset($removeRequest->errors)) {
+            return $this->json(['status' => 'failed', 'messages' => $removeRequest->errors]);
+        }
+
+        $result = $this->zoneService->removeZone($removeRequest->id);
 
         return $this->json($result);
     }

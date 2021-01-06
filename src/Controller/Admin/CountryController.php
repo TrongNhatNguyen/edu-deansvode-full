@@ -2,14 +2,20 @@
 
 namespace App\Controller\Admin;
 
+use App\DTO\Request\Country\CreateRequest;
+use App\DTO\Request\Country\CurrentRequest;
+use App\DTO\Request\Country\RemoveRequest;
+use App\DTO\Request\Country\UpdateRequest;
+use App\DTO\Request\Country\UpdateStatusRequest;
+
 use App\Service\Admin\ZoneService;
 use App\Service\Admin\CountryService;
 use App\Util\Helper\PaginateHelper;
-use Knp\Component\Pager\PaginatorInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/admin", name="admin_")
@@ -19,20 +25,23 @@ class CountryController extends AbstractController
     private $countryService;
     private $zoneService;
     private $paginateHelper;
+    private $validator;
 
     public function __construct(
         CountryService $countryService,
         ZoneService $zoneService,
-        PaginateHelper $paginateHelper
+        PaginateHelper $paginateHelper,
+        ValidatorInterface $validator
     ) {
         $this->countryService = $countryService;
         $this->zoneService = $zoneService;
         $this->paginateHelper = $paginateHelper;
+        $this->validator = $validator;
     }
 
 
     /**
-     * @Route("/country", name="country")
+     * @Route("/country", name="country", methods={"GET"})
      */
     public function index(Request $request)
     {
@@ -75,23 +84,29 @@ class CountryController extends AbstractController
     /**
      * @Route("/#create-country", name="create_country_action")
      */
-    public function create(Request $request)
+    public function create(CreateRequest $createRequest)
     {
-        $data = $request->request->all();
+        // validation:
+        if (isset($createRequest->errors)) {
+            return $this->json(['status' =>'failed', 'messages' => $createRequest->errors]);
+        }
 
-        $result = $this->countryService->createCountry($data);
+        $result = $this->countryService->createCountry($createRequest);
 
         return $this->json($result);
     }
 
     /**
-     * @route("/#show-country-info", name="show_country_info")
+     * @route("/#show-country-info", name="show_country_info", methods={"GET"})
      */
-    public function showCurrentInfo(Request $request)
+    public function showCurrentInfo(CurrentRequest $currentRequest)
     {
-        $country_id = $request->query->get('country_id');
-        $countryUpdate = $this->countryService->getCountryById($country_id);
+        // validation:
+        if (isset($currentRequest->errors)) {
+            return $this->json(['status' => 'failed', 'messages' => $currentRequest->errors]);
+        }
         
+        $countryUpdate = $this->countryService->getCountryById($currentRequest->id);
         $zones = $this->zoneService->getAllZones();
 
         $html = $this->renderView('admin/page/country/partial/form_update_country.html.twig', [
@@ -105,10 +120,14 @@ class CountryController extends AbstractController
     /**
      * @route("/#update-country", name="update_country_action")
      */
-    public function update(Request $request)
+    public function update(UpdateRequest $updateRequest)
     {
-        $data = $request->request->all();
-        $result = $this->countryService->updateCountry($data);
+        // validation:
+        if (isset($updateRequest->errors)) {
+            return $this->json(['status' =>'failed', 'messages' => $updateRequest->errors]);
+        }
+        
+        $result = $this->countryService->updateCountry($updateRequest);
 
         return $this->json($result);
     }
@@ -116,21 +135,29 @@ class CountryController extends AbstractController
     /**
      * @route("/#update-status-country", name="update_status_country_action")
      */
-    public function updateStatus(Request $request)
+    public function updateStatus(UpdateStatusRequest $updateStatusRequest)
     {
-        $data = $request->request->all();
-        $result = $this->countryService->updateStatusCountry($data);
+        // validation:
+        if (isset($updateStatusRequest->errors)) {
+            return $this->json(['status' =>'failed', 'messages' => $updateStatusRequest->errors]);
+        }
+
+        $result = $this->countryService->updateStatusCountry($updateStatusRequest);
 
         return $this->json($result);
     }
 
     /**
-     * @route("/#delete-country", name="delete_country_action")
+     * @route("/#delete-country", name="delete_country_action", methods={"GET"})
      */
-    public function delete(Request $request)
+    public function remove(RemoveRequest $removeRequest)
     {
-        $country_id = $request->query->get('country_id');
-        $result = $this->countryService->deleteCountry($country_id);
+        // validation:
+        if (isset($removeRequest->errors)) {
+            return $this->json(['status' =>'failed', 'messages' => $removeRequest->errors]);
+        }
+
+        $result = $this->countryService->deleteCountry($removeRequest->id);
 
         return $this->json($result);
     }

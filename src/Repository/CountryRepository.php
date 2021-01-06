@@ -53,44 +53,15 @@ class CountryRepository extends ServiceEntityRepository
     */
 
     // ========== CRUD:
-    public function createNewCountry($countryData)
+    public function fetching($country)
     {
-        $country = new Country();
-
-        $country->setName($countryData['name']);
-        $country->setZone($countryData['zone']);
-        $country->setSlug($countryData['slug']);
-        $country->setIsoCode($countryData['iso_code']);
-        $country->setSort($countryData['sort']);
-        $country->setStatus($countryData['status']);
-        $country->setCreatedAt(new \DateTime('now'));
-        $country->setUpdatedAt(new \DateTime('now'));
-
         $this->entityManager->persist($country);
         $this->entityManager->flush();
     }
 
-    public function updateCountry($countryData)
+    public function remove($country)
     {
-        $countryUpdate = $this->findOneBy(['id' => $countryData['id']]);
-
-        $countryUpdate->setName($countryData['name']);
-        $countryUpdate->setZone($countryData['zone']);
-        $countryUpdate->setSlug($countryData['slug']);
-        $countryUpdate->setIsoCode($countryData['iso_code']);
-        $countryUpdate->setSort($countryData['sort']);
-        $countryUpdate->setStatus($countryData['status']);
-        $countryUpdate->setUpdatedAt(new \DateTime('now'));
-
-        $this->entityManager->persist($countryUpdate);
-        $this->entityManager->flush();
-    }
-
-    public function deleteCountry($id)
-    {
-        $countryDel = $this->find($id);
-
-        $this->entityManager->remove($countryDel);
+        $this->entityManager->remove($country);
         $this->entityManager->flush();
     }
 }

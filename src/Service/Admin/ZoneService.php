@@ -3,8 +3,8 @@
 namespace App\Service\Admin;
 
 use App\DTO\QueryObject\Zone\ZoneListQuery;
+use App\Entity\Zone;
 use App\Repository\ZoneRepository;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
 
 class ZoneService
@@ -19,37 +19,20 @@ class ZoneService
     }
 
     /// ================================ CRUD:
-    public function createZone($data)
+    public function createZone($createRequest)
     {
         try {
-            // validate:
-            $validArea = $this->validZoneCustom($data);
-            if (!empty($validArea)) {
-                return [
-                    'status' => 'failed',
-                    'error' => $validArea
-                ];
-            }
+            $zone = new Zone();
 
-            // data default:
-            $data['area_image'] = "no-image.png";
-            $data['area_sort'] = 0;
-
-            if (isset($data['area_status']) && $data['area_status'] === "on") {
-                $data['area_status'] = 1;
-            } else {
-                $data['area_status'] = 0;
-            }
-
-            $zoneData = [
-                'name' => $data['area_name'],
-                'slug' => $data['area_slug'],
-                'image' => $data['area_image'],
-                'sort' => $data['area_sort'],
-                'status' => $data['area_status']
-            ];
-
-            $this->zoneRepository->createNewZone($zoneData);
+            $zone->setName($createRequest->name);
+            $zone->setSlug($createRequest->slug);
+            $zone->setImage($createRequest->image);
+            $zone->setSort($createRequest->sort);
+            $zone->setStatus($createRequest->status);
+            $zone->setCreatedAt(new \DateTime('now'));
+            $zone->setUpdatedAt(new \DateTime('now'));
+            
+            $this->zoneRepository->fetching($zone);
 
             return [
                 'status' => 'success',
@@ -64,29 +47,19 @@ class ZoneService
         }
     }
 
-    public function updateZone($data)
+    public function updateZone($updateRequest)
     {
         try {
-            // data default:
-            $data['area_image'] = "no-image.png";
-            $data['area_sort'] = 0;
+            $zone = $this->zoneRepository->find((int) $updateRequest->id);
 
-            if (isset($data['area_status']) && $data['area_status'] === "on") {
-                $data['area_status'] = 1;
-            } else {
-                $data['area_status'] = 0;
-            }
+            $zone->setName($updateRequest->name);
+            $zone->setSlug($updateRequest->slug);
+            $zone->setImage($updateRequest->image);
+            $zone->setSort($updateRequest->sort);
+            $zone->setStatus($updateRequest->status);
+            $zone->setUpdatedAt(new \DateTime('now'));
 
-            $zoneData = [
-                'id' => $data['area_id'],
-                'name' => $data['area_name'],
-                'slug' => $data['area_slug'],
-                'image' => $data['area_image'],
-                'sort' => $data['area_sort'],
-                'status' => $data['area_status']
-            ];
-
-            $this->zoneRepository->updateZone($zoneData);
+            $this->zoneRepository->fetching($zone);
 
             return [
                 'status' => 'success',
@@ -101,26 +74,35 @@ class ZoneService
         }
     }
 
-    public function updateStatus($data)
-    {
-        $getArea = $this->getZoneById($data['area_id']);
-
-        $data['area_name'] = $getArea->getName();
-        $data['area_slug'] = $getArea->getSlug();
-
-        return $this->updateZone($data);
-    }
-
-    public function deleteZone($id)
+    public function updateStatus($updateStatusRequest)
     {
         try {
-            if (!$this->getZoneById($id)) {
-                return [
-                    'status' => 'failed',
-                    'error' => 'cannot delete area that do not exist'
-                ];
-            }
-            $this->zoneRepository->deleteZone($id);
+            $zone = $this->zoneRepository->find((int) $updateStatusRequest->id);
+
+            $zone->setStatus($updateStatusRequest->status);
+            $zone->setUpdatedAt(new \DateTime('now'));
+
+            $this->zoneRepository->fetching($zone);
+
+            return [
+                'status' => 'success',
+                'message' => 'update area successfully!',
+                'url' => $this->router->generate('admin_area')
+            ];
+        } catch (\Exception $ex) {
+            return [
+                'status' => 'failed',
+                'error' => $ex->getMessage()
+            ];
+        }
+    }
+
+    public function removeZone($id)
+    {
+        try {
+            $zone = $this->zoneRepository->find((int) $id);
+
+            $this->zoneRepository->remove($zone);
 
             return [
                 'status' => 'success',
@@ -134,22 +116,9 @@ class ZoneService
             ];
         }
     }
-
-    public function validZoneCustom($data)
-    {
-        $error = [];
-        if ($this->getZoneByName($data['area_name'])) {
-            $error['name'] = "Name is already exists.";
-        }
-        if ($this->getZoneBySlug($data['area_slug'])) {
-            $error['slug'] = "Alias is already exists.";
-        }
-        
-        return $error;
-    }
     /// ================================.
 
-    //(search-sort-filter by query params):
+    // [search-sort-filter by query params]:
     public function getAllZonesQuery()
     {
         $queryBuilder = $this->zoneRepository->createQueryBuilder('z');

@@ -2,14 +2,13 @@
     <div class="card-header">
         <h4 class="card-title line-center">INFO UPDATE</h4>
     </div>
-    <div class="card-body ">
-        <div id="update-message"></div>
+    <div class="card-body " id="frames">
         <form action="{{ path('admin_update_country_action') }}" method="POST" id="country-form">
             {# get id #}
             <input type="hidden" name="country_id" value="{{ countryUpdate.id|default("") }}">
             <div class="form-group">
                 <label for="">Country Name<span class="ic-require">*</span></label>
-                <input type="text" name="country_name" class="form-control form-control-lg to-alias" id="txt-country-title" value="{{ countryUpdate.name|default("") }}" required />
+                <input type="text" name="country_name" class="form-control form-control-lg to-alias" id="txt-country-name" value="{{ countryUpdate.name|default("") }}" required />
                 <p class="error" id="name-error" for=""></p>
             </div>
             <div class="form-group">
@@ -19,7 +18,7 @@
             </div>
             <div class="form-group">
                 <label for="">ISO Code<span class="ic-require">*</span></label>
-                <input type="text" name="country_iso_code" class="form-control form-control-lg" id="txt-country-iso-code" value="{{ countryUpdate.isoCode|default("") }}" oninput="this.value = this.value.toUpperCase()" required />
+                <input type="text" oninput="this.value = this.value.toUpperCase()" name="country_iso_code" class="form-control form-control-lg" id="txt-country-iso-code" value="{{ countryUpdate.isoCode|default("") }}" required />
                 <p class="error" id="iso-code-error"></p>
             </div>
             <div class="form-group">
@@ -34,10 +33,10 @@
             </div>
             <div class="d-flex flex-nowrap align-items-center">
                 <div class="custom-control custom-checkbox mr-4">
-                    <input type="checkbox" name="country_status" class="custom-control-input" id="checkboxActive" {% if countryUpdate.status is defined and countryUpdate.status == 1 %}checked{% endif %} />
+                    <input type="checkbox" value="1" name="country_status" class="custom-control-input" {% if countryUpdate.status is defined and countryUpdate.status == 1 %}checked{% endif %} id="checkboxActive"/>
                     <label class="custom-control-label" for="checkboxActive">Active</label>
                 </div>
-                <button type="submit" class="btn btn-second btn-round btn-sm">Submit</button>
+                <button type="button" onClick="formHasChanged()" class="btn btn-second btn-round btn-sm">Submit</button>
             </div>
         </form>
     </div>

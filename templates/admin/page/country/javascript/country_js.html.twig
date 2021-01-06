@@ -37,7 +37,7 @@
                     $('#overlay').fadeIn();
                 }
             }).done(function(response) {
-                var name_error = document.getElementById("txt-country-title");
+                var name_error = document.getElementById("txt-country-name");
                 var slug_error = document.getElementById("txt-country-slug");
                 var iso_code_error = document.getElementById("txt-country-iso-code");
                 var zone_error = document.getElementById("txt-country-zone");
@@ -47,30 +47,30 @@
                         redirectTo(response.url);
                     }, 1500);
                 }
-                if (response.status === "failed" && response.error.name) {
+                if (response.status === "failed" && response.messages.name) {
                     name_error.style.borderColor = "red";
-                    document.getElementById("name-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.error.name;
+                    document.getElementById("name-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.messages.name;
                 } else {
                     name_error.style.borderColor = "";
                     document.getElementById("name-error").innerHTML = '';
                 }
-                if (response.status === "failed" && response.error.slug) {
+                if (response.status === "failed" && response.messages.slug) {
                     slug_error.style.borderColor = "red";
-                    document.getElementById("slug-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.error.slug;
+                    document.getElementById("slug-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.messages.slug;
                 } else {
                     slug_error.style.borderColor = "";
                     document.getElementById("slug-error").innerHTML = '';
                 }
-                if (response.status === "failed" && response.error.isoCode) {
+                if (response.status === "failed" && response.messages.isoCode) {
                     iso_code_error.style.borderColor = "red";
-                    document.getElementById("iso-code-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.error.isoCode;
+                    document.getElementById("iso-code-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.messages.isoCode;
                 } else {
                     iso_code_error.style.borderColor = "";
                     document.getElementById("iso-code-error").innerHTML = '';
                 }
-                if (response.status === "failed" && response.error.zone) {
+                if (response.status === "failed" && response.messages.zoneId) {
                     zone_error.style.borderColor = "red";
-                    document.getElementById("zone-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.error.zone;
+                    document.getElementById("zone-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.messages.zoneId[0];
                 } else {
                     zone_error.style.borderColor = "";
                     document.getElementById("zone-error").innerHTML = '';
@@ -197,6 +197,15 @@
             }
         });
 
+        // autofill input:
+        $('body').on('keyup', '#txt-country-name', function(event) {
+            var value = $('#txt-country-name').val();
+            $("#txt-country-slug").val(value.split(/\s{1,}/g).join('-'));
+        });
+
+        $('body').on('change', '#country-form :input', function(event) {
+            $("#country-form").data('changed', true);
+        });
     }); // ====== end jquery
 
     // remove country - ajax:
@@ -251,7 +260,7 @@
             next_status = 'inactive';
         } else {
             next_status = 'active';
-            next_country_status = "on";
+            next_country_status = 1;
         }
         $.ajax({
             type: 'POST',
@@ -293,6 +302,20 @@
                 }
             }
         });
+    }
+
+    // check info has changed:
+    function formHasChanged()
+    {
+        if ($('#country-form').data('changed')) {
+            $('#country-form').submit();
+        } else {
+            $("#update-message").remove();
+            $("#frames").prepend('<div id="update-message" class="alert alert-warning">No Info Changed</div>');
+            setTimeout(function() { 
+                $("#update-message").hide('slow', function(){ $("#update-message").remove(); });
+            }, 2000);
+        }
     }
 
     // sort [ASC - DESC] name - ajax:

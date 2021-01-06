@@ -3,27 +3,27 @@
     <div class="card-header">
         <h4 class="card-title line-center">INFO UPDATE</h4>
     </div>
-    <div class="card-body ">
+    <div class="card-body " id="frames">
         {# <div id="update-message"></div> #}
         <form method="POST" action="{{ path('admin_update_area_action') }}" id="area-form">
             {# get id #}
             <input type="hidden" name="area_id" value="{{ areaUpdate.id|default("") }}">
             <div class="form-group">
                 <label for="">Area<span class="ic-require">*</span></label>
-                <input type="text" name="area_name" class="form-control form-control-lg to-alias" id="txt-area-title" value="{{ areaUpdate.name|default("") }}" onchange="handle_edit_info(this)" required />
+                <input type="text" name="area_name" class="form-control form-control-lg to-alias" id="txt-area-name" value="{{ areaUpdate.name|default("") }}" required />
                 <p class="error" id="name-error" for="area_name"></p>
             </div>
             <div class="form-group">
                 <label for="">Alias<span class="ic-require">*</span></label>
-                <input type="text" name="area_slug" class="form-control form-control-lg input-alias" id="txt-area-slug" value="{{ areaUpdate.slug|default("") }}" onchange="handle_edit_info(this)" required />
+                <input type="text" name="area_slug" class="form-control form-control-lg input-alias" id="txt-area-slug" value="{{ areaUpdate.slug|default("") }}" required />
                 <p class="error" id="slug-error" for="area_slug"></p>
             </div>
             <div class="d-flex flex-nowrap align-items-center">
                 <div class="custom-control custom-checkbox mr-4">
-                    <input type="checkbox" name="area_status" class="custom-control-input" id="checkboxActive" onchange="handle_edit_info(this)" {% if areaUpdate.status is defined and areaUpdate.status == 1 %}checked{% endif %} />
+                    <input type="checkbox" name="area_status" class="custom-control-input" value="1" {% if areaUpdate.status is defined and areaUpdate.status == 1 %}checked{% endif %} id="checkboxActive"/>
                     <label class="custom-control-label" for="checkboxActive">Active</label>
                 </div>
-                <button type="submit" class="btn btn-second btn-round btn-sm">Submit</button>
+                <button type="button" onClick="formHasChanged()" class="btn btn-second btn-round btn-sm">Submit</button>
             </div>
         </form>
     </div>

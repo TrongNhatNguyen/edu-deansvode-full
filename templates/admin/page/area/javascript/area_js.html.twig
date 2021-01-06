@@ -39,7 +39,7 @@
                     $('#overlay').fadeIn();
             }
             }).done(function(response) {
-                var name_error = document.getElementById("txt-area-title");
+                var name_error = document.getElementById("txt-area-name");
                 var slug_error = document.getElementById("txt-area-slug");
                 if (response.status === "success") {
                     notifiSuccess(response.message);
@@ -47,16 +47,16 @@
                         redirectTo(response.url);
                     }, 1500);
                 }
-                if (response.status === "failed" && response.error.name) {
+                if (response.status === "failed" && response.messages.name) {
                     name_error.style.borderColor = "red";
-                    document.getElementById("name-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.error.name;
+                    document.getElementById("name-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.messages.name;
                 } else {
                     name_error.style.borderColor = "";
                     document.getElementById("name-error").innerHTML = '';
                 }
-                if (response.status === "failed" && response.error.slug) {
+                if (response.status === "failed" && response.messages.slug) {
                     slug_error.style.borderColor = "red";
-                    document.getElementById("slug-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.error.slug;
+                    document.getElementById("slug-error").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + response.messages.slug;
                 } else {
                     slug_error.style.borderColor = "";
                     document.getElementById("slug-error").innerHTML = '';
@@ -116,6 +116,16 @@
             }
         });
 
+        // autofill input:
+        $('body').on('keyup', '#txt-area-name', function(event) {
+            var value = $('#txt-area-name').val();
+            $("#txt-area-slug").val(value.split(/\s{1,}/g).join('-'));
+        });
+
+        $('body').on('change', '#area-form :input', function(event) {
+            $("#area-form").data('changed', true);
+        });
+        
     }); // end jquery
 
     // show update current info:
@@ -135,6 +145,21 @@
             }
         });
     }
+
+    // check info has changed:
+    function formHasChanged()
+    {
+        if ($('#area-form').data('changed')) {
+            $('#area-form').submit();
+        } else {
+            $("#update-message").remove();
+            $("#frames").prepend('<div id="update-message" class="alert alert-warning">No Info Changed</div>');
+            setTimeout(function() { 
+                $("#update-message").hide('slow', function(){ $("#update-message").remove(); });
+            }, 2000);
+        }
+    }
+
     // remove area:
     function removeArea(area_id)
     {
@@ -163,7 +188,7 @@
                                 redirectTo(response.url);
                             }, 1000);
                         } else {
-                            swal(response.error);
+                            swal(response.messages.emtyArea);
                         }
                     }
                 });
@@ -171,6 +196,7 @@
         })
         
     }
+    
     // change status:
     function toggleStatus(area_id, element)
     {
@@ -182,7 +208,7 @@
             next_status = 'inactive';
         } else {
             next_status = 'active';
-            next_area_status = "on";
+            next_area_status = 1;
         }
         $.ajax({
             type: 'POST',

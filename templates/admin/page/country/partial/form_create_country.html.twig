@@ -8,31 +8,32 @@
         <form action="{{ path('admin_create_country_action') }}" id="country-form" method="POST">
             <div class="form-group">
                 <label for="">Country Name<span class="ic-require">*</span></label>
-                <input type="text" name="country_name" class="form-control form-control-lg to-alias" id="txt-country-title" value="" required />
+                <input type="text" name="country_name" class="form-control form-control-lg to-alias" id="txt-country-name" />
                 <p class="error" id="name-error" for=""></p>
             </div>
             <div class="form-group">
                 <label for="">Alias<span class="ic-require">*</span></label>
-                <input type="text" name="country_slug" class="form-control form-control-lg input-alias" id="txt-country-slug" value="" required />
+                <input type="text" name="country_slug" class="form-control form-control-lg input-alias" id="txt-country-slug" />
                 <p class="error" id="slug-error" for=""></p>
             </div>
             <div class="form-group">
                 <label for="">ISO Code<span class="ic-require">*</span></label>
-                <input type="text" name="country_iso_code" class="form-control form-control-lg" id="txt-country-iso-code" value="" oninput="this.value = this.value.toUpperCase()" required />
+                <input oninput="this.value = this.value.toUpperCase()" type="text" name="country_iso_code" class="form-control form-control-lg" id="txt-country-iso-code" />
                 <p class="error" id="iso-code-error"></p>
             </div>
             <div class="form-group">
                 <label for="">Zone<span class="ic-require">*</span></label>
-                <select class="form-control form-control-lg" name="zone_id" required>
+                <select id="txt-country-zone" class="form-control form-control-lg" name="zone_id">
                     <option value="">-- Choose a zone --</option>
                     {% for zone in zones %}
                         <option value="{{ zone.id }}">{{ zone.name }}</option>
                     {% endfor %}
                 </select>
+                <p class="error" id="zone-error"></p>
             </div>
             <div class="d-flex flex-nowrap align-items-center">
                 <div class="custom-control custom-checkbox mr-4">
-                    <input type="checkbox" name="country_active" class="custom-control-input" id="checkboxActive" onchange="handle_edit_info(this)" />
+                    <input type="checkbox" value="1" name="country_status" class="custom-control-input" id="checkboxActive"/>
                     <label class="custom-control-label" for="checkboxActive">Active</label>
                 </div>
                 <button type="submit" class="btn btn-second btn-round btn-sm">Submit</button>
