@@ -8,9 +8,8 @@ use App\Repository\ZoneRepository;
 class CountryService
 {
     private $countryRepository;
-    private $zoneRepository;
 
-    public function __construct(CountryRepository $countryRepository, ZoneRepository $zoneRepository)
+    public function __construct(CountryRepository $countryRepository)
     {
         $this->countryRepository = $countryRepository;
         $this->zoneRepository = $zoneRepository;

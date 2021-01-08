@@ -2,15 +2,12 @@
 
 namespace App\Controller\Web;
 
-use App\DTO\Request\ReCaptchaRequest;
-use App\Service\Web\ContactService;
 use App\DTO\Request\SendEmailRequest;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 use App\Util\Helper\MailHelper;
 use App\Message\SmsNotification;
-
+use App\Service\Web\ContactService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ContactController extends AbstractController
@@ -23,38 +20,23 @@ class ContactController extends AbstractController
     }
 
     /**
-     * @Route("/send-mail", name="send_email")
+     * @Route("/send-mail-contact", name="send_email")
      */
-    public function sendMail(
-        Request $request,
-        SendEmailRequest $sendEmailRequest,
-        ReCaptchaRequest  $reCaptchaRequest,
-        ValidatorInterface $validator
-    ) {
-        // validate data form:
-        $sendEmailRequest->buildByRequest($request);
-        $errors = $validator->validate($sendEmailRequest);
-        if (count($errors) > 0) {
-            $messages = [];
-            foreach ($errors as $violation) {
-                $messages[$violation->getPropertyPath()][] = $violation->getMessage();
-            }
+    public function sendMail(SendEmailRequest $sendEmailRequest)
+    {
+        // validation:
+        if (isset($sendEmailRequest->errors)) {
             return $this->json([
-                'notificate' => ['status' => 'failed', 'messages' => $messages]
+                'notificate' => ['status' => 'failed', 'messages' => $sendEmailRequest->errors]
             ]);
         }
 
-        $data = $request->request->all();
-        $data['status'] = 0; // default
-        $data['receiver'] = '';
-
-        // go to get data -> db:
-        $result = $this->contactService->createUserContact($data);
+        $result = $this->contactService->createUserContact($sendEmailRequest);
         
-        // go to send mail - use message & handler:
-        $data['idUserContact'] = $result['id'];
+        // Send mail - use message & handler:
+        $sendEmailRequest->idUserContact = $result['id'];
         $mailType = MailHelper::MAILER;
-        $message = new SmsNotification($data, $mailType);
+        $message = new SmsNotification($sendEmailRequest, $mailType);
         $this->dispatchMessage($message);
 
         return $this->json([

@@ -7,13 +7,13 @@ class SmsNotification
     private $content;
     private $cons;
 
-    public function __construct(array $content, int $cons)
+    public function __construct(object $content, int $cons)
     {
         $this->content = $content;
         $this->cons = $cons;
     }
 
-    public function getContent(): array
+    public function getContent(): object
     {
         return $this->content;
     }

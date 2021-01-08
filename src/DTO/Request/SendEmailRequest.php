@@ -6,16 +6,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator\Constraints as CustomAssert;
 
-class SendEmailRequest
+class SendEmailRequest implements RequestDTOInterface
 {
     /**
-     * @Assert\NotBlank(
-     *      message="Full-Name is required."
-     * )
-     * * @Assert\Type(
-     *      type="string",
-     *      message="Full-Name cannot be a number."
-     * )
+     * @CustomAssert\FullName
      */
     public $fullName;
     
@@ -49,22 +43,42 @@ class SendEmailRequest
     public $message;
 
     /**
+     * @Assert\NotBlank(
+     *      message="Active is required!"
+     * )
+     * @Assert\type(type="integer")
+     */
+    public $status;
+
+    /**
+     * @Assert\Type(
+     *      type="string",
+     *      message="Receiver cannot be a number."
+     * )
+     */
+    public $receiver;
+
+    /**
      * @CustomAssert\ReCaptcha
      */
     public $reCaptchaString;
 
-    public function __construct()
+
+    public function __construct(Request $request)
     {
-        return true;
+        $this->buildByRequest($request);
     }
 
     public function buildByRequest(Request $request)
     {
-        $this->fullName = $request->request->get('full_name');
-        $this->email = $request->request->get('email');
-        $this->institution = $request->request->get('institution');
-        $this->position = $request->request->get('position');
-        $this->message = $request->request->get('message');
-        $this->reCaptchaString = $request->request->get('g-recaptcha-response');
+        $this->fullName = $request->get('full_name', '');
+        $this->email = (string) $request->get('email', '');
+        $this->institution = $request->get('institution', '');
+        $this->position = $request->get('position', '');
+        $this->message = $request->get('message', '');
+        $this->status = (int) $request->get('status', 0);
+        $this->receiver = $request->get('receiver', null);
+
+        $this->reCaptchaString = $request->get('g-recaptcha-response', '');
     }
 }

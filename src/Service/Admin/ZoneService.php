@@ -116,7 +116,7 @@ class ZoneService
             ];
         }
     }
-    /// ================================.
+    /// ============================
 
     // [search-sort-filter by query params]:
     public function getAllZonesQuery()
@@ -127,25 +127,10 @@ class ZoneService
 
     public function getZoneQueryBuilder($listQuery)
     {
-        $queryBuilder = $this->getListQueryByConditions($listQuery);
-
-        return $queryBuilder;
-    }
-
-    public function getExportZoneList($reqParams)
-    {
-        $listQuery = $this->buildZoneListQuery($reqParams);
-
-        $queryBuilder = $this->getListQueryByConditions($listQuery);
-
-        return $queryBuilder->getQuery()->getResult();
-    }
-
-    public function getListQueryByConditions($ListQuery)
-    {
         $queryBuilder = $this->zoneRepository->createQueryBuilder('z')->select();
-        if (!empty($ListQuery->conditions)) {
-            foreach ($ListQuery->conditions as $key => $value) {
+
+        if (!empty($listQuery->conditions)) {
+            foreach ($listQuery->conditions as $key => $value) {
                 if ($value == null) {
                     $key = "";
                 }
@@ -165,8 +150,8 @@ class ZoneService
             }
         }
 
-        if (!empty($ListQuery->orders)) {
-            foreach ($ListQuery->orders as $key => $value) {
+        if (!empty($listQuery->orders)) {
+            foreach ($listQuery->orders as $key => $value) {
                 $queryBuilder->addOrderBy('z.'.$key, $value);
             }
         }
@@ -174,17 +159,12 @@ class ZoneService
         return $queryBuilder;
     }
 
-    public function getListQueryByPagination($ListQuery)
+    public function getExportZoneList($reqParams)
     {
-        if (!empty($ListQuery->page)) {
-            $page = $ListQuery->page;
-        }
+        $listQuery = $this->buildZoneListQuery($reqParams);
+        $queryBuilder = $this->getZoneQueryBuilder($listQuery);
 
-        if (!empty($ListQuery->limit)) {
-            $limit = $ListQuery->limit;
-        }
-
-        return ['page' => $page, 'limit' => $limit];
+        return $queryBuilder->getQuery()->getResult();
     }
 
     public function buildZoneListQuery($params)
@@ -223,7 +203,7 @@ class ZoneService
     }
 
 
-    // =============================== default:
+    // ================== default:
     public function getAllZones()
     {
         return $this->zoneRepository->findAll();

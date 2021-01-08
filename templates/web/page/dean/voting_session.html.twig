@@ -15,7 +15,7 @@
                 <div class="col-sm-5 acc-right">
                     <a href="javascript:" class="btn btn-ac-name">
                         <i class="sprite sprite-ic-user-circle" aria-hidden="true"></i>
-                        {{ app.user.email|default('') }}
+                        {{ app.user.firstName|default('') }}
                     </a>
                     <a href="{{ path('app_dean_logout') }}" class="btn btn-logout">LOGOUT</a>
                 </div>

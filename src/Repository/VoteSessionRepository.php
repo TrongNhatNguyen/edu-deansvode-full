@@ -52,21 +52,15 @@ class VoteSessionRepository extends ServiceEntityRepository
     }
     */
 
-    public function voteSession($data)
+    public function fetching($voteSession)
     {
-        try {
-            $this->entityManager->persist($data);
-            $this->entityManager->flush();
+        $this->entityManager->persist($voteSession);
+        $this->entityManager->flush();
+    }
 
-            return [
-                'status' => 'success',
-                'message' => 'successful enforcement!'
-            ];
-        } catch (\Exception $ex) {
-            return [
-                'status' => 'failed',
-                'error' => $ex->getMessage()
-            ];
-        }
+    public function remove($voteSession)
+    {
+        $this->entityManager->remove($voteSession);
+        $this->entityManager->flush();
     }
 }

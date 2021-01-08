@@ -38,16 +38,21 @@ class VoteManagerService
         return $queryBulder->getQuery()->getOneOrNullResult();
     }
 
-    public function updateVoteSession($id)
+    public function updateVoteSession($updateRequest)
     {
         try {
-            $voteSession = $this->voteSessionRepository->find($id);
+            $voteSession = $this->voteSessionRepository->find((int) $updateRequest->id);
 
             $voteSession->setClosedAt(new \DateTime('now'));
-            $voteSession->setStatus(0);
+            $voteSession->setStatus($updateRequest->status);
             $voteSession->setUpdatedAt(new \DateTime('now'));
 
-            return $this->voteSessionRepository->voteSession($voteSession);
+            $this->voteSessionRepository->fetching($voteSession);
+
+            return [
+                'status' => 'success',
+                'message' => 'update successfully!'
+            ];
         } catch (\Exception $ex) {
             return [
                 'status' => 'failed',
@@ -56,20 +61,24 @@ class VoteManagerService
         }
     }
 
-    public function createNewVoteSession($data)
+    public function createNewVoteSession($createRequest)
     {
         try {
-            $data['status'] = 1;
+            $voteSession = new VoteSession();
 
-            $newVoteSession = new VoteSession;
+            $voteSession->setYear($createRequest->year);
+            $voteSession->setBeginAt(new \DateTime('now'));
+            $voteSession->setClosedAt(null);
+            $voteSession->setStatus($createRequest->status);
+            $voteSession->setCreatedAt(new \DateTime('now'));
+            $voteSession->setUpdatedAt(new \DateTime('now'));
 
-            $newVoteSession->setYear($data['year']);
-            $newVoteSession->setBeginAt(new \DateTime('now'));
-            $newVoteSession->setStatus($data['status']);
-            $newVoteSession->setCreatedAt(new \DateTime('now'));
-            $newVoteSession->setUpdatedAt(new \DateTime('now'));
+            $this->voteSessionRepository->fetching($voteSession);
 
-            return $this->voteSessionRepository->voteSession($newVoteSession);
+            return [
+                'status' => 'success',
+                'message' => 'create successfully!'
+            ];
         } catch (\Exception $ex) {
             return [
                 'status' => 'failed',
@@ -83,27 +92,19 @@ class VoteManagerService
         return $this->deanRepository->createQueryBuilder('d')
             ->select('d.firstName', 'd.lastName', 'd.title', 'd.email1', 'd.email2')
             ->andWhere('d.status = :status_val')
-            ->setParameter('status_val', '1')
+            ->setParameter('status_val', 1)
             ->getQuery()->getResult();
     }
 
 
-    // save value params (search-sort-filter by query):
-    public function getListVoteSession($reqParams)
-    {
-        $listQuery = $this->buildVoteSessionListQuery($reqParams);
-        $queryBuilder = $this->getListQueryByConditions($listQuery);
-
-        return $queryBuilder->getQuery()->getResult();
-    }
-
-    public function getListQueryByConditions($ListQuery)
+    // [search-sort-filter by query]:
+    public function getListVoteSession($listQuery)
     {
         $queryBuilder = $this->voteSessionRepository->createQueryBuilder('v')->select()
         ->addOrderBy('v.id', 'DESC');
 
-        if (!empty($ListQuery->conditions)) {
-            foreach ($ListQuery->conditions as $key => $value) {
+        if (!empty($listQuery->conditions)) {
+            foreach ($listQuery->conditions as $key => $value) {
                 if ($value == null) {
                     $key = null;
                 }
@@ -120,7 +121,7 @@ class VoteManagerService
             }
         }
 
-        return $queryBuilder;
+        return $queryBuilder->getQuery()->getResult();
     }
 
     public function buildVoteSessionListQuery($params)
@@ -134,5 +135,17 @@ class VoteManagerService
         }
 
         return $voteSessionListQuery;
+    }
+
+    // ================ default:
+    public function getVoteSessionById($id)
+    {
+        return $this->voteSessionRepository->find((int) $id);
+    }
+
+    public function getVoteSessionByYear($year)
+    {
+        $criteria = ['year' => $year];
+        return $this->voteSessionRepository->findOneBy((array) $criteria);
     }
 }

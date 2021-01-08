@@ -23,7 +23,7 @@ class SmsMailStartCampaignHandler implements MessageHandlerInterface
         foreach ($infoDeans as $infoDean) {
             $mailContent = $this->mailHelper->contentMailStartCampaign($infoDean);
             $this->mailHelper->chooseMailType($mailContent, $mailType);
-            sleep(0.5);
+            sleep(1);
         }
     }
 }

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Validator\Admin\Constraints\Country;
+namespace App\Validator\Admin\Constraints\VoteManager;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
-use App\Service\Admin\CountryService;
+use App\Service\Admin\VoteManagerService;
 
 class ResourceValidator extends ConstraintValidator
 {
-    private $countryService;
-    public function __construct(CountryService $countryService)
+    private $voteManagerService;
+    public function __construct(VoteManagerService $voteManagerService)
     {
-        $this->countryService = $countryService;
+        $this->voteManagerService = $voteManagerService;
     }
 
     public function validate($value, Constraint $constraint)
@@ -28,15 +28,15 @@ class ResourceValidator extends ConstraintValidator
             ->addViolation();
         }
         
-        if (!$this->isIssetCountry($value)) {
+        if (!$this->isIssetVoteSession($value)) {
             $this->context->buildViolation($constraint->message)
             ->setParameter('{{ string }}', 'No resource was found on the server!')
             ->addViolation();
         }
     }
 
-    public function isIssetCountry($value)
+    public function isIssetVoteSession($value)
     {
-        return $this->countryService->getCountryById($value) == null ? false : true;
+        return $this->voteManagerService->getVoteSessionById($value) == null ? false : true;
     }
 }

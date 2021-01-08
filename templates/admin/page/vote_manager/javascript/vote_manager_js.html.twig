@@ -13,6 +13,22 @@
         });
 
         // [create-update] vote session - ajax:
+        $('body').on('click', '#vote-session-submit', function(event) {
+            Swal.fire({
+                width: 350,
+                text: "Are you sure ?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#f4a65e',
+                cancelButtonColor: '#a1a1a1',
+                confirmButtonText: 'Yes, close!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#form-vote-manager').submit();
+                }
+            })
+        });
+
         $('body').on('submit', '#form-vote-manager', function(event) {
             event.preventDefault();
             var form_element = this;

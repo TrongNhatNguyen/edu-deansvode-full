@@ -68,17 +68,17 @@ class MailHelper
 
 
     ///======================= content email:
-    public function contentMailContact($data)
+    public function contentMailContact($sendEmailRequest)
     {
         $contentMail = [
             'subject' => 'DeansVote 2020 - Ask for advice and support!',
-            'from' => $data['email'],
+            'from' => $sendEmailRequest->email,
             'to' => $_ENV['CONTACT_MAIL'],
             'body' => $this->twig->render('email/mail_contact.html.twig', [
-                            'fullName' => $data['full_name'],
-                            'email' => $data['email'],
-                            'message' => $data['message']
-                            ]),
+                            'fullName' => $sendEmailRequest->fullName,
+                            'email' => $sendEmailRequest->email,
+                            'message' => $sendEmailRequest->message
+                        ]),
             'body_type' => 'text/html'
         ];
 

@@ -23,14 +23,14 @@ class SmsNotificationHandler implements MessageHandlerInterface
 
     public function __invoke(SmsNotification $message)
     {
-        $data = $message->getContent();
+        $sendEmailRequest = $message->getContent();
         $mailType = $message->getCons();
 
-        $mailContent = $this->mailHelper->contentMailContact($data);
+        $mailContent = $this->mailHelper->contentMailContact($sendEmailRequest);
         $resultSendMail = $this->mailHelper->chooseMailType($mailContent, $mailType);
 
         if ($resultSendMail['status'] === 'success') {
-            $this->contactService->updateUsercontact($data['idUserContact']);
+            $this->contactService->updateUsercontact($sendEmailRequest->idUserContact);
         }
     }
 }

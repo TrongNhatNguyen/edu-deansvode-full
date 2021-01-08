@@ -96,18 +96,16 @@
                 contentType: false,
                 dataType: 'json',
                 beforeSend: function () {
-                    console.log('show loading');
                     $('#overlay').fadeIn();
                 }
             }).done(function (response) {
-                console.log(response);
                 if (response.status == 'success') {
+                    $('#overlay').fadeIn();
                     redirectTo(response.url_response);
                 } else {
                     alert(response.error);
                 }
             }).always(function () {
-                console.log('stop loading');
                 $('#overlay').fadeOut();
             });
         });
@@ -122,14 +120,15 @@
             if (notificate.messages) {
                 // thong bao o form:
                 if (notificate.messages.fullName) {
-                    document.getElementById("fullname").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.fullName;
+                    document.getElementById("fullname").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.fullName[0];
                 } else {
                     document.getElementById("fullname").innerHTML = "";
                 }
                 if (notificate.messages.email) {
-                    document.getElementById("email").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.email;
+                    console.log('hehe',notificate.messages.email);
+                    document.getElementById("mail").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.email;
                 } else {
-                    document.getElementById("email").innerHTML = "";
+                    document.getElementById("mail").innerHTML = "";
                 }
                 if (notificate.messages.institution) {
                     document.getElementById("institution").innerHTML = '<i class="icon fa fa-ban"></i> &nbsp;' + notificate.messages.institution;
@@ -158,7 +157,7 @@
         } else {
             // thong bao o form:
             document.getElementById("fullname").innerHTML = "";
-            document.getElementById("email").innerHTML = "";
+            document.getElementById("mail").innerHTML = "";
             document.getElementById("institution").innerHTML = "";
             document.getElementById("position").innerHTML = "";
             document.getElementById("message").innerHTML = "";

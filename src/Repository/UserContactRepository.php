@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\UserContact;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,9 +15,13 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UserContactRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $entityManager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         parent::__construct($registry, UserContact::class);
+
+        $this->entityManager = $entityManager;
     }
 
     // /**
@@ -47,4 +52,16 @@ class UserContactRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function fetching($userContact)
+    {
+        $this->entityManager->persist($userContact);
+        $this->entityManager->flush();
+    }
+
+    public function remove($userContact)
+    {
+        $this->entityManager->remove($userContact);
+        $this->entityManager->flush();
+    }
 }

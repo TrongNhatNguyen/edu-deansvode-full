@@ -24,13 +24,13 @@ class ResourceValidator extends ConstraintValidator
 
         if (empty($value)) {
             $this->context->buildViolation($constraint->message)
-            ->setParameter('{{ string }}', 'params is required!')
+            ->setParameter('{{ string }}', 'Params is required!')
             ->addViolation();
         }
 
         if ($this->isIssetZone($value)) {
             $this->context->buildViolation($constraint->message)
-            ->setParameter('{{ string }}', 'Resource is required!')
+            ->setParameter('{{ string }}', 'No resource was found on the server!')
             ->addViolation();
         }
     }

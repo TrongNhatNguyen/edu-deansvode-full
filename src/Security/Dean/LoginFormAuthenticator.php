@@ -62,16 +62,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
     public function getCredentials(Request $request)
     {
         $credentials = [
-            'email1' => $request->request->get('email'),
-            'password1' => $request->request->get('password'),
-            'captcha_string' => $request->request->get('captcha_string'),
-            'csrf_token' => $request->request->get('_csrf_token'),
+            'email1' => $request->get('email', ''),
+            'password1' => $request->get('password', ''),
+            'captcha_string' => $request->get('captcha_string', ''),
+            'csrf_token' => $request->get('_csrf_token', null),
         ];
-
-        $request->getSession()->set(
-            Security::LAST_USERNAME,
-            $credentials['email1']
-        );
+        
+        $request->getSession()->set(Security::LAST_USERNAME, $credentials['email1']);
 
         return $credentials;
     }
@@ -87,7 +84,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
-            throw new InvalidCsrfTokenException('s1');
+            throw new InvalidCsrfTokenException('invalid Token');
         }
 
         // email:

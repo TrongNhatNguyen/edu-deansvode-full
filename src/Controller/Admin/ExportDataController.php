@@ -158,7 +158,8 @@ class ExportDataController extends AbstractController
     public function exportVoteSessionData(Request $request)
     {
         $reqParams = $request->query->all();
-        $listData = $this->voteManagerService->getListVoteSession($reqParams);
+        $listQuery = $this->voteManagerService->buildVoteSessionListQuery($reqParams);
+        $listData = $this->voteManagerService->getListVoteSession($listQuery);
 
         $spreadsheet = new Spreadsheet();
         $writer      = new Xlsx($spreadsheet);

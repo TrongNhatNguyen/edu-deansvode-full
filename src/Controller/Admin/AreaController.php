@@ -20,6 +20,9 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AreaController extends AbstractController
 {
+    public $areaDir = 'admin/page/area/';
+    public $areaPatialDir = 'admin/page/area/partial/';
+
     private $zoneService;
     private $paginateHelper;
 
@@ -42,7 +45,7 @@ class AreaController extends AbstractController
             $allAreasQuery = $this->zoneService->getAllZonesQuery();
             $pagination = $this->paginateHelper->paginateHelper($allAreasQuery);
 
-            return $this->render('admin/page/area/index.html.twig', [
+            return $this->render($this->areaDir . 'index.html.twig', [
                 'pagination' => $pagination,
                 'listAreas' => $pagination->getItems(),
                 'itemsPerPage' => $this->paginateHelper->defaultItemPerPage
@@ -58,10 +61,10 @@ class AreaController extends AbstractController
 
         return $this->json([
             'status' => 'success',
-            'html' => $this->renderView('admin/page/area/partial/list_area.html.twig', [
+            'html' => $this->renderView($this->areaPatialDir . 'list_area.html.twig', [
                 'listAreas' => $pagination->getItems()
             ]),
-            'htmlPaging' => $this->renderView('admin/page/area/partial/paging_area.html.twig', [
+            'htmlPaging' => $this->renderView($this->areaPatialDir . 'paging_area.html.twig', [
                 'pagination' => $pagination
             ])
         ]);
@@ -94,7 +97,7 @@ class AreaController extends AbstractController
 
         $areaUpdate = $this->zoneService->getZoneById($currentRequest->id);
 
-        $html = $this->renderView('admin/page/area/partial/form_update_area.html.twig', [
+        $html = $this->renderView($this->areaPatialDir . 'form_update_area.html.twig', [
             'areaUpdate' => $areaUpdate
         ]);
 

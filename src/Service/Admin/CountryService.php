@@ -125,9 +125,9 @@ class CountryService
             ];
         }
     }
-    // =====================================
+    // ===============================
 
-    // (search-sort-filter by query):
+    // [search-sort-filter by query]:
     public function getAllCountriesQuery()
     {
         $queryBuilder = $this->countryRepository->createQueryBuilder('c');
@@ -188,7 +188,7 @@ class CountryService
         $countryListQuery = new CountryListQuery();
 
         foreach ($params as $key => $value) {
-            // pagination:
+            // paginate:
             if ($key === 'limit') {
                 $countryListQuery->limit = $value;
             }

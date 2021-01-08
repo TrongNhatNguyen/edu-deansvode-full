@@ -2,9 +2,12 @@
 
 namespace App\Controller\Admin;
 
+use App\DTO\Request\VoteManager\CloseRequest;
+use App\DTO\Request\VoteManager\StartRequest;
 use App\Message\SmsMailStartCampaign;
-use App\Service\Admin\VoteManagerService;
 use App\Util\Helper\MailHelper;
+
+use App\Service\Admin\VoteManagerService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,8 +17,10 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class VoteManagerController extends AbstractController
 {
-    private $voteManagerService;
+    public $voteManagerDir = 'admin/page/vote_manager/';
+    public $voteManagerPartialDir = 'admin/page/vote_manager/partial/';
 
+    private $voteManagerService;
     public function __construct(VoteManagerService $voteManagerService)
     {
         $this->voteManagerService = $voteManagerService;
@@ -23,25 +28,26 @@ class VoteManagerController extends AbstractController
 
 
     /**
-     * @route("/vote-manager", name="vote_manager")
+     * @route("/vote-manager", name="vote_manager", methods={"GET"})
      */
     public function index(Request $request)
     {
         $reqParams = $request->query->all();
+
         if (empty($reqParams)) {
             $allVoteSession = $this->voteManagerService->getAllVoteSession();
             $openingVoteSession = $this->voteManagerService->getOpeningVoteSession();
 
-            return $this->render('admin/page/vote_manager/index.html.twig', [
+            return $this->render($this->voteManagerDir . 'index.html.twig', [
                 'listVoteSession' => $allVoteSession,
                 'openingVoteSession' => $openingVoteSession
             ]);
         }
 
-        $newList = $this->voteManagerService->getListVoteSession($reqParams);
+        $listQuery = $this->voteManagerService->buildVoteSessionListQuery($reqParams);
 
-        $html = $this->renderView('admin/page/vote_manager/partial/list_vote_manager.html.twig', [
-            'listVoteSession' => $newList
+        $html = $this->renderView($this->voteManagerPartialDir . 'list_vote_manager.html.twig', [
+            'listVoteSession' => $this->voteManagerService->getListVoteSession($listQuery)
         ]);
 
         return $this->json(['status' => 'success', 'html' => $html]);
@@ -50,16 +56,19 @@ class VoteManagerController extends AbstractController
     /**
      * @route("/#close-vote-session", name="close_vote_session_action")
      */
-    public function closeVoteSession(Request $request)
+    public function close(CloseRequest $closeRequest)
     {
-        $voteSessionId = $request->request->get('vote_session_id');
-        $result = $this->voteManagerService->updateVoteSession($voteSessionId);
-        $allVoteSession = $this->voteManagerService->getAllVoteSession();
+        // validation:
+        if (isset($closeRequest->errors)) {
+            return $this->json(['status' => 'failed', 'messages' => $closeRequest->errors]);
+        }
+
+        $result = $this->voteManagerService->updateVoteSession($closeRequest);
         
         if ($result['status'] === 'success') {
-            $result['htmlForm'] = $this->renderView('admin/page/vote_manager/partial/form_start_new_vote_manager.html.twig');
-            $result['htmlList'] = $this->renderView('admin/page/vote_manager/partial/list_vote_manager.html.twig', [
-                'listVoteSession' => $allVoteSession
+            $result['htmlForm'] = $this->renderView($this->voteManagerPartialDir . 'form_start_new_vote_manager.html.twig');
+            $result['htmlList'] = $this->renderView($this->voteManagerPartialDir . 'list_vote_manager.html.twig', [
+                'listVoteSession' => $this->voteManagerService->getAllVoteSession()
             ]);
         }
 
@@ -69,17 +78,18 @@ class VoteManagerController extends AbstractController
     /**
      * @route("/#start-new-vote-session", name="start_new_vote_session_action")
      */
-    public function startNewVoteSession(Request $request)
+    public function create(StartRequest $startRequest)
     {
-        $data = $request->request->all();
+        // validation:
+        if (isset($startRequest->startRequest)) {
+            return $this->json(['status' => 'failed', 'messages' => $startRequest->errors]);
+        }
 
-        $result = $this->voteManagerService->createNewVoteSession($data);
-        $allVoteSession = $this->voteManagerService->getAllVoteSession();
-        $openingVoteSession = $this->voteManagerService->getOpeningVoteSession();
+        $result = $this->voteManagerService->createNewVoteSession($startRequest);
 
         if ($result['status'] === 'success') {
             // send mail all deans:
-            if (!empty($data['isSendMail']) && $data['isSendMail'] === "on") {
+            if ($startRequest->checkSendMail === 1) {
                 $deansInfo = $this->voteManagerService->getDeansInfo();
 
                 $mailType = MailHelper::MAILER;
@@ -89,11 +99,11 @@ class VoteManagerController extends AbstractController
                 $result['mailNotifi'] = 'Mail notification has been added to the task silently!';
             }
 
-            $result['htmlForm'] = $this->renderView('admin/page/vote_manager/partial/form_close_vote_manager.html.twig', [
-                'openingVoteSession' => $openingVoteSession
+            $result['htmlForm'] = $this->renderView($this->voteManagerPartialDir . 'form_close_vote_manager.html.twig', [
+                'openingVoteSession' => $this->voteManagerService->getOpeningVoteSession()
             ]);
-            $result['htmlList'] = $this->renderView('admin/page/vote_manager/partial/list_vote_manager.html.twig', [
-                'listVoteSession' => $allVoteSession
+            $result['htmlList'] = $this->renderView($this->voteManagerPartialDir . 'list_vote_manager.html.twig', [
+                'listVoteSession' => $this->voteManagerService->getAllVoteSession()
             ]);
         }
 

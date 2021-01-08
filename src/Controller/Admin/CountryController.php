@@ -22,21 +22,21 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class CountryController extends AbstractController
 {
+    public $countryDir = 'admin/page/country/';
+    public $countryPartialDir = 'admin/page/country/partial/';
+
     private $countryService;
     private $zoneService;
     private $paginateHelper;
-    private $validator;
 
     public function __construct(
         CountryService $countryService,
         ZoneService $zoneService,
-        PaginateHelper $paginateHelper,
-        ValidatorInterface $validator
+        PaginateHelper $paginateHelper
     ) {
         $this->countryService = $countryService;
         $this->zoneService = $zoneService;
         $this->paginateHelper = $paginateHelper;
-        $this->validator = $validator;
     }
 
 
@@ -53,7 +53,7 @@ class CountryController extends AbstractController
 
             $pagination = $this->paginateHelper->paginateHelper($countriesQuery);
 
-            return $this->render('admin/page/country/index.html.twig', [
+            return $this->render($this->countryDir . 'index.html.twig', [
                 'zones' => $zones,
                 'countries' => $pagination->getItems(),
                 'pagination' => $pagination,
@@ -71,10 +71,10 @@ class CountryController extends AbstractController
 
         return $this->json([
             'status' => "success",
-            'html' => $this->renderView('admin/page/country/partial/list_country.html.twig', [
+            'html' => $this->renderView($this->countryPartialDir . 'list_country.html.twig', [
                 'countries' => $pagination->getItems()
             ]),
-            'htmlPaging' => $this->renderView('admin/page/country/partial/paging_country.html.twig', [
+            'htmlPaging' => $this->renderView($this->countryPartialDir . 'paging_country.html.twig', [
                 'pagination' => $pagination,
                 'numberOfPage' => ceil($pagination->getTotalItemCount() / $pagination->getItemNumberPerPage())
             ])
@@ -109,7 +109,7 @@ class CountryController extends AbstractController
         $countryUpdate = $this->countryService->getCountryById($currentRequest->id);
         $zones = $this->zoneService->getAllZones();
 
-        $html = $this->renderView('admin/page/country/partial/form_update_country.html.twig', [
+        $html = $this->renderView($this->countryPartialDir . 'form_update_country.html.twig', [
             'zones' => $zones,
             'countryUpdate' => $countryUpdate
         ]);
