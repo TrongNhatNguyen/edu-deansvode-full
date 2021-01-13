@@ -18,14 +18,12 @@ class SendEmailRequest implements RequestDTOInterface
      */
     public $email;
 
-
     /**
      * @Assert\NotBlank(
      *      message="Academic Institution is required."
      * )
      */
     public $institution;
-
 
     /**
      * @Assert\NotBlank(
@@ -49,6 +47,24 @@ class SendEmailRequest implements RequestDTOInterface
      * @Assert\type(type="integer")
      */
     public $status;
+
+    /**
+     * @Assert\NotBlank(
+     *      message="Date created is required!"
+     * )
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    public $createdAt;
+
+    /**
+     * @Assert\NotBlank(
+     *      message="Date updated is required!"
+     * )
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    public $updatedAt;
 
     /**
      * @Assert\Type(
@@ -77,6 +93,8 @@ class SendEmailRequest implements RequestDTOInterface
         $this->position = $request->get('position', '');
         $this->message = $request->get('message', '');
         $this->status = (int) $request->get('status', 0);
+        $this->createdAt = new \DateTime($request->get('created_at', 'now'));
+        $this->updatedAt = new \DateTime($request->get('updated_at', 'now'));
         $this->receiver = $request->get('receiver', null);
 
         $this->reCaptchaString = $request->get('g-recaptcha-response', '');

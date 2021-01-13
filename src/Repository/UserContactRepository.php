@@ -52,16 +52,4 @@ class UserContactRepository extends ServiceEntityRepository
         ;
     }
     */
-
-    public function fetching($userContact)
-    {
-        $this->entityManager->persist($userContact);
-        $this->entityManager->flush();
-    }
-
-    public function remove($userContact)
-    {
-        $this->entityManager->remove($userContact);
-        $this->entityManager->flush();
-    }
 }

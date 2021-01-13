@@ -8,9 +8,11 @@ use App\DTO\Request\Area\RemoveRequest;
 use App\DTO\Request\Area\UpdateRequest;
 use App\DTO\Request\Area\UpdateStatusRequest;
 
-use App\Service\Admin\ZoneService;
-use App\Util\Helper\PaginateHelper;
+use App\Service\Zone\ZoneFetcher;
+use App\Service\Zone\ZoneQueryBuilder;
+use App\Service\ZoneService;
 
+use App\Util\Helper\PaginateHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,13 +26,16 @@ class AreaController extends AbstractController
     public $areaPatialDir = 'admin/page/area/partial/';
 
     private $zoneService;
+    private $zoneFetcher;
     private $paginateHelper;
 
     public function __construct(
         ZoneService $zoneService,
+        ZoneFetcher $zoneFetcher,
         PaginateHelper $paginateHelper
     ) {
         $this->zoneService = $zoneService;
+        $this->zoneFetcher = $zoneFetcher;
         $this->paginateHelper = $paginateHelper;
     }
 
@@ -39,10 +44,10 @@ class AreaController extends AbstractController
      */
     public function index(Request $request)
     {
-        $reqParams = $request->query->all();
+        $request = $request->query->all();
 
-        if (empty($reqParams)) {
-            $allAreasQuery = $this->zoneService->getAllZonesQuery();
+        if (empty($request)) {
+            $allAreasQuery = $this->zoneService->listAllZoneQuery();
             $pagination = $this->paginateHelper->paginateHelper($allAreasQuery);
 
             return $this->render($this->areaDir . 'index.html.twig', [
@@ -52,12 +57,11 @@ class AreaController extends AbstractController
             ]);
         }
 
-        $listQuery = $this->zoneService->buildZoneListQuery($reqParams);
-        $areaQueryBuilder = $this->zoneService->getZoneQueryBuilder($listQuery);
+        $listAreaQuery = $this->zoneService->listZoneQuery($request);
 
-        $this->paginateHelper->setPage($listQuery->page);
-        $this->paginateHelper->setItemsPerPage($listQuery->limit);
-        $pagination = $this->paginateHelper->paginateHelper($areaQueryBuilder);
+        $this->paginateHelper->setPage($request['page']);
+        $this->paginateHelper->setItemsPerPage($request['limit']);
+        $pagination = $this->paginateHelper->paginateHelper($listAreaQuery);
 
         return $this->json([
             'status' => 'success',
@@ -86,16 +90,16 @@ class AreaController extends AbstractController
     }
 
     /**
-     * @Route("/#show-area-info", name="show_area_info", methods={"GET"})
+     * @Route("/#show-area-info-update", name="show_area_info", methods={"GET"})
      */
-    public function showCurrentInfo(CurrentRequest $currentRequest)
+    public function showCurrentInfoUpdate(CurrentRequest $currentRequest)
     {
         // validation:
         if (isset($currentRequest->errors)) {
             return $this->json(['status' => 'failed', 'messages' => $currentRequest->errors]);
         }
 
-        $areaUpdate = $this->zoneService->getZoneById($currentRequest->id);
+        $areaUpdate = $this->zoneFetcher->getZoneById($currentRequest->id);
 
         $html = $this->renderView($this->areaPatialDir . 'form_update_area.html.twig', [
             'areaUpdate' => $areaUpdate
@@ -129,7 +133,7 @@ class AreaController extends AbstractController
             return $this->json(['status' => 'failed', 'messages' => $updateStatusRequest->errors]);
         }
 
-        $result = $this->zoneService->updateStatus($updateStatusRequest);
+        $result = $this->zoneService->updateZone($updateStatusRequest);
 
         return $this->json($result);
     }

@@ -48,7 +48,7 @@
                                 <!--li class=" "><a href="/voting-tutorial">Voting Tutorial </a></li-->
                                 <li class=""><a href="{{ 'web_home' != app.request.get('_route') ? app.request.scheme ~'://' ~ app.request.httpHost : path('web_home') }}#sec-form-login" style="color: #f88337">Start your vote!</a></li>
                                 <li class="{{ menu_award_active|default('')  }}"><a href="{{ path('web_award_ceremony') }}">Awards Ceremony</a></li>
-                                <li class=""><a href="/covid19-sharing-center">COVID-19 Sharing Center</a></li>
+                                <li class=""><a href="#">COVID-19 Sharing Center</a></li>
                                 <!-- <li class=""><a href="/student-interview">Students' Interviews</a></li> -->
                                 <li class="visible-xs "><a class="page-scroll" href="{{ 'web_home' != app.request.get('_route') ? app.request.scheme ~'://' ~ app.request.httpHost : path('web_home') }}#sec-contact">Contact</a>
                                 </li>

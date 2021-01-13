@@ -5,15 +5,15 @@ namespace App\Validator\Admin\Constraints\VoteManager;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-
-use App\Service\Admin\VoteManagerService;
+use App\Service\VoteManager\VoteSessionFetcher;
 
 class ResourceValidator extends ConstraintValidator
 {
-    private $voteManagerService;
-    public function __construct(VoteManagerService $voteManagerService)
+    private $voteSessionFetcher;
+    
+    public function __construct(VoteSessionFetcher $voteSessionFetcher)
     {
-        $this->voteManagerService = $voteManagerService;
+        $this->voteSessionFetcher = $voteSessionFetcher;
     }
 
     public function validate($value, Constraint $constraint)
@@ -37,6 +37,6 @@ class ResourceValidator extends ConstraintValidator
 
     public function isIssetVoteSession($value)
     {
-        return $this->voteManagerService->getVoteSessionById($value) == null ? false : true;
+        return $this->voteSessionFetcher->getVoteSessionById($value) == null ? false : true;
     }
 }

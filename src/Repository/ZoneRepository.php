@@ -51,17 +51,4 @@ class ZoneRepository extends ServiceEntityRepository
         ;
     }
     */
-
-    // ======== CRUD:
-    public function fetching($zone)
-    {
-        $this->entityManager->persist($zone);
-        $this->entityManager->flush();
-    }
-
-    public function remove($zone)
-    {
-        $this->entityManager->remove($zone);
-        $this->entityManager->flush();
-    }
 }

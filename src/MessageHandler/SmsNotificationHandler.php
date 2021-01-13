@@ -5,7 +5,7 @@ namespace App\MessageHandler;
 use App\Util\Helper\MailHelper;
 
 use App\Message\SmsNotification;
-use App\Service\Web\ContactService;
+use App\Service\ContactService;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 
 class SmsNotificationHandler implements MessageHandlerInterface
@@ -30,7 +30,14 @@ class SmsNotificationHandler implements MessageHandlerInterface
         $resultSendMail = $this->mailHelper->chooseMailType($mailContent, $mailType);
 
         if ($resultSendMail['status'] === 'success') {
-            $this->contactService->updateUsercontact($sendEmailRequest->idUserContact);
+            $updateRequest = [
+                'id' => $sendEmailRequest->idUserContact,
+                'status' => 1,
+                'updatedAt' => new \DateTime('now')
+            ];
+
+            $this->contactService->updateUsercontact($updateRequest);
         }
+        sleep(1);
     }
 }

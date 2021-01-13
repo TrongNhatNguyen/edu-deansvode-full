@@ -5,16 +5,16 @@ namespace App\Validator\Admin\Constraints\Country;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-
-use App\Service\Admin\CountryService;
+use App\Service\Country\CountryFetcher;
 use App\Validator\Characters\ValidSpecialCharacters;
 
 class SlugValidator extends ConstraintValidator
 {
-    private $countryService;
-    public function __construct(CountryService $countryService)
+    private $countryFetcher;
+
+    public function __construct(CountryFetcher $countryFetcher)
     {
-        $this->countryService = $countryService;
+        $this->countryFetcher = $countryFetcher;
     }
 
     public function validate($value, Constraint $constraint)
@@ -44,6 +44,6 @@ class SlugValidator extends ConstraintValidator
 
     public function isIssetSlug($value)
     {
-        return $this->countryService->getCountryBySlug($value) == null ? true : false;
+        return $this->countryFetcher->getCountryBySlug($value) == null ? true : false;
     }
 }

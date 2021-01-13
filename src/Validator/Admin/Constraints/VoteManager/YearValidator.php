@@ -2,18 +2,18 @@
 
 namespace App\Validator\Admin\Constraints\VoteManager;
 
-use App\Service\Admin\VoteManagerService;
+use App\Service\VoteManager\VoteSessionFetcher;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
-
 class YearValidator extends ConstraintValidator
 {
-    private $voteManagerService;
-    public function __construct(VoteManagerService $voteManagerService)
+    private $voteSessionFetcher;
+
+    public function __construct(VoteSessionFetcher $voteSessionFetcher)
     {
-        $this->voteManagerService = $voteManagerService;
+        $this->voteSessionFetcher = $voteSessionFetcher;
     }
 
     public function validate($value, Constraint $constraint)
@@ -34,7 +34,7 @@ class YearValidator extends ConstraintValidator
             ->addViolation();
         }
 
-        if (!$this->isIssetYear($value)) {
+        if ($this->isIssetYear($value)) {
             $this->context->buildViolation($constraint->message)
             ->setParameter('{{ string }}', 'Year already exists!')
             ->addViolation();
@@ -43,6 +43,6 @@ class YearValidator extends ConstraintValidator
 
     public function isIssetYear($value)
     {
-        return $this->voteManagerService->getVoteSessionByYear($value) == null ? true : false;
+        return $this->voteSessionFetcher->getVoteSessionByYear($value) == null ? false : true;
     }
 }

@@ -8,14 +8,15 @@ use App\DTO\Request\Country\RemoveRequest;
 use App\DTO\Request\Country\UpdateRequest;
 use App\DTO\Request\Country\UpdateStatusRequest;
 
-use App\Service\Admin\ZoneService;
-use App\Service\Admin\CountryService;
+use App\Service\CountryService;
+use App\Service\Country\CountryFetcher;
+use App\Service\ZoneService;
+use App\Service\Zone\ZoneFetcher;
 use App\Util\Helper\PaginateHelper;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/admin", name="admin_")
@@ -26,16 +27,22 @@ class CountryController extends AbstractController
     public $countryPartialDir = 'admin/page/country/partial/';
 
     private $countryService;
+    private $countryFetcher;
     private $zoneService;
+    private $zoneFetcher;
     private $paginateHelper;
 
     public function __construct(
         CountryService $countryService,
+        CountryFetcher $countryFetcher,
         ZoneService $zoneService,
+        ZoneFetcher $zoneFetcher,
         PaginateHelper $paginateHelper
     ) {
         $this->countryService = $countryService;
+        $this->countryFetcher = $countryFetcher;
         $this->zoneService = $zoneService;
+        $this->zoneFetcher = $zoneFetcher;
         $this->paginateHelper = $paginateHelper;
     }
 
@@ -45,16 +52,14 @@ class CountryController extends AbstractController
      */
     public function index(Request $request)
     {
-        $reqParams = $request->query->all();
+        $request = $request->query->all();
 
-        if (empty($reqParams)) {
-            $zones = $this->zoneService->getAllZones();
-            $countriesQuery = $this->countryService->getAllCountriesQuery();
-
+        if (empty($request)) {
+            $countriesQuery = $this->countryService->listAllCountriesQuery();
             $pagination = $this->paginateHelper->paginateHelper($countriesQuery);
 
             return $this->render($this->countryDir . 'index.html.twig', [
-                'zones' => $zones,
+                'zones' => $this->zoneFetcher->getAllZones(),
                 'countries' => $pagination->getItems(),
                 'pagination' => $pagination,
                 'numberOfPage' => ceil($pagination->getTotalItemCount() / $pagination->getItemNumberPerPage()),
@@ -62,12 +67,11 @@ class CountryController extends AbstractController
             ]);
         }
 
-        $listQuery = $this->countryService->buildCountryListQuery($reqParams);
-        $countryQueryBuilder = $this->countryService->getCountryQueryBuilder($listQuery);
+        $listCountryQuery = $this->countryService->listCountryQuery($request);
 
-        $this->paginateHelper->setPage($listQuery->page);
-        $this->paginateHelper->setItemsPerPage($listQuery->limit);
-        $pagination = $this->paginateHelper->paginateHelper($countryQueryBuilder);
+        $this->paginateHelper->setPage($request['page']);
+        $this->paginateHelper->setItemsPerPage($request['limit']);
+        $pagination = $this->paginateHelper->paginateHelper($listCountryQuery);
 
         return $this->json([
             'status' => "success",
@@ -97,21 +101,18 @@ class CountryController extends AbstractController
     }
 
     /**
-     * @route("/#show-country-info", name="show_country_info", methods={"GET"})
+     * @route("/#show-country-info-update", name="show_country_info", methods={"GET"})
      */
-    public function showCurrentInfo(CurrentRequest $currentRequest)
+    public function showCurrentInfoUpdate(CurrentRequest $currentRequest)
     {
         // validation:
         if (isset($currentRequest->errors)) {
             return $this->json(['status' => 'failed', 'messages' => $currentRequest->errors]);
         }
-        
-        $countryUpdate = $this->countryService->getCountryById($currentRequest->id);
-        $zones = $this->zoneService->getAllZones();
 
         $html = $this->renderView($this->countryPartialDir . 'form_update_country.html.twig', [
-            'zones' => $zones,
-            'countryUpdate' => $countryUpdate
+            'zones' => $this->zoneFetcher->getAllZones(),
+            'countryUpdate' => $this->countryFetcher->getCountryById($currentRequest->id)
         ]);
 
         return $this->json(['status' => 'success', 'html' => $html]);
@@ -126,7 +127,7 @@ class CountryController extends AbstractController
         if (isset($updateRequest->errors)) {
             return $this->json(['status' =>'failed', 'messages' => $updateRequest->errors]);
         }
-        
+
         $result = $this->countryService->updateCountry($updateRequest);
 
         return $this->json($result);
@@ -142,7 +143,7 @@ class CountryController extends AbstractController
             return $this->json(['status' =>'failed', 'messages' => $updateStatusRequest->errors]);
         }
 
-        $result = $this->countryService->updateStatusCountry($updateStatusRequest);
+        $result = $this->countryService->updateCountry($updateStatusRequest);
 
         return $this->json($result);
     }

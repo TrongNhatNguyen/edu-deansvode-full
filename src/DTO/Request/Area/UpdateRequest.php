@@ -41,6 +41,15 @@ class UpdateRequest implements RequestDTOInterface
      * @Assert\type(type="integer")
      */
     public $status;
+
+    /**
+     * @Assert\NotBlank(
+     *      message="Date updated is required!"
+     * )
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    public $updatedAt;
     
 
     public function __construct(Request $request)
@@ -56,6 +65,7 @@ class UpdateRequest implements RequestDTOInterface
         $this->image = $request->get('area_image', 'no-image.png');
         $this->sort = (int) $request->get('area_sort', 0);
         $this->status = (int) $request->get('area_status', 0);
+        $this->updatedAt = new \DateTime($request->get('area_updated_at', 'now'));
 
         $this->identities = [
             'id' => $this->id,

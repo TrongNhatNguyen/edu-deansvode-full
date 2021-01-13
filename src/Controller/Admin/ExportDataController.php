@@ -2,9 +2,9 @@
 
 namespace App\Controller\Admin;
 
-use App\Service\Admin\CountryService;
-use App\Service\Admin\VoteManagerService;
-use App\Service\Admin\ZoneService;
+use App\Service\ZoneService;
+use App\Service\CountryService;
+use App\Service\VoteManagerService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,8 +38,8 @@ class ExportDataController extends AbstractController
      */
     public function exportAreaData(Request $request)
     {
-        $reqParams = $request->query->all();
-        $listData = $this->zoneService->getExportZoneList($reqParams);
+        $request = $request->query->all();
+        $listData = $this->zoneService->listZoneExport($request);
        
         $spreadsheet = new Spreadsheet();
         $writer      = new Xlsx($spreadsheet);
@@ -95,8 +95,8 @@ class ExportDataController extends AbstractController
      */
     public function exportCountryData(Request $request)
     {
-        $reqParams = $request->query->all();
-        $countryList = $this->countryService->getExportCountryList($reqParams);
+        $request = $request->query->all();
+        $countryList = $this->countryService->listCountryExport($request);
 
         $spreadsheet = new Spreadsheet();
         $writer      = new Xlsx($spreadsheet);
@@ -157,9 +157,8 @@ class ExportDataController extends AbstractController
      */
     public function exportVoteSessionData(Request $request)
     {
-        $reqParams = $request->query->all();
-        $listQuery = $this->voteManagerService->buildVoteSessionListQuery($reqParams);
-        $listData = $this->voteManagerService->getListVoteSession($listQuery);
+        $request = $request->query->all();
+        $listData = $this->voteManagerService->listVoteSession($request);
 
         $spreadsheet = new Spreadsheet();
         $writer      = new Xlsx($spreadsheet);

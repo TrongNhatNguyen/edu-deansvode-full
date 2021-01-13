@@ -51,17 +51,4 @@ class CountryRepository extends ServiceEntityRepository
         ;
     }
     */
-
-    // ========== CRUD:
-    public function fetching($country)
-    {
-        $this->entityManager->persist($country);
-        $this->entityManager->flush();
-    }
-
-    public function remove($country)
-    {
-        $this->entityManager->remove($country);
-        $this->entityManager->flush();
-    }
 }

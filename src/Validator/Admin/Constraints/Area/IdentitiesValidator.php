@@ -2,19 +2,20 @@
 
 namespace App\Validator\Admin\Constraints\Area;
 
+use App\Service\Zone\ZoneFetcher;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
-use App\Service\Admin\ZoneService;
 use App\Validator\Characters\ValidSpecialCharacters;
 
 class IdentitiesValidator extends ConstraintValidator
 {
-    private $zoneService;
-    public function __construct(ZoneService $zoneService)
+    private $zoneFetcher;
+
+    public function __construct(ZoneFetcher $zoneFetcher)
     {
-        $this->zoneService = $zoneService;
+        $this->zoneFetcher = $zoneFetcher;
     }
 
     public function validate($value, Constraint $constraint)
@@ -32,12 +33,16 @@ class IdentitiesValidator extends ConstraintValidator
 
         if (empty($value['slug'])) {
             $this->context->buildViolation($constraint->message)
-            ->setParameter('{{ string }}', 'Slug is required!')
+            ->setParameter('{{ string }}', 'Alias is required!')
             ->setParameter('properties', 'slug')
             ->addViolation();
         }
 
         foreach ($value as $key => $string) {
+            if ($key === 'id') {
+                continue;
+            }
+
             if (!ValidSpecialCharacters::isValidSpecialCharacters($string)) {
                 $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ string }}', $key.' contains special characters!')
@@ -55,7 +60,7 @@ class IdentitiesValidator extends ConstraintValidator
 
         if ($this->isIssetSlug($value)) {
             $this->context->buildViolation($constraint->message)
-            ->setParameter('{{ string }}', 'Slug already exists!')
+            ->setParameter('{{ string }}', 'Alias already exists!')
             ->setParameter('properties', 'slug')
             ->addViolation();
         }
@@ -64,7 +69,7 @@ class IdentitiesValidator extends ConstraintValidator
     public function isIssetName($value)
     {
         if ($this->getCurrentZone($value)->getName() != $value['name']) {
-            return $this->zoneService->getZoneByName($value['name']) == null ? false : true;
+            return $this->zoneFetcher->getZoneByName($value['name']) == null ? false : true;
         }
 
         return false;
@@ -73,7 +78,7 @@ class IdentitiesValidator extends ConstraintValidator
     public function isIssetSlug($value)
     {
         if ($this->getCurrentZone($value)->getSlug() != $value['slug']) {
-            return $this->zoneService->getZoneBySlug($value['slug']) == null ? false : true;
+            return $this->zoneFetcher->getZoneBySlug($value['slug']) == null ? false : true;
         }
 
         return false;
@@ -81,6 +86,6 @@ class IdentitiesValidator extends ConstraintValidator
 
     public function getCurrentZone($value)
     {
-        return $this->zoneService->getZoneById($value['id']);
+        return $this->zoneFetcher->getZoneById($value['id']);
     }
 }

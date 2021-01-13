@@ -2,29 +2,28 @@
 
 namespace App\Controller\Web;
 
-use App\Service\Web\VoteSessionService;
-use App\Service\Web\ZoneService;
+use App\Service\VoteManagerService;
+use App\Service\Zone\ZoneFetcher;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TestController extends AbstractController
 {
-    private $ZoneService;
+    private $ZoneFetcher;
     private $voteSessionService;
 
-    public function __construct(ZoneService $zoneService, VoteSessionService $voteSessionService)
+    public function __construct(ZoneFetcher $ZoneFetcher, VoteManagerService $voteSessionService)
     {
-        $this->ZoneService = $zoneService;
+        $this->ZoneFetcher = $ZoneFetcher;
         $this->voteSessionService = $voteSessionService;
     }
 
     /**
-     * @Route("zone", name="listCategories")
+     * @Route("zone", name="list_zone")
      */
     public function index()
     {
-        $allZones = $this->ZoneService->getAllZonesActiveByAlphaOrder();
-        dd($allZones);
-        return true;
+        $allZones = $this->ZoneFetcher->getAllZonesActiveByAlphaOrder();
+        return $allZones;
     }
 }

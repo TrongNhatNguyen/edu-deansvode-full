@@ -2,18 +2,18 @@
 
 namespace App\Validator\Admin\Constraints\Area;
 
+use App\Service\Zone\ZoneFetcher;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 
-use App\Service\Admin\ZoneService;
-
 class ResourceValidator extends ConstraintValidator
 {
-    private $zoneService;
-    public function __construct(ZoneService $zoneService)
+    private $zoneFetcher;
+
+    public function __construct(ZoneFetcher $zoneFetcher)
     {
-        $this->zoneService = $zoneService;
+        $this->zoneFetcher = $zoneFetcher;
     }
 
     public function validate($value, Constraint $constraint)
@@ -37,6 +37,6 @@ class ResourceValidator extends ConstraintValidator
 
     public function isIssetZone($value)
     {
-        return $this->zoneService->getZoneById($value) == null ? true : false;
+        return $this->zoneFetcher->getZoneById($value) == null ? true : false;
     }
 }

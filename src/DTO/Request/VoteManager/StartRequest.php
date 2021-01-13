@@ -16,11 +16,38 @@ class StartRequest implements RequestDTOInterface
 
     /**
      * @Assert\NotBlank(
+     *      message="Date created is required!"
+     * )
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    public $beginAt;
+
+    /**
+     * @Assert\NotBlank(
      *      message="Active is required!"
      * )
      * @Assert\type(type="integer")
      */
     public $status;
+
+    /**
+     * @Assert\NotBlank(
+     *      message="Date created is required!"
+     * )
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    public $createdAt;
+
+    /**
+     * @Assert\NotBlank(
+     *      message="Date updated is required!"
+     * )
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    public $updatedAt;
 
     /**
      * @Assert\NotBlank(
@@ -38,8 +65,11 @@ class StartRequest implements RequestDTOInterface
 
     public function buildByRequest(Request $request)
     {
-        $this->year = $request->get('year', '');
+        $this->year = (int) $request->get('year', '');
+        $this->beginAt = new \DateTime($request->get('begin_at', 'now'));
         $this->status = (int) $request->get('status', 1);
         $this->checkSendMail = (int) $request->get('check_send_mail', 0);
+        $this->createdAt = new \DateTime($request->get('created_at', 'now'));
+        $this->updatedAt = new \DateTime($request->get('updated_at', 'now'));
     }
 }

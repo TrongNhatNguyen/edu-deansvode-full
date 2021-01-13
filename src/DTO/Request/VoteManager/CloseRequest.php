@@ -16,11 +16,30 @@ class CloseRequest implements RequestDTOInterface
 
     /**
      * @Assert\NotBlank(
+     *      message="Date updated is required!"
+     * )
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    public $closedAt;
+
+    /**
+     * @Assert\NotBlank(
      *      message="Active is required!"
      * )
      * @Assert\type(type="integer")
      */
     public $status;
+
+    /**
+     * @Assert\NotBlank(
+     *      message="Date updated is required!"
+     * )
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    public $updatedAt;
+    
 
     public function __construct(Request $request)
     {
@@ -30,6 +49,8 @@ class CloseRequest implements RequestDTOInterface
     public function buildByRequest(Request $request)
     {
         $this->id = (int) $request->get('vote_session_id', null);
+        $this->closedAt = new \DateTime($request->get('closed_at', 'now'));
         $this->status = (int) $request->get('status', 0);
+        $this->updatedAt = new \DateTime($request->get('updated_at', 'now'));
     }
 }

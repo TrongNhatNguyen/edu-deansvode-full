@@ -48,8 +48,8 @@
                     notifiSuccess(response.message);
                     if (response.mailNotifi) {
                         setTimeout(function() {
-                            notifiSuccess(response.mailNotifi);;
-                        }, 1000);
+                            notifiInfo(response.mailNotifi);
+                        }, 1200);
                     }
                     var htmlForm = $.parseHTML(response.htmlForm);
                     var htmlList = $.parseHTML(response.htmlList);
@@ -129,7 +129,7 @@
             icon: 'info',
             text: message,
             showConfirmButton: false,
-            timer: 1300,
+            timer: 2000,
             timerProgressBar: true,
         })
     }

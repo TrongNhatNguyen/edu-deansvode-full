@@ -5,15 +5,15 @@ namespace App\Validator\Admin\Constraints\Country;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-
-use App\Service\Admin\CountryService;
+use App\Service\Country\CountryFetcher;
 
 class ResourceValidator extends ConstraintValidator
 {
-    private $countryService;
-    public function __construct(CountryService $countryService)
+    private $countryFetcher;
+
+    public function __construct(CountryFetcher $countryFetcher)
     {
-        $this->countryService = $countryService;
+        $this->countryFetcher = $countryFetcher;
     }
 
     public function validate($value, Constraint $constraint)
@@ -37,6 +37,6 @@ class ResourceValidator extends ConstraintValidator
 
     public function isIssetCountry($value)
     {
-        return $this->countryService->getCountryById($value) == null ? false : true;
+        return $this->countryFetcher->getCountryById($value) == null ? false : true;
     }
 }

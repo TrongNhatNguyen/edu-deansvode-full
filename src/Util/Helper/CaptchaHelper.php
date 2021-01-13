@@ -17,9 +17,7 @@ class CaptchaHelper
     public function createImageCaptcha()
     {
         $image = imagecreatetruecolor(100, 38);
- 
         imageantialias($image, true);
-
         imagefill($image, 0, 0, imagecolorallocate($image, 255, 255, 255));
 
         $textcolors = imagecolorallocate($image, 0x00, 0x00, 0x00);
@@ -41,6 +39,7 @@ class CaptchaHelper
     {
         $inputLength = strlen($input);
         $randomString = '';
+
         for ($i = 0; $i < $strength; $i++) {
             $randomCharacter = $input[mt_rand(0, $inputLength - 1)];
             $randomString .= $randomCharacter;

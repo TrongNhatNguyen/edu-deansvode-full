@@ -52,6 +52,7 @@ class MailHelper
                 //->priority(Email::PRIORITY_HIGH)
             $this->mailer->send($message);
             $this->logger->info('Email sent!');
+            
             return [
                 'status' => 'success',
                 'message' => 'email successfuly sent!',

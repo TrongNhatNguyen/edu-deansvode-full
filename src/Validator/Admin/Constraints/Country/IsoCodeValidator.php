@@ -5,17 +5,18 @@ namespace App\Validator\Admin\Constraints\Country;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
-
-use App\Service\Admin\CountryService;
+use App\Service\Country\CountryFetcher;
 use App\Validator\Characters\ValidSpecialCharacters;
 
 class IsoCodeValidator extends ConstraintValidator
 {
-    private $countryService;
-    public function __construct(CountryService $countryService)
+    private $countryFetcher;
+
+    public function __construct(CountryFetcher $countryFetcher)
     {
-        $this->countryService = $countryService;
+        $this->countryFetcher = $countryFetcher;
     }
+
 
     public function validate($value, Constraint $constraint)
     {
@@ -44,6 +45,6 @@ class IsoCodeValidator extends ConstraintValidator
 
     public function isIssetIsoCode($value)
     {
-        return $this->countryService->getCountryByIsoCode($value) == null ? true : false;
+        return $this->countryFetcher->getCountryByIsoCode($value) == null ? true : false;
     }
 }

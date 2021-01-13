@@ -6,7 +6,7 @@ use App\DTO\Request\SendEmailRequest;
 
 use App\Util\Helper\MailHelper;
 use App\Message\SmsNotification;
-use App\Service\Web\ContactService;
+use App\Service\ContactService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -39,8 +39,6 @@ class ContactController extends AbstractController
         $message = new SmsNotification($sendEmailRequest, $mailType);
         $this->dispatchMessage($message);
 
-        return $this->json([
-            'notificate' => $result
-        ]);
+        return $this->json(['notificate' => $result]);
     }
 }

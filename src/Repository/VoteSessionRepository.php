@@ -51,16 +51,4 @@ class VoteSessionRepository extends ServiceEntityRepository
         ;
     }
     */
-
-    public function fetching($voteSession)
-    {
-        $this->entityManager->persist($voteSession);
-        $this->entityManager->flush();
-    }
-
-    public function remove($voteSession)
-    {
-        $this->entityManager->remove($voteSession);
-        $this->entityManager->flush();
-    }
 }

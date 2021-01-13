@@ -46,6 +46,24 @@ class CreateRequest implements RequestDTOInterface
      */
     public $status;
 
+    /**
+     * @Assert\NotBlank(
+     *      message="Date created is required!"
+     * )
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    public $createdAt;
+
+    /**
+     * @Assert\NotBlank(
+     *      message="Date updated is required!"
+     * )
+     * @Assert\DateTime
+     * @var string A "Y-m-d H:i:s" formatted value
+     */
+    public $updatedAt;
+
 
     public function __construct(Request $request)
     {
@@ -60,5 +78,7 @@ class CreateRequest implements RequestDTOInterface
         $this->isoCode = $request->get('country_iso_code', '');
         $this->sort = (int) $request->get('country_sort', 0);
         $this->status = (int) $request->get('country_status', 0);
+        $this->createdAt = new \DateTime($request->get('created_at', 'now'));
+        $this->updatedAt = new \DateTime($request->get('updated_at', 'now'));
     }
 }
