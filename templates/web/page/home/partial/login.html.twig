@@ -5,7 +5,7 @@
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div class="block-wel">
-                <p class="text-wel">Welcome  <b class="cl_primary">{{ app.user.email }}</b> from <b class="cl_primary">ADEN International Business School</b></p>
+                <p class="text-wel">Welcome  <b class="cl_primary">{{ app.user.email1 }}</b> from <b class="cl_primary">ADEN International Business School</b></p>
                 <a href="{{ path('app_dean_logout') }}" class="btn-default">LOGOUT</a>
             </div>
         {% else %}
