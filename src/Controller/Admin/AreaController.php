@@ -9,7 +9,6 @@ use App\DTO\Request\Area\UpdateRequest;
 use App\DTO\Request\Area\UpdateStatusRequest;
 
 use App\Service\Zone\ZoneFetcher;
-use App\Service\Zone\ZoneQueryBuilder;
 use App\Service\ZoneService;
 
 use App\Util\Helper\PaginateHelper;

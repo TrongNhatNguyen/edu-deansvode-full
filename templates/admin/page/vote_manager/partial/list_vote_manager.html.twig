@@ -2,10 +2,10 @@
 <tr id="{{ voteSession.id }}">
     <td>{{ voteSession.year }}</td>
     <td>
-        {{ voteSession.beginAt|format_datetime('long', 'medium') }}
+        {{ voteSession.beginAt|date("h:m:s m/d/Y") }}
     </td>
     <td>
-        {{ voteSession.closedAt is empty ? "" : voteSession.closedAt|format_datetime('long', 'medium') }}
+        {{ voteSession.closedAt is empty ? "" : voteSession.closedAt|date("m/d/Y h:m:s") }}
     </td>
     <td align="center">
         <a href="javascript:void(0)">

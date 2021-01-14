@@ -1,0 +1,25 @@
+<ul class="breadcrumb breadcrumbs-sub-outer">
+    <li class="breadcrumb-item breadcrumb-marketing">
+    {% if breadcrumb_current is defined and breadcrumb_current =='content' %}
+        <a href="javascript:void(0)" class="current">Content</a>
+    {% else %}
+        <a href="{{path('admin_new_marketing')}}">Content</a>
+    {% endif %}
+    </li>
+
+    <li class="breadcrumb-item breadcrumb-marketing">
+    {% if breadcrumb_current is defined and breadcrumb_current =='recipient' %}
+        <a href="javascript:void(0)" class="current">Recipient</a>
+    {% else %}
+        <a href="#">Recipient</a>
+    {% endif %}
+    </li>
+
+    <li class="breadcrumb-item breadcrumb-marketing">
+    {% if breadcrumb_current is defined and breadcrumb_current =='send' %}
+        <a href="javascript:void(0)" class="current">Send</a>
+    {% else %}
+        <a href="#">Send</a>
+    {% endif %}
+    </li>
+</ul>

@@ -1,0 +1,19 @@
+{% for emailTemplate in listEmailTemplate %}
+<tr>
+    <td>{{ emailTemplate.id }}</td>
+    <td align="left">
+        <a class="alink" href="javascript:void(0)" onclick="loadEmailTemplate({{ emailTemplate.id }})">
+            {{ emailTemplate.subject }} 
+        </a>
+    </td>
+    <td>{{ emailTemplate.createdAt|date("Y-m-d h:m:s") }}</td>
+    <td align="center">
+        {% if emailTemplate.status == 1 %}
+            <img src="{{ asset(asset_admin_image_dir) }}/active.svg" width="18" class="img-status">
+        {% else %}
+            <img src="{{ asset(asset_admin_image_dir) }}/inactive.svg" width="18" class="img-status">
+        {% endif %}
+        
+    </td>
+</tr>
+{% endfor %}

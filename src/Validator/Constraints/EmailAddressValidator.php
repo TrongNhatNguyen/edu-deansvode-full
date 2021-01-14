@@ -28,7 +28,7 @@ class EmailAddressValidator extends ConstraintValidator
                 !stristr($email, ".")
             ) {
                 $this->context->buildViolation($constraint->message)
-                ->setParameter('{{ string }}', 'Your email is invalid, please try again.')
+                ->setParameter('{{ string }}', 'Your email is invalid!')
                 ->addViolation();
             }
         }

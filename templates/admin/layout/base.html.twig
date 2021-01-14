@@ -29,6 +29,22 @@
     <link href="{{ asset(asset_admin_v2_css_dir) }}/c3.min.css" rel="stylesheet" />
     <link href="{{ asset(asset_admin_v2_css_dir) }}/custom-chart.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
+    <!--   Core JS Files   -->
+    <script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/config.js"></script>
+    <script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/common.js"></script>
+    <script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/update.js"></script>
+    <script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/jquery.cookie.js"></script>
+    <script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/list.js"></script>
+    <script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/extend.js"></script>
+    <script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/jquery.cookie.js"></script>
+    <script type="text/javascript">
+        var pagingCookie = "paging_limit_index";
+            $(document).ready(function() {
+        })
+    </script>
+    <script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/ckeditor/ckeditor.js"></script>
 
     {% block style %}{% endblock %}
 </head>
@@ -56,21 +72,7 @@
         </div>
     </div>
 </body>
-<!--   Core JS Files   -->
 
-<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/config.js"></script>
-<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/common.js"></script>
-<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/update.js"></script>
-<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/jquery.cookie.js"></script>
-<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/jquery-ui-1.10.3.custom.min.js"></script>
-<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/list.js"></script>
-<script type="text/javascript" src="{{ asset(asset_admin_js_dir) }}/extend.js"></script>
-<script type="text/javascript">
-    var pagingCookie = "paging_limit_index";
-        $(document).ready(function() {
-    })
-</script>
 {# <script src="{{ asset(asset_admin_js_dir) }}/core/jquery.min.js"></script> #}
 <script src="{{ asset(asset_admin_js_dir) }}/core/popper.min.js"></script>
 <script src="{{ asset(asset_admin_js_dir) }}/core/bootstrap.min.js"></script>

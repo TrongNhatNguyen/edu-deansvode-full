@@ -1,0 +1,118 @@
+<script type="text/javascript">
+    var url = "{{ path('admin_new_marketing') }}";
+    var view = {
+        url: "{{ path('admin_new_marketing') }}"
+    };
+    var page_url = '';
+    var selected_rows = [];
+    var changed_info = [];
+
+    function loadEmailTemplate(id)
+    {
+        $.ajax({
+            url: '{{path("admin_load_email_template")}}',
+            method: 'GET',
+            data: {id: id},
+            dataType: 'json',
+        })
+        .done(function(response) {
+            $('#container').html(response.html);
+            document.getElementById('id_template').value = response.emailTemplate.id;
+            document.getElementById('subject').value = response.emailTemplate.subject;
+            CKEDITOR.instances['editor'].setData(response.emailTemplate.content);
+            document.getElementById('recipient').value = '';
+        });
+    }
+
+    function addNewTemp()
+    {
+        document.getElementById('id_template').value = '';
+  		document.getElementById('subject').value = '';
+  		document.getElementById('subject').focus();
+  		CKEDITOR.instances['editor'].setData('');
+  		document.getElementById('recipient').value = '';
+    };
+
+    function formSubmited(element)
+    {
+        var url = $(element).attr('action');
+        loadFormData(url);
+    };
+
+    function loadFormData(url)
+    {
+        event.preventDefault();
+        var formData = {
+            id: $('#id_template').val(),
+            subject: $('#subject').val(),
+            content: CKEDITOR.instances['editor'].getData(),
+            recipient: $('#recipient').val(),
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData,
+            dataType: 'json',
+            beforeSend: function () {
+                $('#overlay').fadeIn();
+            }
+        }).done(function(response) {
+            if (response.status === 'success') {
+                notifiSuccess(response.message);
+                $('#container').html(response.html);
+            } else {
+                alert(response.error);
+            }
+        }).always(function() {
+            $('#overlay').fadeOut();
+        });
+    }
+
+    // filter [active-deactive] vote-session - ajax:
+    function filterStatus(element) {
+        var status = document.getElementById('status').value;
+        view.status = status;
+        console.log(status);
+        load_data(build_url())
+        .done(function(response) {
+            if (response.status === 'success') {
+                $('#container').html(response.html);
+            }
+        });
+    };
+
+    // build url request params:
+    function build_url()
+    {
+        let url = view.url + '?';
+
+        if (view.hasOwnProperty('status')) {
+            url += "status=" + view.status;
+        }
+
+        return url;
+    }
+
+    function load_data(url)
+    {
+        return $.ajax({
+            url: url,
+            method: 'get',
+            dataType: 'json',
+        });
+    }
+
+    // notificate:
+    function notifiSuccess(message)
+    {
+        Swal.fire({
+            width: 280,
+            position: 'top-end',
+            icon: 'success',
+            text: message,
+            showConfirmButton: false,
+            timer: 1300,
+            timerProgressBar: true,
+        })
+    }
+</script>

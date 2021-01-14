@@ -28,20 +28,17 @@ class CountryController extends AbstractController
 
     private $countryService;
     private $countryFetcher;
-    private $zoneService;
     private $zoneFetcher;
     private $paginateHelper;
 
     public function __construct(
         CountryService $countryService,
         CountryFetcher $countryFetcher,
-        ZoneService $zoneService,
         ZoneFetcher $zoneFetcher,
         PaginateHelper $paginateHelper
     ) {
         $this->countryService = $countryService;
         $this->countryFetcher = $countryFetcher;
-        $this->zoneService = $zoneService;
         $this->zoneFetcher = $zoneFetcher;
         $this->paginateHelper = $paginateHelper;
     }

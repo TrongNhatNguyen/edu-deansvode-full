@@ -1,0 +1,32 @@
+<form id="form-update-template" enctype="application/x-www-form-urlencoded" action="" method="POST" class="form-mail">
+    <div class="card-body">
+        <div class="text-center pt-2 mb-3">
+            <h3 class="text-uppercase my-0">International Coordinator</h3>
+            <span>contact@eduniversal-ranking.com</span>
+        </div>
+        {# get id #}
+        <input type="hidden" name="id" id="id_template" value="{{ activeEmailtemplate.id|default('') }}">
+        <div class="form-group mb-4">
+            <label for="">Subject<span class="ic-require">*</span></label>
+            <input type="text" class="form-control" name="subject" id="subject" value="{{ activeEmailtemplate.subject|default('') }}" >
+        </div>
+        <div class="form-group mb-4">
+            <label for="">Content<span class="ic-require">*</span></label>
+            <div class="bg-form-control">
+                <textarea id="editor" name="content">
+                {{ activeEmailtemplate.content|default('') }}
+                </textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="">Recipient </label>
+            <small class="text-muted">(Only for test)</small>
+            <input type="email" class="form-control" name="recipient" id="recipient">
+        </div>
+        <div class="submit-ele text-right py-4">
+            <input class="btn btn-second btn-round ml-2 btn-new" type="submit" onClick="formSubmited(this);" action="{{path('admin_update_email_template')}}"  value="Update Template" />
+            <input class="btn btn-second btn-round ml-2 btn-new" type="submit" value="Send Test" />
+            <input class="btn btn-second btn-round ml-2 btn-new" type="submit" onClick="formSubmited(this);" action="{{path('admin_create_email_template')}}" value="Next" />
+        </div>
+    </div>
+</form>

@@ -1,0 +1,80 @@
+{% extends admin_layout_dir ~ "\/" ~ "base.html.twig" %}
+{% set title = "Dean Vote CMS Marketing" %}
+
+{% set breadcrumb_parent = "Marketing" %}
+{% set url_breadcrumb_parent = "admin_new_marketing" %}
+{% set breadcrumb_current = "content" %}
+
+{% block content %}
+<div class="content"><hr>
+    <div class="row">
+        <div class="col-12 col-xl-6">
+            {# breadcrumb #}
+            {% include admin_marketing_dir ~ "\/" ~ "partial/breadcrumb.html.twig" %}
+
+            {# form email editor #}
+            <div class="card">
+                {% include admin_marketing_dir ~ "\/" ~ "partial/form_editor.html.twig" %}
+            </div>
+        </div>
+        <!--===========-->
+
+        <div class="col-12 col-xl-6">
+            <div class="d-flex">
+                <h4 class="card-title-outer mt-0">TEMPLATE </h4>
+                <div class="ml-auto">
+                    <button class="btn btn-neutral btn-round" onClick="addNewTemp();" style="font-size: .8rem"> <i class="now-ui-icons ui-1_simple-add" style="font-size: 11px;"></i> Add New Template </button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table text-center">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center; width:40px;">
+                                        ID
+                                    </th>
+                                    <th nowrap="">
+                                        Subject
+                                    </th>
+                                    <th nowrap="">
+                                        Created time
+                                    </th>
+                                    <th nowrap="">
+                                        Active<br>
+                                        <select class="custom-select-filter" id="status" onClick="filterStatus();" rel="listFilter">
+                                            <option value="" selected>All</option>
+                                            <option value="0">Deactive</option>
+                                            <option value="1">Active</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="container">
+                                {% include admin_marketing_dir ~ "\/" ~ "partial/list_templates.html.twig" %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
+
+    <script>
+        CKEDITOR.replace('editor', {
+            toolbar: 'Basic',
+        });
+        CKEDITOR.config.height = '550px';
+        CKEDITOR.config.width = '100%';
+        CKEDITOR.config.fillEmptyBlocks = false;
+        CKEDITOR.config.basicEntities = false;
+        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+    </script>
+</div>
+{% endblock %}
+
+{% block javascript %}
+    {% include admin_marketing_dir ~ "\/" ~ "javascript/marketing_js.html.twig" %}
+{% endblock %}
