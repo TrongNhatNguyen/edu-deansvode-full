@@ -71,7 +71,7 @@ class MailHelper
     ///======================= content email:
     public function contentMailContact($sendEmailRequest)
     {
-        $contentMail = [
+        return [
             'subject' => 'DeansVote 2020 - Ask for advice and support!',
             'from' => $sendEmailRequest->email,
             'to' => $_ENV['CONTACT_MAIL'],
@@ -82,13 +82,11 @@ class MailHelper
                         ]),
             'body_type' => 'text/html'
         ];
-
-        return $contentMail;
     }
 
     public function contentMailUserConfirm($data)
     {
-        $contentMail = [
+        return [
             'subject' => 'DeansVote 2020 - confirm your account!',
             'from' => $_ENV['CONFIRM_MAIL'],
             'to' => $data['email1'],
@@ -99,20 +97,27 @@ class MailHelper
                             ]),
             'body_type' => 'text/html'
         ];
-
-        return $contentMail;
     }
 
     public function contentMailStartCampaign($infoDean)
     {
-        $contentMail = [
+        return [
             'subject' => 'DeansVote 2020 - new vote session already start!',
             'from' => $_ENV['START_NEW_CAMPAIGN_MAIL'],
             'to' => $infoDean['email1'],
             'body' => $this->twig->render('email/mail_start_campaign.html.twig', ['infoDean' => $infoDean]),
             'body_type' => 'text/html'
         ];
+    }
 
-        return $contentMail;
+    public function contentMailTest($sendTestRequest)
+    {
+        return [
+            'subject' => $sendTestRequest->subject,
+            'from' => $_ENV['MAIL_TEST_MARKETING'],
+            'to' => $sendTestRequest->recipient,
+            'body' => $sendTestRequest->content,
+            'body_type' => 'text/html'
+        ];
     }
 }

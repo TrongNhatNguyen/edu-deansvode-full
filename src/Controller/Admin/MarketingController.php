@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\DTO\Request\EmailTemplate\CreateRequest;
 use App\DTO\Request\EmailTemplate\LoadTempRequest;
+use App\DTO\Request\EmailTemplate\SendTestRequest;
 use App\DTO\Request\EmailTemplate\UpdateRequest;
 use App\Service\EmailTemplate\EmailTemplateFetcher;
 use App\Service\MarketingService;
@@ -59,12 +60,19 @@ class MarketingController extends AbstractController
     public function create(CreateRequest $createRequest)
     {
         // validation:
-        dd($createRequest);
         if (isset($createRequest->errors)) {
             return $this->json(['status' => 'failed', 'messages' => $createRequest->errors]);
         }
 
-        return true;
+        $result = $this->marketingService->createEmailTemplate($createRequest);
+
+        if ($result['status'] === 'success') {
+            $result['html'] = $this->renderView($this->marketingPatialDir . 'list_templates.html.twig', [
+                'listEmailTemplate' => $this->emailTemplateFetcher->getAllEmailTemplates()
+            ]);
+        }
+
+        return $this->json($result);
     }
 
     /**
@@ -77,11 +85,7 @@ class MarketingController extends AbstractController
             return $this->json(['status' => 'failed', 'messages' => $loadTempRequest->errors]);
         }
 
-        $result = $this->marketingService->deactiveCurrentEmailTemplate();
-
-        if ($result['status'] === 'success') {
-            $this->marketingService->updateEmailTemplate($loadTempRequest);
-        }
+        $this->marketingService->loadEmailTemplate($loadTempRequest);
 
         return $this->json([
             'emailTemplate' => $this->emailTemplateFetcher->getEmailTemplateById($loadTempRequest->id),
@@ -103,11 +107,26 @@ class MarketingController extends AbstractController
 
         $result = $this->marketingService->updateEmailTemplate($updateRequest);
 
-        if ($result['status'] = 'success') {
+        if ($result['status'] === 'success') {
             $result['html'] = $this->renderView($this->marketingPatialDir . 'list_templates.html.twig', [
                 'listEmailTemplate' => $this->emailTemplateFetcher->getAllEmailTemplates()
             ]);
         }
+
+        return $this->json($result);
+    }
+
+    /**
+     * @Route("/#send-mail-test", name="send_mail_test")
+     */
+    public function sendMailTest(SendTestRequest $sendTestRequest)
+    {
+        // validation:
+        if (isset($sendTestRequest->errors)) {
+            return $this->json(['status' => 'failed', 'messages' => $sendTestRequest->errors]);
+        }
+
+        $result = $this->marketingService->sendMailTest($sendTestRequest);
 
         return $this->json($result);
     }

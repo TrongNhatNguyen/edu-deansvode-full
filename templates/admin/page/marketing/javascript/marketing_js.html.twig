@@ -3,9 +3,6 @@
     var view = {
         url: "{{ path('admin_new_marketing') }}"
     };
-    var page_url = '';
-    var selected_rows = [];
-    var changed_info = [];
 
     function loadEmailTemplate(id)
     {
@@ -21,6 +18,7 @@
             document.getElementById('subject').value = response.emailTemplate.subject;
             CKEDITOR.instances['editor'].setData(response.emailTemplate.content);
             document.getElementById('recipient').value = '';
+            document.getElementById('input-submit').outerHTML = '<input class="btn btn-second btn-round ml-2 btn-new" type="submit" onClick="formSubmited(this);" action="{{path("admin_update_email_template")}}"  value="Update Template" id="input-submit"/>';
         });
     }
 
@@ -30,7 +28,7 @@
   		document.getElementById('subject').value = '';
   		document.getElementById('subject').focus();
   		CKEDITOR.instances['editor'].setData('');
-  		document.getElementById('recipient').value = '';
+        document.getElementById('input-submit').outerHTML = '<input class="btn btn-second btn-round ml-2 btn-new" type="submit" onClick="formSubmited(this);" action="{{path("admin_create_email_template")}}"  value="Create Template" id="input-submit"/>';
     };
 
     function formSubmited(element)

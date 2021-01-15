@@ -24,9 +24,9 @@
             <input type="email" class="form-control" name="recipient" id="recipient">
         </div>
         <div class="submit-ele text-right py-4">
-            <input class="btn btn-second btn-round ml-2 btn-new" type="submit" onClick="formSubmited(this);" action="{{path('admin_update_email_template')}}"  value="Update Template" />
-            <input class="btn btn-second btn-round ml-2 btn-new" type="submit" onClick="formSubmited(this);" action="" value="Send Test" />
-            <input class="btn btn-second btn-round ml-2 btn-new" type="submit" onClick="formSubmited(this);" action="{{path('admin_create_email_template')}}" value="Next" />
+            <input class="btn btn-second btn-round ml-2 btn-new" type="submit" onClick="formSubmited(this);" action="{{path('admin_update_email_template')}}"  value="Update Template" id="input-submit"/>
+            <input class="btn btn-second btn-round ml-2 btn-new" type="submit" onClick="formSubmited(this);" action="{{path('admin_send_mail_test')}}" value="Send Test" />
+            <input class="btn btn-second btn-round ml-2 btn-new" type="submit" onClick="formSubmited(this);" action="" value="Next" />
         </div>
     </div>
 </form>

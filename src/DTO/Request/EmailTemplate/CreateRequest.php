@@ -76,7 +76,7 @@ class CreateRequest implements RequestDTOInterface
         $this->recipient = $request->get('recipient', 'default@gmail.com');
 
         $this->sort = (int) $request->get('sort', 0);
-        $this->status = (int) $request->get('status', 0);
+        $this->status = (int) $request->get('status', 1);
         $this->createdAt = new \DateTime($request->get('created_at', 'now'));
         $this->updatedAt = new \DateTime($request->get('updated_at', 'now'));
     }

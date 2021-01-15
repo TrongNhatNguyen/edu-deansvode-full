@@ -1,19 +1,47 @@
 monolog:
+    use_microseconds: false
+    channels: ["app-channel"]
+
     handlers:
+        # main:
+        #     type: stream
+        #     path: "%kernel.logs_dir%/%kernel.environment%.log"
+        #     level: debug
+        #     channels: ["!event"]
+        # # uncomment to get logging in your browser
+        # # you may have to allow bigger header sizes in your Web server configuration
+        # #firephp:
+        # #    type: firephp
+        # #    level: info
+        # #chromephp:
+        # #    type: chromephp
+        # #    level: info
+        # console:
+        #     type: console
+        #     process_psr_3_messages: false
+        #     channels: ["!event", "!doctrine", "!console"]
+    
+
+        # save logs from Symfony in a MySQL database:
+        db_handler:
+            type: service
+            id: monolog.db_handler
+            channels: app-channel
+
         main:
-            type: stream
-            path: "%kernel.logs_dir%/%kernel.environment%.log"
-            level: debug
-            channels: ["!event"]
-        # uncomment to get logging in your browser
-        # you may have to allow bigger header sizes in your Web server configuration
-        #firephp:
-        #    type: firephp
-        #    level: info
-        #chromephp:
-        #    type: chromephp
-        #    level: info
-        console:
-            type: console
-            process_psr_3_messages: false
-            channels: ["!event", "!doctrine", "!console"]
+            type: fingers_crossed
+            action_level: error
+            handler: grouped_handler
+
+        grouped_handler:
+            type: group
+            members: ["nested_handler", "db_error_handler"]
+
+        nested_handler:
+            type:  stream
+            path:  "php://stderr"
+            level: info
+
+        db_error_handler:
+            type: service
+            id: monolog.error_db_handler

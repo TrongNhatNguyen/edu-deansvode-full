@@ -14,3 +14,4 @@ framework:
             'App\Message\SmsNotification': async #sync
             'App\Message\SmsUserConfirm': sync
             'App\Message\SmsMailStartCampaign': async
+            'App\Message\SmsMailTest': sync
