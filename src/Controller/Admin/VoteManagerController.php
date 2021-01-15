@@ -25,16 +25,13 @@ class VoteManagerController extends AbstractController
 
     private $voteManagerService;
     private $voteSessionFetcher;
-    private $deanQueryBuilder;
 
     public function __construct(
         VoteManagerService $voteManagerService,
-        VoteSessionFetcher $voteSessionFetcher,
-        DeanQueryBuilder $deanQueryBuilder
+        VoteSessionFetcher $voteSessionFetcher
     ) {
         $this->voteManagerService = $voteManagerService;
         $this->voteSessionFetcher = $voteSessionFetcher;
-        $this->deanQueryBuilder = $deanQueryBuilder;
     }
 
 
@@ -93,13 +90,6 @@ class VoteManagerController extends AbstractController
 
         $result = $this->voteManagerService->createNewVoteSession($startRequest);
 
-        // send mail all deans:
-        if ($result['status'] === 'success' && $startRequest->checkSendMail === 1) {
-            $listDean = $this->deanQueryBuilder->getAllDeansActive();
-            $this->sendMailToDeans($listDean);
-            $result['mailNotifi'] = 'Mailing tasks have been added to the queue!';
-        }
-
         $result['htmlForm'] = $this->renderView($this->voteManagerPartialDir . 'form_close_vote_manager.html.twig', [
             'openingVoteSession' => $this->voteSessionFetcher->openingVoteSession()
         ]);
@@ -108,13 +98,5 @@ class VoteManagerController extends AbstractController
         ]);
 
         return $this->json($result);
-    }
-
-    public function sendMailToDeans($listDean)
-    {
-        $mailType = MailHelper::MAILER;
-        $messageSendMailDeans = new SmsMailStartCampaign($listDean, $mailType);
-        
-        return $this->dispatchMessage($messageSendMailDeans);
     }
 }

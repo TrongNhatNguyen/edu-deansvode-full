@@ -61,14 +61,14 @@
                 notifiSuccess(response.message);
                 $('#container').html(response.html);
             } else {
-                alert(response.error);
+                response.messages ? alert('invalid!' + response.messages) : alert(response.error)
             }
         }).always(function() {
             $('#overlay').fadeOut();
         });
     }
 
-    // filter [active-deactive] vote-session - ajax:
+    // filter [active-deactive] emailTemplate - ajax:
     function filterStatus(element) {
         var status = document.getElementById('status').value;
         view.status = status;
