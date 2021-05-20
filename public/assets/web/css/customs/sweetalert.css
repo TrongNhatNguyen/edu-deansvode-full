@@ -1,0 +1,8 @@
+body {
+  padding-right: 0px !important;
+}
+#re_captcha {
+  margin: 10px -20px !important;
+  width: auto !important;
+  margin-bottom: .5em;
+}
