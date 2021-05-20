@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% include "web/layout/partial/stylesheets.html.twig" %}
+        {% block matomo %}{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {# ===== header menu ===== #}
+        {% if type_header is defined and "dean_voting_session" == type_header %}
+            {% include "web/component/partial/header_dean_voting_session.html.twig" %}
+        {% else %}
+            {% include "web/component/partial/header.html.twig" %}
+        {% endif %}
+        
+        {% block main_content %}{% endblock %}
+
+        {% include "web/component/partial/footer.html.twig" %}
+
+        {# ===== plugin ===== #}
+        {% include "web/component/plugin/messenger_chatbox_plugin.html.twig" %}
+        
+        {# =================== #}
+        {% include "web/component/loading_spiner/loading_spiner.html.twig" %}
+
+        {{ include('web/layout/partial/js_footer.html.twig') }}
+
+        {% block javascript %}{% endblock %}
     </body>
 </html>

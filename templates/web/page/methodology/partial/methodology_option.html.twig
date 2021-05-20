@@ -1,0 +1,28 @@
+<div class="col-sm-3 side-nav">
+    <ul class="nav-method">
+        <li class="{{ nav_international_scientific_committee_active|default('') }}">
+            <a href="{{ path('web_international_scientific_committee') }}">International Scientific Committee</a>
+            <span class="fakeinline"></span>
+        </li>
+        <li class="{{ nav_eduniversal_evaluation_system_active|default('') }}">
+            <a href="{{ path('web_eduniversal_evaluation_system') }}">Eduniversal Evaluation System</a>
+            <span class="fakeinline"></span>
+        </li>
+        <li class="{{ nav_official_selection_of_the1000_best_business_schools_active|default('') }}">
+            <a href="{{ path('web_official_selection_of_the1000_best_business_schools') }}">Official Selection of the 1000 Best Business Schools</a>
+            <span class="fakeinline"></span>
+        </li>
+        <li class="{{ nav_palmes_of_excellence_active|default('') }}">
+            <a href="{{ path('web_palmes_of_excellence') }}">Palmes of Excellence</a>
+            <span class="fakeinline"></span>
+        </li>
+        <li class="{{ nav_entering_the_system_obtaining_an_additional_palme_active|default('') }}">
+            <a href="{{ path('web_entering_the_system_obtaining_an_additional_palme') }}">Entering the system - Obtaining an additional Palme</a>
+            <span class="fakeinline"></span>
+        </li>
+    </ul>
+    <div class="wp-btn-startvote">
+        <!-- <a href="/#sec-form-login" class="btn btn-primary">Start your voting session 2020</a> -->
+        <a href="{{ app.request.scheme ~'://' ~ app.request.httpHost }}#sec-form-login" class="btn btn-primary">Start your voting session 2020</a>
+    </div>
+</div>
