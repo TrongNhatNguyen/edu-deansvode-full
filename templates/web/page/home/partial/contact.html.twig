@@ -1,0 +1,72 @@
+<section id="sec-contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 wow fadeInLeft">
+                <div class="bg-light clearfix">
+                    <h4 class="title-ct-line"><i class="sprite sprite-ic-info"></i><br>Contact Us</h4>
+                    <div class="height-center">
+                        For more information about the voting process or if you are experiencing technical problems
+                        please
+                        fill out the contact form. We’ll get back to you as quickly as possible.
+                    </div>
+                    <div class="info-contact">
+                        <h5>International Ranking Office</h5>
+                        <p>&nbsp;</p>
+                        <p><i class="sprite sprite-ic-mail"></i>Email: <a
+                                href="mailto:deans.vote@eduniversal-group.com">deans.vote@eduniversal-group.com</a></p>
+                        <p><i class="sprite sprite-ic-mobile"></i>Tel: +33 6 44 26 55 46</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-push-1 col-md-6 wow fadeInRight block-contact">
+                <h4 class="title-ct-line"><i class="sprite sprite-ic-contact"></i><br>Send Email</h4>
+                <div class="contact-box">
+                    <div id="validate" style="color: red"></div>
+                    {# form send mail #}
+                    <form method="POST" action="{{ path('send_email') }}" id="contactForm">
+                        <div class="row">
+                            <div class="form-group col-lg-6 col-sm-6 col-xs-12">
+                                <span id="fullname"></span>
+                                <input type="text" name="full_name" value="" placeholder="Full name *">
+                            </div>
+                            <div class="form-group col-lg-6 col-sm-6 col-xs-12">
+                                <span id="email"></span>
+                                <input type="email" name="email" value="" placeholder="Your email *">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-lg-6 col-sm-6 col-xs-12">
+                                <span id="institution"></span>
+                                <input type="text" name="institution" value="" placeholder="Academic institution *">
+                            </div>
+                            <div class="form-group col-lg-6 col-sm-6 col-xs-12">
+                                <span id="position"></span>
+                                <input type="text" name="position" value="" placeholder="Your position">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-lg-12 col-sm-12 col-xs-12">
+                                <span id="message"></span>
+                                <textarea name="message" placeholder="Your message"></textarea>
+                            </div>
+                        </div>
+                        {# gg reCaptcha block #}
+                        <div class="row">
+                            <div class="form-group col-lg-6 col-sm-6 col-xs-6">
+                                <span id="g_recaptcha"></span>
+                                <div id="re_captcha" class="g-recaptcha" data-sitekey="{{ google_recaptcha_site_key }}">gg-reCaptcha</div>
+                            </div>
+                        </div>
+                        
+                        <div class="clearfix"></div>
+                        <div class="form-group text-right">
+                            <button type="submit" name="submit" class="btn-style-one"
+                                id="btn-send-mail"><span style="color: #ffffff;">Send</span></button>
+                        </div>
+                    </form>
+                </div> <!-- contact-box -->
+            </div><!-- /.block-contact -->
+        </div>
+    </div>
+</section>

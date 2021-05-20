@@ -1,0 +1,33 @@
+<section class="wp_login" id="sec-form-login">
+    <div class="container">
+        <!-- <h5 class="head">Start your voting session 2020</h5> -->
+        <h5 class="head">Voting Session 2020 - OPEN</h5>
+
+        <form id="loginForm" action="{{ path('web_login') }}" method="POST" enctype="multipart/form-data">
+            <div class="mb-block">
+                <div class="frgroup">
+                    <span><i class="sprite sprite-ic-admin"></i>Login:</span>
+                    <input id="username" name="username" class="input-default ip-name" type="text" autocomplete="off">
+                </div>
+                <div class="frgroup">
+                    <span><i class="sprite sprite-ic-pass"></i>Password:</span>
+                    <input id="password" name="password" class="input-default ip-password" type="password" autocomplete="off">
+                </div>
+            </div>
+            <div class="frcaptcha">
+                <span>Security Code</span>
+                <a onclick="refreshCode()" href="javascript:void(0);">
+                    <i id="fa-refresh" class="fa fa-refresh fa-lg fa-fw "></i>
+                </a>
+                <div id="parent-code-image" style="display: inline;">
+                    <i class="fas fa-circle-notch fa-spin"></i>
+                    <img src="{{ path('render_captcha') }}" alt="CAPTCHA" id="refesh-code">
+                </div>
+                <input id="captcha_string" name="captcha_string" class="input-default ip-code" type="text">
+            </div>
+            <!-- <input type="hidden" name="hidden_login" value="login"> -->
+            <button class="btn-primary" type="submit">Sign In</button>
+            <a href="/content/forget-password" class="link-forgot">Forgot your Password ?</a>
+        </form>
+    </div>
+</section>
